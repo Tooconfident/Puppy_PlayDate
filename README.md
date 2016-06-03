@@ -30,4 +30,7 @@ Ryan Wilkins, Carlos González, Renan Martins, Buck Melton
 
 - A dog joins a group
 
+- A user who has created a group can edit the group.
+- A user who has created a group can leave the group, and an email gets sent to all other members of the group saying someone needs to become new creator otherwise group will be deleted within 14 days.
+
 
