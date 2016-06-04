@@ -6,7 +6,7 @@ class CreatePlaydates < ActiveRecord::Migration
       t.string :location
       t.string :frequency
       t.string :time_day
-      t.references :organizer, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end

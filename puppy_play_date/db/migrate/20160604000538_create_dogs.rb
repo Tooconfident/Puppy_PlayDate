@@ -7,7 +7,7 @@ class CreateDogs < ActiveRecord::Migration
       t.string :toy
       t.text :description
       t.string :gender
-      t.references :owner, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
