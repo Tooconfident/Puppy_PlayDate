@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
 
   validates :username, :email, :name, presence: true
   validates :email, uniqueness: true
+
+  def as_json(options = {})
+    super(options.merge(include: :dogs))
+  end
 end
