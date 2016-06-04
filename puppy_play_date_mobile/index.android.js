@@ -11,7 +11,7 @@ import {
   View
 } from 'react-native';
 
-class puppy_play_date_mobil extends Component {
+class puppy_play_date_mobile extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('puppy_play_date_mobil', () => puppy_play_date_mobil);
+AppRegistry.registerComponent('puppy_play_date_mobile', () => puppy_play_date_mobile);

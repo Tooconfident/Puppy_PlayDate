@@ -1,4 +1,4 @@
-package com.puppy_play_date_mobil;
+package com.puppy_play_date_mobile;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "puppy_play_date_mobil";
+        return "puppy_play_date_mobile";
     }
 
     /**

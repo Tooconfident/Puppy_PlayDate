@@ -18,7 +18,7 @@ import {
 const styles = require('./style.js') // Global styles
 
 // class puppy_play_date_mobil extends Component {
-var puppy_play_date_mobil = React.createClass({
+var puppy_play_date_mobile = React.createClass({
   render: function() {
     return (
       <Image source={require('./images/0.jpg')} style={styles.bImage}>
@@ -48,4 +48,4 @@ var puppy_play_date_mobil = React.createClass({
 });
 // }
 
-AppRegistry.registerComponent('puppy_play_date_mobil', () => puppy_play_date_mobil);
+AppRegistry.registerComponent('puppy_play_date_mobile', () => puppy_play_date_mobile);

@@ -44,7 +44,7 @@
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"puppy_play_date_mobil"
+                                                      moduleName:@"puppy_play_date_mobile"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 

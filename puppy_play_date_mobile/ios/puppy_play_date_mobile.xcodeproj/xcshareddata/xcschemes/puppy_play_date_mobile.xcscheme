@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "puppy_play_date_mobil.app"
-               BlueprintName = "puppy_play_date_mobil"
-               ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+               BuildableName = "puppy_play_date_mobile.app"
+               BlueprintName = "puppy_play_date_mobile"
+               ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "puppy_play_date_mobilTests.xctest"
-               BlueprintName = "puppy_play_date_mobilTests"
-               ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+               BuildableName = "puppy_play_date_mobileTests.xctest"
+               BlueprintName = "puppy_play_date_mobileTests"
+               ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "puppy_play_date_mobilTests.xctest"
-               BlueprintName = "puppy_play_date_mobilTests"
-               ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+               BuildableName = "puppy_play_date_mobileTests.xctest"
+               BlueprintName = "puppy_play_date_mobileTests"
+               ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "puppy_play_date_mobil.app"
-            BlueprintName = "puppy_play_date_mobil"
-            ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+            BuildableName = "puppy_play_date_mobile.app"
+            BlueprintName = "puppy_play_date_mobile"
+            ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "puppy_play_date_mobil.app"
-            BlueprintName = "puppy_play_date_mobil"
-            ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+            BuildableName = "puppy_play_date_mobile.app"
+            BlueprintName = "puppy_play_date_mobile"
+            ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "puppy_play_date_mobil.app"
-            BlueprintName = "puppy_play_date_mobil"
-            ReferencedContainer = "container:puppy_play_date_mobil.xcodeproj">
+            BuildableName = "puppy_play_date_mobile.app"
+            BlueprintName = "puppy_play_date_mobile"
+            ReferencedContainer = "container:puppy_play_date_mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

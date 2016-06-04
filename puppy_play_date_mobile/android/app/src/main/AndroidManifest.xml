@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.puppy_play_date_mobil"
+    package="com.puppy_play_date_mobile"
     android:versionCode="1"
     android:versionName="1.0">
 

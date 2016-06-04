@@ -81,7 +81,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.puppy_play_date_mobil"
+        applicationId "com.puppy_play_date_mobile"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
