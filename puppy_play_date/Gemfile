@@ -8,7 +8,7 @@ gem 'rails-api'
 gem 'spring', :group => :development
 gem 'rack-cors'
 gem 'faker'
-
+gem 'pry-rails', :group => :development
 
 gem 'pg'
 
