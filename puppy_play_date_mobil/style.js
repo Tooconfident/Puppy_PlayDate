@@ -3,6 +3,9 @@ const _opacity = .4;
 const _inputBackground = '#666';
 
 module.exports = require('react-native').StyleSheet.create({
+  center:{
+    justifyContent: 'center'
+  },
   bImage:{
     flex: 1,
     width: null,
@@ -33,6 +36,13 @@ module.exports = require('react-native').StyleSheet.create({
 
     color: '#FFF',
     alignItems: 'center',
+  },
+  button:{
+    borderRadius: 4,
+    borderColor:'#bbb',
+    borderWidth: 1,
+    padding: 5,
+    width:375*80/100,
+    margin:(375-(375*80/100))/2,
   }
-
 });
