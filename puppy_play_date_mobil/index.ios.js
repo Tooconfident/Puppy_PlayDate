@@ -25,6 +25,7 @@ class puppy_play_date_mobil extends Component {
             <View style={styles.container}>
               <TextInput placeholder='Email' style={styles.input} />
               <TextInput placeholder='Password' style={styles.input} />
+            
             </View>
         </View>
       </Image>

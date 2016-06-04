@@ -1,5 +1,5 @@
-const _background = '#000';
-const _opacity = .7;
+const _background = '#FFF';
+const _opacity = .4;
 const _inputBackground = '#666';
 
 module.exports = require('react-native').StyleSheet.create({
@@ -31,7 +31,7 @@ module.exports = require('react-native').StyleSheet.create({
     borderWidth: 1,
     backgroundColor: _inputBackground,
 
-    color: '#000',
+    color: '#FFF',
     alignItems: 'center',
   }
 
