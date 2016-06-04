@@ -9,6 +9,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
+  TextInput,
   View
 } from 'react-native';
 
@@ -17,18 +19,16 @@ const styles = require('./style.js') // Global styles
 class puppy_play_date_mobil extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Image source={require('./images/0.jpg')} style={styles.bImage}>
+        <View style={styles.blur}>
+          <View style={styles.topMargin}></View>
+            <View style={styles.container}>
+              <TextInput placeholder='Email' style={styles.input} />
+              <TextInput placeholder='Password' style={styles.input} />
+            </View>
+        </View>
+      </Image>
+
     );
   }
 }

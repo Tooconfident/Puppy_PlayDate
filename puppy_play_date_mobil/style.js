@@ -1,18 +1,38 @@
+const _background = '#000';
+const _opacity = .7;
+const _inputBackground = '#666';
+
 module.exports = require('react-native').StyleSheet.create({
-  container: {
+  bImage:{
     flex: 1,
+    width: null,
+    height: null,
+  },
+  blur:{
+    flex: 1,
+    backgroundColor: _background,
+    opacity: _opacity,
+  },
+  container:{
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  topMargin:{
+    height:20,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  input:{
+    height: 40,
+    width:375*80/100,
+    margin:(375-(375*80/100))/2,
+    marginBottom:0,
+    borderRadius:5,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: _inputBackground,
+
+    color: '#000',
+    alignItems: 'center',
+  }
+
 });
