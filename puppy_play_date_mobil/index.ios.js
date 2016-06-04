@@ -12,7 +12,8 @@ import {
   View
 } from 'react-native';
 
-var styles = require('./style.js')
+const styles = require('./style.js') // Global styles
+
 class puppy_play_date_mobil extends Component {
   render() {
     return (
