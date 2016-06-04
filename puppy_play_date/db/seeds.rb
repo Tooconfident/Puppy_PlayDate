@@ -22,7 +22,7 @@ User.delete_all
 
   # Create fake dogs
   rand(0..10).times do
-    Dog.create(
+    dog = Dog.create(
       name: Faker::Name.name,
       breed: Faker::StarWars.specie,
       age: rand(3..20),
@@ -31,6 +31,8 @@ User.delete_all
       gender: ["male", "female"].sample,
       owner: user
     )
+
+    Photo.create(dog: dog, url: Faker::Placeholdit.image("50x50"))
   end
 end
 
@@ -60,5 +62,5 @@ carlos = User.create(
 Dog.create(
   name: "Macy Gray",
   breed: "Schnauzer",
-  user: carlos
+  owner: carlos
 )
