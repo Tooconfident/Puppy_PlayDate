@@ -20,12 +20,13 @@ import MainScene from './MainScene';
 import TestPage from './TestPage';
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
+import PlayDateCreate from './PlayDateCreate';
 
 class PuppyPlayDateApp extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab: "main",
+      selectedTab: "test",
     };
   }
   renderScene(route, navigator){

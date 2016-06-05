@@ -11,6 +11,9 @@ import {
   View
 } from 'react-native';
 
+import PlayDateCreate from './PlayDateCreate';
+import MainScene from './MainScene';
+
 var REQUEST_URL = 'http://localhost:3000/playdates';
 
 class PlayDates extends Component {
@@ -63,12 +66,26 @@ class PlayDates extends Component {
     );
   }
 
+  // onPressPlus() {
+  //   this.props.navigator.push({
+  //     component: MainScene,
+  //   });
+  // }
+
+  onPressPlus() {
+    console.log('onPressPlug');
+  }
+
   render() {
     if (!this.state.loaded){
       return(<Text>Loading...</Text>)
     }
     return (
       <View style={styles.container}>
+        <Text style={[styles.pageTitle, styles.title]}>Your Groups</Text>
+        <TouchableHighlight style={styles.button}>
+          <Text>Add</Text>
+        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
@@ -99,6 +116,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 10,
     borderBottomWidth: 2,
+  },
+  pageTitle: {
+    marginTop: 20,
   },
   title: {
     fontWeight: 'bold',
