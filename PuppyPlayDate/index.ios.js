@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import MainScene from './MainScene';
+import TestPage from './TestPage';
 
 class PuppyPlayDateApp extends Component {
   renderScene(route, navigator){
