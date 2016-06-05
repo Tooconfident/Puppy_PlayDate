@@ -10,7 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class DogProfile extends Components {
+class DogProfile extends Component {
   render() {
     return (
       <View style={styles.container}>

@@ -13,6 +13,7 @@ import {
 
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
+import PlayDateShow from './PlayDateShow';
 
 var REQUEST_URL = 'http://localhost:3000/playdates';
 
@@ -24,7 +25,7 @@ class PlayDates extends Component {
       dataSource : new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
-      loaded: false,
+      loaded: false
     };
   }
 
@@ -72,8 +73,17 @@ class PlayDates extends Component {
   //   });
   // }
 
-  onPressPlus() {
-    console.log('onPressPlug');
+  // onPressPlus() {
+  //   console.log('onPressPlug');
+  // }
+
+  addGroupPressed() {
+    console.log('addGroupPressed');
+    this.props.navigator.push({
+      title: 'PlayDate',
+      component: PlayDateCreate,
+      passProps: {}
+    })
   }
 
   render() {
@@ -83,7 +93,9 @@ class PlayDates extends Component {
     return (
       <View style={styles.container}>
         <Text style={[styles.pageTitle, styles.title]}>Your Groups</Text>
-        <TouchableHighlight style={styles.button}>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.addGroupPressed()}>
           <Text>Add</Text>
         </TouchableHighlight>
         <ListView
