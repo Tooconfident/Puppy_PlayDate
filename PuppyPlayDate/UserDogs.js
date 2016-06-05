@@ -23,14 +23,17 @@ class UserDogs extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dogs: null,
+      dataSource : new ListView.DataSource(
+        {rowHasChanged: (r1, r2) => r1 !== r2}
+      ),
+      loaded: false,
     };
-    var dataSource = new ListView.DataSource(
-      {rowHasChanged: (r1, r2) => r1 !== r2}
-    );
-    this.state = {
-      dataSource: dataSource.cloneWithRows(data)
-    }
+    // var dataSource = new ListView.DataSource(
+    //   {rowHasChanged: (r1, r2) => r1 !== r2}
+    // );
+    // this.state = {
+    //   dataSource: dataSource.cloneWithRows(data)
+    // }
   }
   componentDidMount(){
     this.fetchData();
@@ -40,7 +43,8 @@ class UserDogs extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          dogs: responseData.dogs,
+          dataSource: this.state.dataSource.cloneWithRows(responseData.dogs),
+          loaded: true,
         });
       })
       .done();
@@ -60,7 +64,24 @@ class UserDogs extends Component {
       </TouchableHighlight>
     );
   }
+  // render() {
+  //   if (!this.state.loaded) {
+  //     return this.renderLoadingView();
+  //   }
+  //
+  //   return (
+  //     <ListView
+  //       dataSource={this.state.dataSource}
+  //       renderRow={this.renderMovie}
+  //       style={styles.listView}
+  //     />
+  //   );
+  // }
+
   render(){
+    if (!this.state.loaded){
+      return(<Text>Loading...</Text>)
+    }
     return(
       <ListView
         dataSource={this.state.dataSource}
