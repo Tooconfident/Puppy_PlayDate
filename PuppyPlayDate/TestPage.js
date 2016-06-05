@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import MapScene from "./MapScene";
+import PlayDates from "./PlayDates";
 
 class TestPage extends Component {
 
@@ -16,20 +17,44 @@ class TestPage extends Component {
     this.props.navigator.pop();
   }
 
+  makeButtonLink(text, component) {
+    return (
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() =>
+          this.props.navigator.push({
+            component: component,
+          })
+        }
+      >
+        <Text>{text}</Text>
+      </TouchableHighlight>
+    );
+  }
+
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>This is a test page</Text>
-        <TouchableHighlight onPress={() =>
-          this.props.navigator.push({
-            component: MapScene,
-          })
-        }>
-          <Text>Hola</Text>
-        </TouchableHighlight>
+        {this.makeButtonLink("MapScene", MapScene)}
+        {this.makeButtonLink("PlayDates", PlayDates)}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    borderWidth: 2,
+    borderRadius: 12,
+    padding: 10,
+    backgroundColor: 'antiquewhite'
+  },
+});
 
 module.exports = TestPage;
