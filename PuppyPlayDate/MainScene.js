@@ -10,6 +10,7 @@ import {
 
 import UserDogs from './UserDogs';
 import TestPage from './TestPage';
+import UserSignup from './UserSignup';
 
 class MainScene extends Component {
   onPressDogs() {
@@ -26,6 +27,12 @@ class MainScene extends Component {
   onPressTestPage() {
     this.props.navigator.push({
       component: TestPage,
+    });
+  }
+
+  onPressUserSignup() {
+    this.props.navigator.push({
+      component: UserSignup,
     });
   }
 
@@ -46,6 +53,14 @@ class MainScene extends Component {
           onPress={this.onPressTestPage.bind(this)}>
           <Text style={styles.buttonText}>
             Test Page
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.onPressUserSignup.bind(this)}>
+
+          <Text style={styles.buttonText}>
+            Sign Up
           </Text>
         </TouchableHighlight>
       </View>
