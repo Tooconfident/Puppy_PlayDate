@@ -11,6 +11,11 @@ import {
 import MapScene from "./MapScene";
 
 class TestPage extends Component {
+
+  componentDidMount(){
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <View>

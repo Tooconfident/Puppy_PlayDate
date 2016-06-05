@@ -19,6 +19,7 @@ var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAQAAACS
 import MainScene from './MainScene';
 import TestPage from './TestPage';
 import UserDogs from './UserDogs';
+import PlayDates from './PlayDates';
 
 class PuppyPlayDateApp extends Component {
   constructor(props){
@@ -41,8 +42,8 @@ class PuppyPlayDateApp extends Component {
         selectedTab={this.state.selectedTab}
       >
          <TabBarIOS.Item
-          systemIcon="featured"
-          title = "Test"
+          icon = {{uri: base64Icon, scale: 3}}
+          title = "Home"
           selected = {this.state.selectedTab === "main"}
           onPress = {() => {
             console.log("Pressed");
@@ -59,20 +60,65 @@ class PuppyPlayDateApp extends Component {
              component: MainScene,
            }}
            />
-
          </TabBarIOS.Item>
+
          <TabBarIOS.Item
-          title = "Test"
-          selected = {this.state.selectedTab === "dogs"}
+          title = "Profile"
+          selected = {this.state.selectedTab === "profile"}
           icon = {{uri: base64Icon, scale: 3}}
           onPress = {() => {
             this.setState({
-              selectedTab: "dogs"
+              selectedTab: "profile"
             });
           }}
          >
-         <UserDogs/>
+         <Navigator
+         renderScene = {this.renderScene}
+         initialRoute = {{
+           title: 'Profile',
+           component: UserDogs,
+         }}
+         />
         </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+         title = "PlayDates"
+         selected = {this.state.selectedTab === "playdates"}
+         icon = {{uri: base64Icon, scale: 3}}
+         onPress = {() => {
+           this.setState({
+             selectedTab: "playdates"
+           });
+         }}
+        >
+        <Navigator
+        renderScene = {this.renderScene}
+        initialRoute = {{
+          title: 'PlayDates',
+          component: PlayDates,
+        }}
+        />
+       </TabBarIOS.Item>
+
+       <TabBarIOS.Item
+        title = "Test"
+        selected = {this.state.selectedTab === "test"}
+        icon = {{uri: base64Icon, scale: 3}}
+        onPress = {() => {
+          this.setState({
+            selectedTab: "test"
+          });
+        }}
+       >
+       <Navigator
+       renderScene = {this.renderScene}
+       initialRoute = {{
+         title: 'Test',
+         component: TestPage,
+       }}
+       />
+      </TabBarIOS.Item>
+
       </TabBarIOS>
     );
   }

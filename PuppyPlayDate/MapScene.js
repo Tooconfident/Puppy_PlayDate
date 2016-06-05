@@ -6,13 +6,22 @@ import {
   View,
   Navigator,
   TabBarIOS,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
 class MapScene extends Component {
   render() {
     return (
-      <Image source={require("./Resources/map.png")}/>
+      <View>
+        <TouchableHighlight
+          style={{marginTop: 20}}
+          onPress={() => this.props.navigator.pop()
+        }>
+          <Text>Pop Me!</Text>
+        </TouchableHighlight>
+        <Image source={require("./Resources/map.png")}/>
+      </View>
     );
   }
 }
