@@ -10,7 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-var REQUEST_URL = 'http://localhost:3000/users/19';
+var REQUEST_URL = 'http://localhost:3000/users/23';
 
 var data = [
   {name: "Pepito", age: 11, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
@@ -64,19 +64,6 @@ class UserDogs extends Component {
       </TouchableHighlight>
     );
   }
-  // render() {
-  //   if (!this.state.loaded) {
-  //     return this.renderLoadingView();
-  //   }
-  //
-  //   return (
-  //     <ListView
-  //       dataSource={this.state.dataSource}
-  //       renderRow={this.renderMovie}
-  //       style={styles.listView}
-  //     />
-  //   );
-  // }
 
   render(){
     if (!this.state.loaded){
@@ -93,10 +80,10 @@ class UserDogs extends Component {
 
 const styles = StyleSheet.create({
   thumb: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
     marginRight: 10,
-    borderRadius: 80/2,
+    borderRadius: 50/2,
   },
   textContainer: {
     flex: 1,
