@@ -11,6 +11,7 @@ import {
 import UserDogs from './UserDogs';
 import TestPage from './TestPage';
 import UserSignup from './UserSignup';
+import Login from './Login';
 
 class MainScene extends Component {
   onPressDogs() {
@@ -36,6 +37,12 @@ class MainScene extends Component {
     });
   }
 
+  onPressLogin() {
+    this.props.navigator.push({
+      component: Login,
+    });
+  }
+
   render(){
     return(
       <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
@@ -58,9 +65,15 @@ class MainScene extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={this.onPressUserSignup.bind(this)}>
-
           <Text style={styles.buttonText}>
             Sign Up
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.onPressLogin.bind(this)}>
+          <Text style={styles.buttonText}>
+            Login
           </Text>
         </TouchableHighlight>
       </View>
