@@ -10,6 +10,8 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+var REQUEST_URL = 'http://localhost:3000/users/19';
+
 var data = [
   {name: "Pepito", age: 11, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
   {name: "Link", age: 4, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
@@ -23,13 +25,26 @@ class UserDogs extends Component {
     this.state = {
       dogs: null,
     };
-
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2}
     );
     this.state = {
       dataSource: dataSource.cloneWithRows(data)
     }
+  }
+  componentDidMount(){
+    this.fetchData();
+  }
+  fetchData(){
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          dogs: responseData.dogs,
+        });
+      })
+      .done();
+
   }
   renderRow(rowData, sectionID, rowID){
     return(
