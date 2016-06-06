@@ -45,21 +45,32 @@ class DogProfile extends Component {
       .done();
   }
 
+  goBack() {
+    this.props.navigator.pop();
+  }
+
   render() {
     var dog = this.state.dog;
     return (
-      <View style={styles.container}>
-        <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
-        <Text>Owner:  {dog.owner_id}</Text>
-        <Text>Breed:  {dog.breed}</Text>
-        <Text>Age:  {dog.age}</Text>
-        <Text>Favorite Toy:  {dog.toy}</Text>
-        <Text>PlayDates: N/A</Text>
-        <Text>Gender:  {dog.gender}</Text>
-        <Text>Description: </Text>
-        <Text style={styles.dogDescription}>
-           {dog.description}
-        </Text>
+      <View>
+        <View style={styles.navbar}>
+          <TouchableHighlight style={styles.backButton} onPress={() => this.goBack()}>
+            <Text>Back</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.container}>
+          <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
+          <Text>Owner:  {dog.owner_id}</Text>
+          <Text>Breed:  {dog.breed}</Text>
+          <Text>Age:  {dog.age}</Text>
+          <Text>Favorite Toy:  {dog.toy}</Text>
+          <Text>PlayDates: N/A</Text>
+          <Text>Gender:  {dog.gender}</Text>
+          <Text>Description: </Text>
+          <Text style={styles.dogDescription}>
+             {dog.description}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -81,6 +92,21 @@ const styles = StyleSheet.create({
   },
   dogDescription: {
     height: 50,
+  },
+  backButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-start'
+  },
+  backButtonText: {
+    fontSize: 14,
+    borderRadius: 12,
+    fontWeight: 'bold',
+  },
+  navbar: {
+    marginTop: 20,
+    backgroundColor: 'skyblue',
+    marginBottom: 6,
   },
 });
 
