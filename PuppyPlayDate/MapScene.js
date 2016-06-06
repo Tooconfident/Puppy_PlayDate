@@ -16,29 +16,36 @@ import MapView from 'react-native-maps';
 var { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 37.7;
-const LONGITUDE = -122.2;
-const LATITUDE_DELTA = 1.2;
-const LONGITUDE_DELTA = 1.2;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = 0.0421;
 
 class MapScene extends Component {
       render() {
+        var pins = [{
+          latitude: 37.78482573289199,
+          longitude: -122.4023278109328
+        }];
         return (
-          <View>
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-              }}
-              mapType={'standard'}
-            >
-            </MapView>
-          </View>
-      )}
-}
+          <MapView
+            annotations={pins}
+            onRegionChangeComplete={this.onRegionChangeComplete}
+            style={styles.map}
+            initialRegion={{
+              latitude: LATITUDE,
+              longitude: LONGITUDE,
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA,
+            }}
+            mapType={'standard'}
+          >
+          </MapView>
+      )};
+      onRegionChangeComplete(region) {
+        console.log(region);
+      }
+};
 
 const styles = StyleSheet.create({
   map: {
