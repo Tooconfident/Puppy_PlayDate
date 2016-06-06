@@ -3,6 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   Navigator,
   TouchableHighlight
@@ -13,6 +14,10 @@ import TestPage from './TestPage';
 import UserSignup from './UserSignup';
 import Login from './Login';
 import DogCreate from './DogCreate';
+import WelcomePage from './WelcomePage';
+import UserEdit from './UserEdit'
+
+const styles = require('./style.js')
 
 class MainScene extends Component {
   onPressDogs() {
@@ -34,7 +39,7 @@ class MainScene extends Component {
 
   onPressUserSignup() {
     this.props.navigator.push({
-      component: UserSignup,
+      component: UserEdit,
     });
   }
 
@@ -50,67 +55,82 @@ class MainScene extends Component {
     });
   }
 
+  onPressWelcomePage() {
+    this.props.navigator.push({
+      component: WelcomePage,
+    });
+  }
+
   render(){
     return(
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Hola a todos!</Text>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressDogs.bind(this)}>
+      <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
 
-          <Text style={styles.buttonText}>
-            Dogs
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressTestPage.bind(this)}>
-          <Text style={styles.buttonText}>
-            Test Page
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressUserSignup.bind(this)}>
-          <Text style={styles.buttonText}>
-            Sign Up
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressLogin.bind(this)}>
-          <Text style={styles.buttonText}>
-            Login
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressDogCreate.bind(this)}>
-          <Text style={styles.buttonText}>
-            Create a Dog
-          </Text>
-        </TouchableHighlight>
-      </View>
+          <View style={styles.topMargin}></View>
+            <View style={styles.container}>
+              <View style={styles.outterMargin}>
+              </View>
+                <View style={styles.content}>
+
+
+                <Text>Hola a todos!</Text>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressDogs.bind(this)}>
+
+                  <Text style={styles.buttonText}>
+                    Dogs
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressTestPage.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Test Page
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressUserSignup.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Sign Up
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressLogin.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Login
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressDogCreate.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Create a Dog
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressWelcomePage.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Welcome Page
+                  </Text>
+                </TouchableHighlight>
+
+                </View>
+              <View style={styles.outterMargin}>
+            </View>
+          </View>
+      </Image>
+
+
+
+
 
     );
   }
 }
 
-const styles = StyleSheet.create({
-  button: {
-    height: 36,
-    backgroundColor: "#48bbec",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: "stretch",
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "white",
-    alignSelf: "center",
-  }
-});
 
 
 module.exports = MainScene;
