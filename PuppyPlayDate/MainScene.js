@@ -40,7 +40,7 @@ class MainScene extends Component {
 
   onPressUserSignup() {
     this.props.navigator.push({
-      component: UserEdit,
+      component: UserSignup,
     });
   }
 
