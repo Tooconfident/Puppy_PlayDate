@@ -32,7 +32,7 @@ class UserSignup extends Component {
     //this.props.navigator.push({
     this.props.navigator.popToTop({
       // where do you get the user_id ????
-      passProps: { user_id: 1646 },
+      passProps: { user_id: 1 },
     });
   }
 

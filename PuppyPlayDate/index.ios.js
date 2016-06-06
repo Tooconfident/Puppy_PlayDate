@@ -116,7 +116,7 @@ class PuppyPlayDateApp extends Component {
          initialRoute = {{
            title: 'Profile',
            component: UserDogs,
-           passProps: { user_id: 1646 },
+           passProps: { user_id: 1 },
          }}
          />
         </TabBarIOS.Item>
