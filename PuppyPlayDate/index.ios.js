@@ -11,6 +11,7 @@ import {
   Text,
   View,
   Navigator,
+  NavigatorIOS,
   TabBarIOS
 } from 'react-native';
 
@@ -21,6 +22,41 @@ import TestPage from './TestPage';
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
 import PlayDateCreate from './PlayDateCreate';
+
+// class SuperNav extends Component {
+//
+//   renderScene(route, navigator) {
+//     var Component = route.component;
+//     return (
+//       <View style={styles.container}>
+//         <Text>This is shit</Text>
+//         <Component
+//           route={route}
+//           navigator={navigator}
+//           topNavigator={navigator}
+//         />
+//       </View>
+//     );
+//   }
+//
+//   render() {
+//     return (
+//       <Navigator
+//       sceneStyle={styles.container}
+//       ref={(navigator) => { this.navigator = navigator; }}
+//       renderScene={this.renderScene}
+//       tintColor='#D6573D'
+//       barTintColor='#FFFFFD'
+//       titleTextColor='#D6573D'
+//       navigationBarHidden={true}
+//       initialRoute={{
+//         title: 'Main',
+//         component: Main,
+//       }}
+//     />
+//     );
+//   }
+// }
 
 class PuppyPlayDateApp extends Component {
   constructor(props){
@@ -40,7 +76,7 @@ class PuppyPlayDateApp extends Component {
       <TabBarIOS
         barTintColor= "black"
         unselectedTintColor= "red"
-        tintColor= "white"
+        tintColor="white"
         selectedTab={this.state.selectedTab}
       >
          <TabBarIOS.Item
@@ -48,7 +84,8 @@ class PuppyPlayDateApp extends Component {
           title = "Home"
           selected = {this.state.selectedTab === "main"}
           onPress = {() => {
-            console.log("Pressed");
+            console.log("TabBarIOS was Pressed");
+            console.log("navigator: " + this.props.navigator);
             this.setState({
               selectedTab: "main"
             });
@@ -56,8 +93,8 @@ class PuppyPlayDateApp extends Component {
          >
 
            <Navigator
-           renderScene = {this.renderScene}
-           initialRoute = {{
+             renderScene = {this.renderScene}
+             initialRoute = {{
              title: 'PuppyPlayDate',
              component: MainScene,
            }}
@@ -128,6 +165,7 @@ class PuppyPlayDateApp extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
