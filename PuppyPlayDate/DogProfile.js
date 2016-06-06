@@ -12,6 +12,7 @@ import {
 
 import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
+import Navbar from './Navbar';
 
 var REQUEST_URL = 'http://localhost:3000/dogs/';
 
@@ -20,6 +21,7 @@ class DogProfile extends Component {
     super(props);
     console.log("Constructing DogProfile");
     console.log("this.props.dog_id is " + this.props.dog_id);
+    console.log("this.props.navigator is " + this.props.navigator);
 
     this.state = {
       dog: {},
@@ -64,15 +66,14 @@ class DogProfile extends Component {
     var dog = this.state.dog;
     return (
       <View>
-        <View style={styles.navbar}>
-          <TouchableHighlight style={styles.backButton} onPress={() => this.goBack()}>
-            <Text>Back</Text>
-          </TouchableHighlight>
+        <Navbar navigator={this.props.navigator} title='Edit Dog Profile'>
 
-          <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-            <Text>Edit</Text>
-          </TouchableHighlight>
-        </View>
+            <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+              <Text>Edit</Text>
+            </TouchableHighlight>
+
+        </Navbar>
+
         <View style={styles.container}>
           <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
           <Text>Owner:  {dog.owner_username}</Text>
@@ -112,6 +113,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     alignSelf: 'flex-start'
+  },
+  editButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-end',
   },
   backButtonText: {
     fontSize: 14,
