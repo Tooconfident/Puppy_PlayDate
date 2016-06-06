@@ -62,7 +62,7 @@ carlos = User.create!(
   email: "carlos@mail.com"
 )
 
-Dog.create!(
+carlos_dog = Dog.create!(
   name: Faker::Name.name,
   breed: Faker::StarWars.specie,
   age: rand(3..20),
@@ -71,3 +71,5 @@ Dog.create!(
   gender: ["male", "female"].sample,
   owner: carlos
 )
+
+Photo.create!(dog: carlos_dog, url: Faker::Placeholdit.image("50x50"))
