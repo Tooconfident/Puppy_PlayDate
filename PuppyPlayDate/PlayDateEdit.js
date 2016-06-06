@@ -25,6 +25,7 @@ class PlayDateEdit extends Component {
       location: "",
       timeDay: "",
       description: "",
+      loaded: false,
     };
   }
 
