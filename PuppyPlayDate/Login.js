@@ -9,7 +9,8 @@ import {
   Navigator,
   Image,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  AlertIOS
 } from 'react-native';
 
 const styles = require('./style.js')
@@ -19,12 +20,14 @@ const REQUEST_URL ='http://localhost:3000/session/login'
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: '',
-      password: '',
-      userID: false
-    };
+    this.state = {};
   }
+  componentDidMount() {
+        AsyncStorage.getItem("userID").then((value) => {
+          console.log('current.val '+ value);
+            this.setState({"userID": value});
+        }).done();
+    }
   render() {
     return (
     <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
@@ -86,7 +89,9 @@ class Login extends Component {
         if (responseData.success != false){
           this.makeSession(responseData)
         } else {
-          //TODO alert
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
         }
       })
       .done();
@@ -94,8 +99,10 @@ class Login extends Component {
   }
 
   makeSession(userID){
+    console.log('state'+ this.state.userID);
     AsyncStorage.setItem("userID", String(userID));
-    this.props.navigator.popToTop();
+    console.log('new-state'+ this.state.userID);
+    //this.props.navigator.popToTop();
       // AsyncStorage.getItem("userID").then((value) => {
       //         this.setState({"userID": value});
       // }).done();
