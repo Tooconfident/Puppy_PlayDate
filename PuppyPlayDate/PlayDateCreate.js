@@ -33,6 +33,20 @@ class PlayDateCreate extends Component {
 
   createGroupPressed() {
     console.log('createGroupPressed');
+    let data = {
+      method: 'POST',
+      body: JSON.stringify({
+        name: "Bucks Test Playdate", time_day: "Wed 4PM", location: "Aqui tengo tu playdate", user_id: "100"
+      }),
+      headers: {
+        'Accept':       'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch('http://localhost:3000/playdates', data)
+        .then((response) => response.json())  // promise
+        .then((responseData) => console.log(responseData))
+        .catch((error) => console.log("boo"));
     this.props.navigator.pop();
   }
 
