@@ -40,6 +40,6 @@ class PlaydatesController < ApplicationController
     end
 
     def playdate_params
-      params.permit(:name, :description, :location, :frequency, :time_day)
+      params.permit(:name, :description, :location, :frequency, :time_day, :user_id)
     end
 end
