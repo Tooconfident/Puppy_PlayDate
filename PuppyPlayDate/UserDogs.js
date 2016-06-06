@@ -10,7 +10,9 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-var REQUEST_URL = 'http://localhost:3000/users/50';
+import DogProfile from './DogProfile';
+
+var REQUEST_URL = 'http://localhost:3000/users/96';
 
 var data = [
   {name: "Pepito", age: 11, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
@@ -50,18 +52,29 @@ class UserDogs extends Component {
       .done();
 
   }
+
+  onPressDogShow(id) {
+    console.log("onPressDogShow(" + id + ")")
+    this.props.navigator.push({
+      component: DogProfile,
+      passProps: { dog_id: id },
+    });
+  }
+
   renderRow(rowData, sectionID, rowID){
     return(
-      <TouchableHighlight>
-        <View style={styles.rowContainer}>
-          <Image style={styles.thumb} source={{ uri: rowData.image }}/>
-          <View style={styles.textContainer}>
-            <Text>
-              {rowData.name} {rowData.age}
-            </Text>
+      <View style={styles.container}>
+        <TouchableHighlight onPress={() => this.onPressDogShow(rowData.id)}>
+          <View style={styles.rowContainer}>
+            <Image style={styles.thumb} source={{ uri: rowData.image }}/>
+            <View style={styles.textContainer}>
+              <Text>
+                {rowData.name} {rowData.age}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
+      </View>
     );
   }
 
@@ -91,6 +104,18 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     padding: 10,
+  },
+  container: {
+    flex: 1,
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    borderWidth: 2,
+    borderRadius: 12,
+    padding: 10,
+    backgroundColor: 'antiquewhite'
   },
 });
 
