@@ -11,31 +11,61 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import MainScene from './MainScene';
+
 class UserSignup extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      name: "",
+      email: "",
+      password: "",
+    };
+  }
+
+  onPressSignup() {
+    // TODO: connect to backend to create user account
+    // you also need to get the user_id back from the backend
+
+    //this.props.navigator.push({
+    this.props.navigator.popToTop({
+      // where do you get the user_id ????
+      passProps: { user_id: 1646 },
+    });
+  }
+
   render() {
+    var user = this.state;
+
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
+        <Text style={styles.pageTitle}>
           Sign Up
         </Text>
+
         <TextInput
           placeholder="Username"
-          style={styles.input}
+          style={styles.inputText}
+          value={user.username}
+          onChangeText={(text) => this.setState({username: text})}
         />
         <TextInput
           placeholder="Name"
-          style={styles.input}
+          style={styles.inputText}
         />
         <TextInput
           placeholder="Email"
-          style={styles.input}
+          style={styles.inputText}
         />
         <TextInput
           placeholder="Password"
-          style={styles.input}
+          style={styles.inputText}
         />
         <TouchableHighlight
-          style={styles.button}>
+          style={styles.button}
+          onPress={this.onPressSignup.bind(this)}>
           <Text style={styles.buttonText}>
             Sign Up
           </Text>
@@ -54,14 +84,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 40,
   },
-  button: {
-    height: 36,
-    backgroundColor: "#48bbec",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: "stretch",
-  },
   buttonText: {
     fontSize: 18,
     color: "white",
@@ -69,7 +91,28 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-  }
+  },
+  button: {
+    borderWidth: 2,
+    borderRadius: 12,
+    padding: 10,
+    backgroundColor: 'antiquewhite'
+  },
+  inputLabel: {
+    fontWeight: 'bold',
+  },
+  inputText: {
+    height: 30,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 10,
+    backgroundColor: '#EBFAFF',
+    marginBottom: 10,
+  },
+  textArea: {
+    height: 100,
+  },
 });
 
 module.exports = UserSignup;
