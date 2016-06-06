@@ -10,14 +10,31 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class WelcomePage extends Components {
+class WelcomePage extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          This is Welcome Page
+      <Image style={styles.bgImage} source={require('./Resources/0.jpg')}>
+        <Text style={styles.bigText}>
+          Puppy Play Date
         </Text>
-      </View>
+
+        <Text style={styles.text}>
+          Find your dog perfect match today!
+        </Text>
+        <TouchableHighlight
+          style={styles.button}>
+            <Text style={styles.buttonText}>
+              Signup
+            </Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}>
+
+        <Text style={styles.buttonText}>
+          Login
+        </Text>
+      </TouchableHighlight>
+      </Image>
     );
   }
 }
@@ -29,7 +46,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 14,
+    fontSize: 20,
+  },
+  bigText: {
+    fontSize: 30,
+  },
+  button: {
+    height: 36,
+    backgroundColor: "#48bbec",
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: "stretch",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "white",
+    alignSelf: "center",
+  },
+  input: {
+    height: 40,
+  },
+  image: {
+    height: 100,
+    width: 100,
+  },
+  bgImage: {
+    flex: 1,
+    width: null,
+    height: null,
   }
 });
 

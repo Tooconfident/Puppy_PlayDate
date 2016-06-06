@@ -3,6 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
   View,
   ListView,
   Navigator,
@@ -10,13 +11,44 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class DogProfile extends Components {
+class DogEdit extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
-          This is Dog Profile
+          Edit Your Dog Profile
         </Text>
+        <TextInput
+          placeholder="Dog Name"
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Breed"
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Age"
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Favorite Toy"
+          style={styles.input}
+        />
+        <TouchableHighlight
+          style={styles.cameraButton}>
+          <Image source={require("./Resources/dog_avatar.png")} style={styles.image}>
+            <Text>
+              Edit Photo
+            </Text>
+          </Image>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}>
+
+          <Text style={styles.buttonText}>
+            Update
+          </Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -29,8 +61,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 14,
+    fontSize: 40,
+  },
+  bigText: {
+    fontSize: 60,
+  },
+  button: {
+    height: 36,
+    backgroundColor: "#48bbec",
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: "stretch",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "white",
+    alignSelf: "center",
+  },
+  input: {
+    height: 40,
+  },
+  image: {
+    height: 100,
+    width: 100,
   }
 });
 
-module.exports = DogProfile;
+module.exports = DogEdit;

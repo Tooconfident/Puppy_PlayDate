@@ -50,7 +50,8 @@ class DogProfile extends Component {
     return (
       <View style={styles.container}>
         <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
-        <Text>Owner:  {dog.owner_id}</Text>
+        <Text>Owner:  {dog.owner_username}</Text>
+        {console.log(dog.owner)}
         <Text>Breed:  {dog.breed}</Text>
         <Text>Age:  {dog.age}</Text>
         <Text>Favorite Toy:  {dog.toy}</Text>

@@ -26,7 +26,7 @@ class PuppyPlayDateApp extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab: "test",
+      selectedTab: "main",
     };
   }
   renderScene(route, navigator){
