@@ -11,6 +11,10 @@ class Dog < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(methods: :avatar))
+    super(options.merge(include: :owner, methods: [:avatar, :owner_username]))
+  end
+
+  def owner_username
+    self.owner.username
   end
 end
