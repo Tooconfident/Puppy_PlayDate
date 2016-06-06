@@ -36,7 +36,7 @@ class PlayDateCreate extends Component {
     let data = {
       method: 'POST',
       body: JSON.stringify({
-        name: "Bucks Test Playdate", time_day: "Wed 4PM", location: "Aqui tengo tu playdate", user_id: "100"
+        name: this.state.name, time_day: this.state.time_day, location: this.state.location, user_id: "25"
       }),
       headers: {
         'Accept':       'application/json',
@@ -52,34 +52,6 @@ class PlayDateCreate extends Component {
 
   componentDidMount() {
     console.log("PlayDateCreate: componentDidMount: " + this.props);
-  }
-
-  onInputChangeName(event) {
-    this.setState({
-      playdate: { name: event.nativeEvent.name },
-    });
-  }
-
-  onInputChangeLocation(event) {
-    this.setState({
-      playdate: { location: event.nativeEvent.location },
-    });
-  }
-
-  onInputChangeTimeDay(event) {
-    // this.setState({
-    //   playdate: { time_day: event.nativeEvent.time_day },
-    // });
-    this.state.playdate.time_day = event.nativeEvent.time_day;
-  }
-
-  onInputChangeDescription(event) {
-    this.setState({
-      text: event.nativeEvent.description,
-      height: event.nativeEvent.contentSize.height,
-      //playdate: { description: event.nativeEvent.description },
-    });
-    this.state.playdate.description = event.nativeEvent.description;
   }
 
   render() {
