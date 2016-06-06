@@ -24,7 +24,7 @@ const LONGITUDE_DELTA = 1.2;
 class MapScene extends Component {
       render() {
         return (
-          <View style={styles.container}>
+          <View>
             <MapView
               style={styles.map}
               initialRegion={{
@@ -33,7 +33,7 @@ class MapScene extends Component {
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
               }}
-              mapType={'hybrid'}
+              mapType={'standard'}
             >
             </MapView>
           </View>
@@ -42,11 +42,12 @@ class MapScene extends Component {
 
 const styles = StyleSheet.create({
   map: {
-    height: 100,
-    width: 100,
+    flex: 1,
+    width: width,
+    height: height,
     borderWidth: 1,
   }
-})
+});
 
 
 module.exports = MapScene;
