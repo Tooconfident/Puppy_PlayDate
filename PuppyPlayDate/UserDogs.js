@@ -10,7 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-var REQUEST_URL = 'http://localhost:3000/users/23';
+var REQUEST_URL = 'http://localhost:3000/users/50';
 
 var data = [
   {name: "Pepito", age: 11, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
