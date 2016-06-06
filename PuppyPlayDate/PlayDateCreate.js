@@ -36,7 +36,7 @@ class PlayDateCreate extends Component {
     let data = {
       method: 'POST',
       body: JSON.stringify({
-        name: this.state.name, time_day: this.state.time_day, location: this.state.location, user_id: "25"
+        name: this.state.name, time_day: this.state.time_day, location: this.state.location, description: this.state.description, user_id: "25"
       }),
       headers: {
         'Accept':       'application/json',
