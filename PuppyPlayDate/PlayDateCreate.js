@@ -90,48 +90,34 @@ class PlayDateCreate extends Component {
         <Text style={styles.pageTitle}>
           Create your new PlayDate
         </Text>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Name"
-          value={playdate.name}
-          onChange={this.onInputChangeName.bind(this)}
-        />
-        <TextInput
-          style={styles.inputText}
-          placeholder="Location"
-          value={playdate.location}
-          onChange={this.onInputChangeLocation.bind(this)}
-        />
-        <TextInput
-          style={styles.inputText}
-          placeholder="Time & Day of the Week"
-          value={playdate.time_day}
-          onChange={this.onInputChangeTimeDay.bind(this)}
-        />
-        <TextInput
-          style={[styles.inputText, styles.textArea]}
-          placeholder="Description"
-          multiline={true}
-          onChange={this.onInputChangeDescription.bind(this)}
-          value={playdate.description}
-        />
-        <Picker
-          selectedValue={playdate.frequency}>
-          <Picker.Item label="daily" value="daily" />
-          <Picker.Item label="weekly" value="weekly" />
-          <Picker.Item label="monthly" value="monthly" />
-        </Picker>
-        <View>
-          <Text>Debugger:</Text>
-          <Text>
-            {playdate.name}
-            {playdate.location}
-            {playdate.description}
-            {playdate.time_day}
-            {playdate.frequency}
 
-          </Text>
-        </View>
+        <Text style={styles.label}>Group Name:</Text>
+        <TextInput
+          style={styles.inputText}
+          value={this.state.name}
+          onChangeText={(text) => this.setState({name: text})}
+        />
+
+        <Text style={styles.label}>Location:</Text>
+        <TextInput
+          style={styles.inputText}
+          value={this.state.location}
+          onChangeText={(text) => this.setState({location: text})}
+        />
+
+        <Text style={styles.label}>Time & Day of Week:</Text>
+        <TextInput
+          style={styles.inputText}
+          value={this.state.time_day}
+          onChangeText={(text) => this.setState({time_day: text})}
+        />
+
+        <Text style={styles.label}>Description:</Text>
+        <TextInput
+          style={styles.inputText}
+          value={this.state.description}
+          onChangeText={(text) => this.setState({description: text})}
+        />
 
         <TouchableHighlight
           style={styles.button}
@@ -170,6 +156,9 @@ const styles = StyleSheet.create({
   textArea: {
     height: 100,
   },
+  label: {
+    fontSize: 14,
+  }
 });
 
 module.exports = PlayDateCreate;
