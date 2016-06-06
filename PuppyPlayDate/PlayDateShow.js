@@ -10,6 +10,8 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import PlayDateEdit from "./PlayDateEdit";
+
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 
 class PlayDateShow extends Component {
@@ -43,6 +45,13 @@ class PlayDateShow extends Component {
     this.props.navigator.pop();
   }
 
+  onPressEdit() {
+    console.log("onPressEdit");
+    this.props.navigator.push({
+      component: PlayDateEdit,
+    });
+  }
+
   render() {
     var group = this.state.group;
 
@@ -54,6 +63,9 @@ class PlayDateShow extends Component {
         <Text style={styles.pageTitle}>
           {group.name}
         </Text>
+        <TouchableHighlight onPress={() => this.onPressEdit()}>
+          <Text>Edit</Text>
+        </TouchableHighlight>
         <Text>Join</Text>
         <Text>Leave</Text>
         <Text>
