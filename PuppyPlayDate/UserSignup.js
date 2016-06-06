@@ -51,18 +51,29 @@ class UserSignup extends Component {
           value={user.username}
           onChangeText={(text) => this.setState({username: text})}
         />
+
         <TextInput
           placeholder="Name"
           style={styles.inputText}
+          value={user.name}
+          onChangeText={(text) => this.setState({name: text})}
         />
+
         <TextInput
           placeholder="Email"
           style={styles.inputText}
+          value={user.email}
+          onChangeText={(text) => this.setState({email: text})}
         />
+
         <TextInput
           placeholder="Password"
           style={styles.inputText}
+          value={user.password}
+          password={true}
+          onChangeText={(text) => this.setState({password: text})}
         />
+
         <TouchableHighlight
           style={styles.button}
           onPress={this.onPressSignup.bind(this)}>
@@ -70,6 +81,14 @@ class UserSignup extends Component {
             Sign Up
           </Text>
         </TouchableHighlight>
+
+        <View>
+          <Text>Debug:</Text>
+          <Text>{user.name}</Text>
+          <Text>{user.password}</Text>
+          <Text>{user.email}</Text>
+          <Text>{user.username}</Text>
+        </View>
       </View>
     );
   }
@@ -112,6 +131,24 @@ const styles = StyleSheet.create({
   },
   textArea: {
     height: 100,
+  },
+  pageTitle: {
+    marginTop: 20,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  subtitle: {
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+    backgroundColor: 'skyblue',
+    marginBottom: 6,
   },
 });
 

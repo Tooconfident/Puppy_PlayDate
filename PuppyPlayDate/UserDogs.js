@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import DogProfile from './DogProfile';
+import UserEdit from './UserEdit';
 
 // URL to the API to get a specific user if you append an id
 var REQUEST_URL = 'http://localhost:3000/users/';
@@ -42,7 +43,7 @@ class UserDogs extends Component {
     this.fetchData();
   }
   fetchData(){
-    // assume a user_id is passed to this component 
+    // assume a user_id is passed to this component
     fetch(REQUEST_URL + this.props.user_id)
       .then((response) => response.json())
       .then((responseData) => {
@@ -63,20 +64,28 @@ class UserDogs extends Component {
     });
   }
 
+  onPressEdit() {
+    console.log("onPressEdit")
+    this.props.navigator.push({
+      component: UserEdit,
+      passProps: { user_id: this.props.user_id },
+    });
+  }
+
   renderRow(rowData, sectionID, rowID){
     return(
-      <View style={styles.container}>
-        <TouchableHighlight onPress={() => this.onPressDogShow(rowData.id)}>
+        <View style={styles.container}>
+          <TouchableHighlight onPress={() => this.onPressDogShow(rowData.id)}>
           <View style={styles.rowContainer}>
             <Image style={styles.thumb} source={{ uri: rowData.image }}/>
             <View style={styles.textContainer}>
               <Text>
-                {rowData.name} {rowData.age}
+              {rowData.name} {rowData.age}
               </Text>
             </View>
           </View>
-        </TouchableHighlight>
-      </View>
+          </TouchableHighlight>
+        </View>
     );
   }
 
@@ -84,11 +93,25 @@ class UserDogs extends Component {
     if (!this.state.loaded){
       return(<Text>Loading...</Text>)
     }
+
     return(
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow.bind(this)}
-      />
+      <View>
+
+        <View style={styles.navbar}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.onPressEdit()}
+           >
+            <Text>Edit</Text>
+          </TouchableHighlight>
+        </View>
+
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+        />
+
+      </View>
     );
   }
 }
@@ -118,6 +141,24 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     backgroundColor: 'antiquewhite'
+  },
+  pageTitle: {
+    marginTop: 20,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  subtitle: {
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+    backgroundColor: 'skyblue',
+    marginBottom: 6,
   },
 });
 
