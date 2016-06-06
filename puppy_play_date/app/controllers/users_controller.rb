@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created, location: @user
     else
+      render json: { success: false }
     end
   end
 
@@ -29,6 +30,7 @@ class UsersController < ApplicationController
       render json: { success: false }
     end
   end
+
 
   private
 
