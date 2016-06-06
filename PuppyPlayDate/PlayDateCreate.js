@@ -52,8 +52,6 @@ class PlayDateCreate extends Component {
   }
 
   render() {
-    // var playdate = this.state.playdate;
-
     return (
       <View style={styles.container}>
         <Text style={styles.pageTitle}>
