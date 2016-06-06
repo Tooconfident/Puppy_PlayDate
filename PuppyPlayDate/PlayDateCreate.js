@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View,
+  AsyncStorage,
   ListView,
   Navigator,
   Image,
-  TouchableHighlight,
+  StyleSheet,
+  Text,
   TextInput,
-  Picker,
+  TouchableHighlight,
+  View,
 } from 'react-native';
 
 import PlayDates from './PlayDates';
@@ -19,24 +19,21 @@ import UserDogs from './UserDogs';
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: "",
-      playdate: {
-        name: "",
-        location: "",
-        time_day: "",
-        description: "",
-        frequency: "",
-      },
-    }
+    this.state={
+      userID: false
+    };
   }
 
   createGroupPressed() {
     console.log('createGroupPressed');
+    // AsyncStorage.getItem("userID")
+    //             .then((value) => { this.setState( {"userID": value} ); })
+    //             .done();
+    console.log('this.state: ' + this.state);
     let data = {
       method: 'POST',
       body: JSON.stringify({
-        name: this.state.name, time_day: this.state.time_day, location: this.state.location, description: this.state.description, user_id: "25"
+        name: this.state.name, time_day: this.state.time_day, location: this.state.location, description: this.state.description, user_id: "21"
       }),
       headers: {
         'Accept':       'application/json',
@@ -55,7 +52,7 @@ class PlayDateCreate extends Component {
   }
 
   render() {
-    var playdate = this.state.playdate;
+    // var playdate = this.state.playdate;
 
     return (
       <View style={styles.container}>
