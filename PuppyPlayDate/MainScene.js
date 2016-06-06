@@ -28,7 +28,7 @@ class MainScene extends Component {
     this.props.navigator.push({
       title: 'Dogs',
       component: UserDogs,
-      passProps: {property: property},
+      passProps: { user_id: 1646 },
     });
   }
 
