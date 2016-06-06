@@ -8,10 +8,12 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import MainScene from './MainScene';
+const REQUEST_URL ='http://localhost:3000/users'
 
 class UserSignup extends Component {
   constructor(props) {
@@ -25,17 +27,41 @@ class UserSignup extends Component {
     };
   }
 
+
   onPressSignup() {
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state)
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          this.makeSession(responseData.userID)
+        } else {
+          AlertIOS.alert(
+           'Please fill all fields'
+          );
+        }
+      })
+      .done();
     // TODO: connect to backend to create user account
     // you also need to get the user_id back from the backend
 
     //this.props.navigator.push({
-    this.props.navigator.popToTop({
-      // where do you get the user_id ????
-      passProps: { user_id: 1 },
-    });
+    // this.props.navigator.popToTop({
+    //   // where do you get the user_id ????
+    //   passProps: { user_id: 1 },
+    // });
   }
-
+  makeSession(userID){
+    AsyncStorage.setItem("userID", String(userID));
+    this.props.navigator.popToTop();
+  }
   render() {
     var user = this.state;
 
