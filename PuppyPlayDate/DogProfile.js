@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import UserDogs from './UserDogs';
+import DogEdit from './DogEdit';
 
 var REQUEST_URL = 'http://localhost:3000/dogs/';
 
@@ -49,6 +50,16 @@ class DogProfile extends Component {
     this.props.navigator.pop();
   }
 
+  onPressEdit() {
+    console.log("onPressEdit");
+    this.props.navigator.push({
+      component: DogEdit,
+      // Make sure to pass the playdate_id to the Edit component
+      // Note the value has to be an object of key-value properties!
+      passProps: { dog_id: this.props.dog_id }
+    });
+  }
+
   render() {
     var dog = this.state.dog;
     return (
@@ -56,6 +67,10 @@ class DogProfile extends Component {
         <View style={styles.navbar}>
           <TouchableHighlight style={styles.backButton} onPress={() => this.goBack()}>
             <Text>Back</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+            <Text>Edit</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.container}>
