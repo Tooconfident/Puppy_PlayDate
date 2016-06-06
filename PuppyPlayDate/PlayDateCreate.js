@@ -12,11 +12,21 @@ import {
   Picker,
 } from 'react-native';
 
+import PlayDates from './PlayDates';
+import MainScene from './MainScene';
+import UserDogs from './UserDogs';
+
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
     this.state = { text: "" }
   }
+
+  createGroupPressed() {
+    console.log('createGroupPressed');
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -52,7 +62,9 @@ class PlayDateCreate extends Component {
           <Picker.Item label="weekly" value="weekly" />
           <Picker.Item label="monthly" value="monthly" />
         </Picker>
-        <TouchableHighlight style={styles.button}>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.createGroupPressed()}>
           <Text>Create PlayDate</Text>
         </TouchableHighlight>
       </View>

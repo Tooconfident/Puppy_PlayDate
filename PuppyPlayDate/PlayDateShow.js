@@ -10,7 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class DogProfile extends Component {
+class PlayDateShow extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = DogProfile;
+module.exports = PlayDateShow;

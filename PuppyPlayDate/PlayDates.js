@@ -83,7 +83,7 @@ class PlayDates extends Component {
       title: 'PlayDate',
       component: PlayDateCreate,
       passProps: {}
-    })
+    });
   }
 
   render() {
