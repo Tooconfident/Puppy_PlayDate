@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   def as_json(options = {})
-    super(options.merge(include: :dogs))
+    super(options.merge(include: {dogs: { methods: [:avatar] }}))
   end
 end
