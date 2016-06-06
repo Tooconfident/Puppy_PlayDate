@@ -75,13 +75,8 @@ class MapScene extends Component {
         style={styles.map}
         initialRegion={region}
       >
-      <MapView.Marker
-          ref="m1"
+        <MapView.Marker
           coordinate={markers[0].coordinate}
-          title="This is a title"
-          description="This is a description"
-          image={require('./Common/small-icon.png')}
-          anchor={{ x: 0.84, y: 1 }}
         />
       </MapView>
   )};
