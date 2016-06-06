@@ -74,9 +74,13 @@ class MapScene extends Component {
       <MapView
         style={styles.map}
         initialRegion={region}
-      >
+        showsUserLocation= {true}
+        followsUserLocation= {true}
+        showsPointsOfInterest= {false}>
         <MapView.Marker
           coordinate={markers[0].coordinate}
+          title="PlayDate Title"
+          description="Brief Description"
         />
       </MapView>
   )};
