@@ -111,7 +111,6 @@ class PuppyPlayDateApp extends Component {
             });
           }}
          >
-         <Text>Navigator for Profile</Text>
          <Navigator
          renderScene = {this.renderScene}
          initialRoute = {{
