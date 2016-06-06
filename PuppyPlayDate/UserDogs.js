@@ -12,7 +12,8 @@ import {
 
 import DogProfile from './DogProfile';
 
-var REQUEST_URL = 'http://localhost:3000/users/100';
+// URL to the API to get a specific user if you append an id
+var REQUEST_URL = 'http://localhost:3000/users/';
 
 var data = [
   {name: "Pepito", age: 11, image: "http://www.avatarsdb.com/avatars/cute_puppy_dog.jpg"},
@@ -41,7 +42,8 @@ class UserDogs extends Component {
     this.fetchData();
   }
   fetchData(){
-    fetch(REQUEST_URL)
+    // assume a user_id is passed to this component 
+    fetch(REQUEST_URL + this.props.user_id)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
