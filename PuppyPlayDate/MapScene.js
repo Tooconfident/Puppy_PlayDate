@@ -6,29 +6,45 @@ import {
   View,
   Navigator,
   TabBarIOS,
+  Dimensions,
   Image,
   TouchableHighlight
 } from 'react-native';
 
+import MapView from 'react-native-maps';
+
+var { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.7;
+const LONGITUDE = -122.2;
+const LATITUDE_DELTA = 1.2;
+const LONGITUDE_DELTA = 1.2;
+
 class MapScene extends Component {
-  render() {
-    return (
-      <View>
-        <TouchableHighlight
-          style={{marginTop: 20}}
-          onPress={() => this.props.navigator.pop()
-        }>
-          <Text>Pop Me!</Text>
-        </TouchableHighlight>
-        <Image source={require("./Resources/map.png")}/>
-      </View>
-    );
-  }
+      render() {
+        return (
+          <View style={styles.container}>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: LATITUDE,
+                longitude: LONGITUDE,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+              }}
+              mapType={'hybrid'}
+            >
+            </MapView>
+          </View>
+      )}
 }
 
 const styles = StyleSheet.create({
   map: {
-    flex: 1,
+    height: 100,
+    width: 100,
+    borderWidth: 1,
   }
 })
 

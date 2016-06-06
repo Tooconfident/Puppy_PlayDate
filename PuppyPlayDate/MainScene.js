@@ -16,6 +16,7 @@ import Login from './Login';
 import DogCreate from './DogCreate';
 import WelcomePage from './WelcomePage';
 import UserEdit from './UserEdit'
+import MapScene from './MapScene'
 
 const styles = require('./style.js')
 
@@ -58,6 +59,12 @@ class MainScene extends Component {
   onPressWelcomePage() {
     this.props.navigator.push({
       component: WelcomePage,
+    });
+  }
+
+  onPressMapScene() {
+    this.props.navigator.push({
+      component: MapScene,
     });
   }
 
@@ -116,7 +123,13 @@ class MainScene extends Component {
                     Welcome Page
                   </Text>
                 </TouchableHighlight>
-
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.onPressMapScene.bind(this)}>
+                  <Text style={styles.buttonText}>
+                    Map
+                  </Text>
+                </TouchableHighlight>
                 </View>
               <View style={styles.outterMargin}>
             </View>
