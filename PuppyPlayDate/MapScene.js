@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
+  PropTypes,
   StyleSheet,
   Text,
   View,
   Navigator,
+  AlertIOS,
+  LinkingIOS,
   TabBarIOS,
   Dimensions,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  Animated,
+  TouchableOpacity,
 } from 'react-native';
 
 import MapView from 'react-native-maps';
@@ -20,31 +24,70 @@ const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = 0.0421;
+const SPACE = 0.01;
 
 class MapScene extends Component {
-      render() {
-        var pins = [{
-          latitude: 37.78482573289199,
-          longitude: -122.4023278109328
-        }];
-        return (
-          <MapView
-            annotations={pins}
-            onRegionChangeComplete={this.onRegionChangeComplete}
-            style={styles.map}
-            initialRegion={{
-              latitude: LATITUDE,
-              longitude: LONGITUDE,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }}
-            mapType={'standard'}
-          >
-          </MapView>
-      )};
-      onRegionChangeComplete(region) {
-        console.log(region);
-      }
+  constructor(props) {
+   super(props);
+   this.state = {
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      markers: [
+        {
+          coordinate: {
+            latitude: LATITUDE + SPACE,
+            longitude: LONGITUDE + SPACE,
+          },
+          color: '#FFFFFF',
+        },
+        {
+          coordinate: {
+            latitude: LATITUDE,
+            longitude: LONGITUDE,
+          },
+        },
+        {
+          coordinate: {
+            latitude: LATITUDE + SPACE,
+            longitude: LONGITUDE - SPACE,
+          },
+        },
+      ],
+    };
+  }
+
+  show() {
+    this.refs.m1.showCallout();
+  }
+
+  hide() {
+    this.refs.m1.hideCallout();
+  }
+
+  render() {
+    const { region, markers } = this.state;
+    return (
+      <MapView
+        style={styles.map}
+        initialRegion={region}
+      >
+      <MapView.Marker
+          ref="m1"
+          coordinate={markers[0].coordinate}
+          title="This is a title"
+          description="This is a description"
+          image={require('./Common/small-icon.png')}
+          anchor={{ x: 0.84, y: 1 }}
+        />
+      </MapView>
+  )};
+  onRegionChangeComplete(region) {
+    console.log(region);
+  }
 };
 
 const styles = StyleSheet.create({
