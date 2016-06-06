@@ -10,12 +10,55 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class DogProfile extends Components {
+import UserDogs from './UserDogs';
+
+var REQUEST_URL = 'http://localhost:3000/dogs/';
+
+class DogProfile extends Component {
+  constructor(props) {
+    super(props);
+    console.log("Constructing DogProfile");
+    console.log("this.props.dog_id is " + this.props.dog_id);
+
+    this.state = {
+      dog: {},
+      loaded: false,
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    console.log("fetchData (DogProfile) called for dog_id " + this.props.dog_id);
+    fetch(REQUEST_URL + this.props.dog_id)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("fetchData for DogProfile: " + responseData);
+
+        this.setState({
+          dog: responseData,
+          loaded: true,
+        });
+      })
+      .done();
+  }
+
   render() {
+    var dog = this.state.dog;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          This is Dog Profile
+        <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
+        <Text>Owner:  {dog.owner_id}</Text>
+        <Text>Breed:  {dog.breed}</Text>
+        <Text>Age:  {dog.age}</Text>
+        <Text>Favorite Toy:  {dog.toy}</Text>
+        <Text>PlayDates: N/A</Text>
+        <Text>Gender:  {dog.gender}</Text>
+        <Text>Description: </Text>
+        <Text style={styles.dogDescription}>
+           {dog.description}
         </Text>
       </View>
     );
@@ -30,7 +73,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-  }
+  },
+  dogImage: {
+    width: 128,
+    height: 128,
+    borderRadius: 128/2,
+  },
+  dogDescription: {
+    height: 50,
+  },
 });
 
 module.exports = DogProfile;
