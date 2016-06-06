@@ -14,6 +14,7 @@ import {
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
+import Navbar from './Navbar';
 
 var REQUEST_URL = 'http://localhost:3000/playdates';
 
@@ -104,14 +105,16 @@ class PlayDates extends Component {
     }
     return (
       <View>
-        <View style={styles.navbar}>
-          <Text style={[styles.pageTitle, styles.title]}>Your Groups</Text>
+        <Navbar navigator={this.props.navigator} hasBackButton={false} title='Your Groups'>
+
           <TouchableHighlight
-            style={styles.button}
+            style={styles.editButton}
             onPress={() => this.addGroupPressed()}>
             <Text>Add</Text>
           </TouchableHighlight>
-        </View>
+
+        </Navbar>
+
         <View style={styles.container}>
           <ListView
             dataSource={this.state.dataSource}
@@ -135,6 +138,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     backgroundColor: 'antiquewhite'
+  },
+  editButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-end',
   },
   textContainer: {
     flex: 1,

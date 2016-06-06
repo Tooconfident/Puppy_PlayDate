@@ -21,6 +21,9 @@ import {
  * back button to work
  */
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   componentDidMount() {
     console.log("Navbar: props: ");
@@ -34,12 +37,20 @@ class Navbar extends Component {
     this.props.navigator.pop();
   }
 
+  backButton() {
+    console.log("Adding backButton . . .");
+    return (
+      <TouchableHighlight style={styles.backButton} onPress={() => this.goBack()}>
+        <Text>Back</Text>
+      </TouchableHighlight>
+    );
+  }
+
   render() {
     return (
       <View style={styles.navbar}>
-        <TouchableHighlight style={styles.backButton} onPress={() => this.goBack()}>
-          <Text>Back</Text>
-        </TouchableHighlight>
+        {this.props.hasBackButton ? this.backButton() : <Text></Text>}
+
         <Text style={styles.pageTitle}>{this.props.title}</Text>
         {this.props.children}
       </View>
@@ -72,5 +83,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+Navbar.propTypes = {
+  navigator: React.PropTypes.object.isRequired,
+};
+
+Navbar.defaultProps = {
+  hasBackButton: true,
+};
 
 module.exports = Navbar;

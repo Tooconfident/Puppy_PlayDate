@@ -11,6 +11,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import Navbar from './Navbar'
+
 // URL to get a specific playdate if you append an id
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 
@@ -61,40 +63,46 @@ class PlayDateEdit extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.inputLabel}>Playdate Name</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.name}
-          onChangeText={(text) => this.setState({name: text})} />
+      <View>
+        <Navbar navigator={this.props.navigator} title='Edit Playdate'>
+          <Text> </Text>
+        </Navbar>
 
-        <Text style={styles.inputLabel}>Playdate Location</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.location}
-          onChangeText={(text) => this.setState({location: text})} />
+        <View style={styles.container}>
+          <Text style={styles.inputLabel}>Playdate Name</Text>
+          <TextInput
+            style={styles.inputText}
+            value={this.state.name}
+            onChangeText={(text) => this.setState({name: text})} />
 
-        <Text style={styles.inputLabel}>Playdate Date and Time</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.timeDay}
-          onChangeText={(text) => this.setState({timeDay: text})} />
+          <Text style={styles.inputLabel}>Playdate Location</Text>
+          <TextInput
+            style={styles.inputText}
+            value={this.state.location}
+            onChangeText={(text) => this.setState({location: text})} />
 
-        <Text style={styles.inputLabel}>Playdate Description</Text>
-        <TextInput
-          style={[styles.inputText, styles.textArea]}
-          value={this.state.description}
-          onChangeText={(text) => this.setState({description: text})}
-          multiline={true}
-        />
+          <Text style={styles.inputLabel}>Playdate Date and Time</Text>
+          <TextInput
+            style={styles.inputText}
+            value={this.state.timeDay}
+            onChangeText={(text) => this.setState({timeDay: text})} />
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressEdit.bind(this)}
-          underlayColor='#99d9f4'
-        >
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableHighlight>
+          <Text style={styles.inputLabel}>Playdate Description</Text>
+          <TextInput
+            style={[styles.inputText, styles.textArea]}
+            value={this.state.description}
+            onChangeText={(text) => this.setState({description: text})}
+            multiline={true}
+          />
+
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.onPressEdit.bind(this)}
+            underlayColor='#99d9f4'
+          >
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }

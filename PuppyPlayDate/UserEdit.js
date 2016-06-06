@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import UserDogs from './UserDogs';
+import Navbar from './Navbar';
 
 // URL to the API to get a specific user if you append an id
 var REQUEST_URL = 'http://localhost:3000/users/';
@@ -63,54 +64,57 @@ class UserEdit extends Component {
     var user = this.state;
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.pageTitle}>
-          Edit User
-        </Text>
+      <View>
+        <Navbar navigator={this.props.navigator} title='Edit User'>
+          <Text> </Text>
+        </Navbar>
 
-        <TextInput
-          placeholder="Username"
-          style={styles.inputText}
-          value={user.username}
-          onChangeText={(text) => this.setState({username: text})}
-        />
+        <View style={styles.container}>
 
-        <TextInput
-          placeholder="Name"
-          style={styles.inputText}
-          value={user.name}
-          onChangeText={(text) => this.setState({name: text})}
-        />
+          <TextInput
+            placeholder="Username"
+            style={styles.inputText}
+            value={user.username}
+            onChangeText={(text) => this.setState({username: text})}
+          />
 
-        <TextInput
-          placeholder="Email"
-          style={styles.inputText}
-          value={user.email}
-          onChangeText={(text) => this.setState({email: text})}
-        />
+          <TextInput
+            placeholder="Name"
+            style={styles.inputText}
+            value={user.name}
+            onChangeText={(text) => this.setState({name: text})}
+          />
 
-        <TextInput
-          placeholder="Password"
-          style={styles.inputText}
-          value={user.password}
-          password={true}
-          onChangeText={(text) => this.setState({password: text})}
-        />
+          <TextInput
+            placeholder="Email"
+            style={styles.inputText}
+            value={user.email}
+            onChangeText={(text) => this.setState({email: text})}
+          />
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressEdit.bind(this)}
-          underlayColor='#99d9f4'
-        >
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableHighlight>
+          <TextInput
+            placeholder="Password"
+            style={styles.inputText}
+            value={user.password}
+            password={true}
+            onChangeText={(text) => this.setState({password: text})}
+          />
 
-        <View>
-          <Text>Debug:</Text>
-          <Text>{user.name}</Text>
-          <Text>{user.password}</Text>
-          <Text>{user.email}</Text>
-          <Text>{user.username}</Text>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.onPressEdit.bind(this)}
+            underlayColor='#99d9f4'
+          >
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableHighlight>
+
+          <View>
+            <Text>Debug:</Text>
+            <Text>{user.name}</Text>
+            <Text>{user.password}</Text>
+            <Text>{user.email}</Text>
+            <Text>{user.username}</Text>
+          </View>
         </View>
       </View>
     );

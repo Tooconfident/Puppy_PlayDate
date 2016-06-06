@@ -12,6 +12,7 @@ import {
 
 import DogProfile from './DogProfile';
 import UserEdit from './UserEdit';
+import Navbar from './Navbar';
 
 // URL to the API to get a specific user if you append an id
 var REQUEST_URL = 'http://localhost:3000/users/';
@@ -27,7 +28,7 @@ class UserDogs extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dataSource : new ListView.DataSource(
+      dataSource: new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
       loaded: false,
@@ -39,9 +40,11 @@ class UserDogs extends Component {
     //   dataSource: dataSource.cloneWithRows(data)
     // }
   }
+
   componentDidMount(){
     this.fetchData();
   }
+
   fetchData(){
     // assume a user_id is passed to this component
     fetch(REQUEST_URL + this.props.user_id)
@@ -72,19 +75,31 @@ class UserDogs extends Component {
     });
   }
 
+  // Entry row
   renderRow(rowData, sectionID, rowID){
+    console.log("Rendering a row. . .");
+    console.log("rowData.avatar = " + rowData.avatar);
+
     return(
-        <View style={styles.container}>
+        <View>
+
           <TouchableHighlight onPress={() => this.onPressDogShow(rowData.id)}>
-          <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: rowData.image }}/>
-            <View style={styles.textContainer}>
-              <Text>
-              {rowData.name} {rowData.age}
-              </Text>
+            <View style={styles.rowContainer}>
+
+              <Image style={styles.thumb} source={{ uri: rowData.avatar }}/>
+
+              <View style={styles.textContainer}>
+                <Text>
+                {rowData.name}
+                </Text>
+                <Text>
+                Age: {rowData.age}
+                </Text>
+              </View>
+
             </View>
-          </View>
           </TouchableHighlight>
+
         </View>
     );
   }
@@ -96,20 +111,20 @@ class UserDogs extends Component {
 
     return(
       <View>
+        <Navbar navigator={this.props.navigator} title='User Profile' hasBackButton={false}>
 
-        <View style={styles.navbar}>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => this.onPressEdit()}
-           >
-            <Text>Edit</Text>
-          </TouchableHighlight>
+            <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
+              <Text>Edit</Text>
+            </TouchableHighlight>
+
+        </Navbar>
+
+        <View style={styles.mainContent}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}
+          />
         </View>
-
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
 
       </View>
     );
@@ -117,6 +132,11 @@ class UserDogs extends Component {
 }
 
 const styles = StyleSheet.create({
+  mainContent: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
   thumb: {
     width: 50,
     height: 50,
@@ -127,8 +147,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rowContainer: {
+    flex: 1,
     flexDirection: 'row',
     padding: 10,
+    borderBottomWidth: 2,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   container: {
     flex: 1,
@@ -141,6 +165,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     backgroundColor: 'antiquewhite'
+  },
+  editButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-end',
   },
   pageTitle: {
     marginTop: 20,

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import PlayDateEdit from "./PlayDateEdit";
+import Navbar from "./Navbar";
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 
@@ -59,30 +60,34 @@ class PlayDateShow extends Component {
     var group = this.state.group;
 
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={() => this.goBack()}>
-          <Text>Go Back</Text>
-        </TouchableHighlight>
-        <Text style={styles.pageTitle}>
-          {group.name}
-        </Text>
-        <TouchableHighlight onPress={() => this.onPressEdit()}>
-          <Text>Edit</Text>
-        </TouchableHighlight>
-        <Text>Join</Text>
-        <Text>Leave</Text>
-        <Text>
-          Location: {group.location}
-        </Text>
-        <Text>
-          Creator: Creator Name
-        </Text>
-        <Text>
-          Number of Dogs: {group.member_count}
-        </Text>
-        <Text>
-          Description: {group.description}
-        </Text>
+      <View>
+        <Navbar navigator={this.props.navigator} title='User Profile'>
+
+            <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
+              <Text>Edit</Text>
+            </TouchableHighlight>
+
+        </Navbar>
+
+        <View style={styles.container}>
+          <Text style={styles.pageTitle}>
+            {group.name}
+          </Text>
+          <Text>Join</Text>
+          <Text>Leave</Text>
+          <Text>
+            Location: {group.location}
+          </Text>
+          <Text>
+            Creator: Creator Name
+          </Text>
+          <Text>
+            Number of Dogs: {group.member_count}
+          </Text>
+          <Text>
+            Description: {group.description}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -100,6 +105,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     backgroundColor: 'antiquewhite'
+  },
+  editButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-end',
   },
   textContainer: {
     flex: 1,
