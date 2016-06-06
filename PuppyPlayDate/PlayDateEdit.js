@@ -11,7 +11,8 @@ import {
   TextInput,
 } from 'react-native';
 
-
+// URL to get a specific playdate if you append an id
+var REQUEST_URL = 'http://localhost:3000/playdates/';
 
 class PlayDateEdit extends Component {
 
@@ -27,7 +28,33 @@ class PlayDateEdit extends Component {
     };
   }
 
+  componentDidMount() {
+    // As soon as the component is mounted, go and fetch the data for the playdate
+    this.fetchData();
+  }
+
+  // Performs an Ajax call to retrieve information about the playdate
+  fetchData(){
+    console.log("fetchData: PlayDateEdit: playdate_id " + this.props.playdate_id)
+    fetch(REQUEST_URL + this.props.playdate_id)
+      .then((response) => response.json())
+      .then((responseData) => {
+        // Update the state with the information about the playdate
+        this.setState({
+          name: responseData.name,
+          location: responseData.location,
+          timeDay: responseData.time_day,
+          description: responseData.description,
+          loaded: true,
+        });
+      })
+      .done();
+  }
+
   onPressEdit() {
+    // TODO: perform an update request to update the
+    // playdate information in the backend
+
     this.props.navigator.pop();
   }
 
@@ -54,9 +81,11 @@ class PlayDateEdit extends Component {
 
         <Text style={styles.inputLabel}>Playdate Description</Text>
         <TextInput
-          style={styles.inputText}
+          style={[styles.inputText, styles.textArea]}
           value={this.state.description}
-          onChangeText={(text) => this.setState({description: text})} />
+          onChangeText={(text) => this.setState({description: text})}
+          multiline={true}
+        />
 
         <TouchableHighlight
           style={styles.button}
