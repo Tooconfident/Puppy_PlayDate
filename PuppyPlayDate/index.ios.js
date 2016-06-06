@@ -30,6 +30,7 @@ class PuppyPlayDateApp extends Component {
     };
   }
   renderScene(route, navigator){
+    console.log("renderScene was called: passProps: " + route.passProps);
     return(
       <route.component navigator={navigator} {...route.passProps}/>
     );

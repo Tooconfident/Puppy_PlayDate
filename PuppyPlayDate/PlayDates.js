@@ -45,9 +45,21 @@ class PlayDates extends Component {
       .done();
   }
 
+  onPressPlayDate(id) {
+    console.log("onPressPlayDate(" + id + ")")
+    this.props.navigator.push({
+      component: PlayDateShow,
+      passProps: { playdate_id: id }
+    });
+  }
+
+  goBack() {
+    this.props.navigator.pop();
+  }
+
   renderRow(rowData, sectionID, rowID){
     return(
-      <TouchableHighlight>
+      <TouchableHighlight onPress={() => this.onPressPlayDate(rowData.id)}>
         <View style={styles.rowContainer}>
           <View style={styles.textContainer}>
             <Text style={styles.title}>

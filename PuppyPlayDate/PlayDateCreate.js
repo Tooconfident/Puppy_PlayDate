@@ -27,6 +27,10 @@ class PlayDateCreate extends Component {
     this.props.navigator.pop();
   }
 
+  componentDidMount() {
+    console.log("PlayDateCreate: componentDidMount: " + this.props);
+  }
+
   render() {
     return (
       <View style={styles.container}>

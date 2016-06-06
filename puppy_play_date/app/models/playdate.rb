@@ -4,4 +4,12 @@ class Playdate < ActiveRecord::Base
   has_many :dogs, through: :memberships
 
   validates :name, :time_day, :location, presence: true
+
+  def member_count
+    self.dogs.count
+  end
+
+  def as_json(options = {})
+    super(options.merge(include: :dogs, methods: :member_count))
+  end
 end
