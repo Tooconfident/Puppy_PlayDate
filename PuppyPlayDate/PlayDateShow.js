@@ -49,6 +49,9 @@ class PlayDateShow extends Component {
     console.log("onPressEdit");
     this.props.navigator.push({
       component: PlayDateEdit,
+      // Make sure to pass the playdate_id to the Edit component
+      // Note the value has to be an object of key-value properties!
+      passProps: { playdate_id: this.props.playdate_id }
     });
   }
 
