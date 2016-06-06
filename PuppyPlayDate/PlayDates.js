@@ -103,17 +103,21 @@ class PlayDates extends Component {
       return(<Text>Loading...</Text>)
     }
     return (
-      <View style={styles.container}>
-        <Text style={[styles.pageTitle, styles.title]}>Your Groups</Text>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.addGroupPressed()}>
-          <Text>Add</Text>
-        </TouchableHighlight>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
+      <View>
+        <View style={styles.navbar}>
+          <Text style={[styles.pageTitle, styles.title]}>Your Groups</Text>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.addGroupPressed()}>
+            <Text>Add</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.container}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}
+          />
+        </View>
       </View>
     );
   }
@@ -151,6 +155,13 @@ const styles = StyleSheet.create({
   subtitle: {
     fontWeight: 'bold',
     fontSize: 14,
+  },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+    backgroundColor: 'skyblue',
+    marginBottom: 6,
   },
 });
 
