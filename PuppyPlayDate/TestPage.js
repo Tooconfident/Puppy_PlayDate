@@ -13,9 +13,7 @@ import PlayDates from "./PlayDates";
 
 class TestPage extends Component {
 
-  componentDidMount(){
-    this.props.navigator.pop();
-  }
+  
 
   makeButtonLink(text, component) {
     return (
