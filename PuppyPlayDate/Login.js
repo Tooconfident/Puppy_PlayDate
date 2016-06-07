@@ -17,6 +17,7 @@ const styles = require('./style.js')
 const REQUEST_URL ='http://localhost:3000/session/login'
 
 import MainScene from './MainScene';
+import UserSignup from './UserSignup';
 
 class Login extends Component {
   constructor(props) {
@@ -33,53 +34,6 @@ class Login extends Component {
     }).done();
   }
 
-  render() {
-    return (
-    <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
-      <View style={styles.topMargin}></View>
-        <View style={styles.container}>
-          <View style={styles.outterMargin}>
-          </View>
-            <View style={styles.content}>
-        <Text style={styles.text}>
-          Login
-        </Text>
-        <TextInput
-          placeholder="Username"
-          style={styles.input}
-          value={this.state.username}
-          onChangeText={(text) => this.setState({username: text})}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-        />
-        {
-          //secureTextEntry={true} add this line on production
-      }
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          secureTextEntry={true}
-          value={this.state.password}
-          onChangeText={(text) => this.setState({password: text})}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-        />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.loginPress.bind(this)}>
-          <Text style={styles.buttonText}>
-            Login
-          </Text>
-        </TouchableHighlight>
-
-        </View>
-      <View style={styles.outterMargin}>
-    </View>
-  </View>
-  </Image>
-
-    );
-  }
   loginPress(){
     fetch(REQUEST_URL, {
       method: 'POST',
@@ -118,6 +72,13 @@ class Login extends Component {
     console.log(this.state.username);
   }
 
+  onPressSignup() {
+    this.props.navigator.push({
+      title: 'Sign Up',
+      component: UserSignup,
+    });
+  }
+
   makeSession(userID){
     console.log('state'+ this.state.userID);
     AsyncStorage.setItem("userID", String(userID));
@@ -126,6 +87,64 @@ class Login extends Component {
       // AsyncStorage.getItem("userID").then((value) => {
       //         this.setState({"userID": value});
       // }).done();
+  }
+
+  render() {
+    return (
+      <View style={{flex: 1}}>
+        <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
+          <View style={styles.topMargin}>
+          </View>
+          <View style={styles.container}>
+            <View style={styles.outterMargin}>
+            </View>
+
+            <View style={styles.content}>
+              <Text style={styles.text}>
+                Login
+              </Text>
+              <TextInput
+                placeholder="Username"
+                style={styles.input}
+                value={this.state.username}
+                onChangeText={(text) => this.setState({username: text})}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+              />
+            {
+              //secureTextEntry={true} add this line on production
+          }
+            <TextInput
+              placeholder="Password"
+              style={styles.input}
+              secureTextEntry={true}
+              value={this.state.password}
+              onChangeText={(text) => this.setState({password: text})}
+              autoCapitalize={'none'}
+              autoCorrect={false}
+            />
+            <TouchableHighlight
+              style={styles.button}
+              onPress={this.loginPress.bind(this)}>
+              <Text style={styles.buttonText}>
+                Login
+              </Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              style={styles.button}
+              onPress={this.onPressSignup.bind(this)}>
+              <Text style={styles.buttonText}>
+                Sign Up
+              </Text>
+            </TouchableHighlight>
+          </View>
+        <View style={styles.outterMargin}>
+        </View>
+      </View>
+      </Image>
+      </View>
+    );
   }
 }
 
