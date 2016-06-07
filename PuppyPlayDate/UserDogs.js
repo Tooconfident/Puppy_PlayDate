@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import DogProfile from './DogProfile';
+import DogCreate from './DogCreate';
 import UserEdit from './UserEdit';
 import Navbar from './Navbar';
 
@@ -88,6 +89,15 @@ class UserDogs extends Component {
     });
   }
 
+  onPressAdd() {
+    console.log("onPressAdd")
+    this.props.navigator.push({
+      title: 'Add Dog',
+      component: DogCreate,
+      passProps: { user_id: this.state.userID },
+    });
+  }
+
   // Entry row
   renderRow(rowData, sectionID, rowID){
     console.log("Rendering a row. . .");
@@ -123,7 +133,10 @@ class UserDogs extends Component {
     }
 
     return(
-      <View>
+      <View style={{marginTop: 80}}>
+        <TouchableHighlight style={styles.editButton} onPress={() => this.onPressAdd()}>
+          <Text>Add</Text>
+        </TouchableHighlight>
         <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
           <Text>Edit</Text>
         </TouchableHighlight>
