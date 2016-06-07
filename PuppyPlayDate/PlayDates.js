@@ -104,16 +104,12 @@ class PlayDates extends Component {
       return(<Text>Loading...</Text>)
     }
     return (
-      <View>
-        <Navbar navigator={this.props.navigator} hasBackButton={false} title='Your Groups'>
-
-          <TouchableHighlight
-            style={styles.editButton}
-            onPress={() => this.addGroupPressed()}>
-            <Text>Add</Text>
-          </TouchableHighlight>
-
-        </Navbar>
+      <View style={{marginTop: 80}}>
+        <TouchableHighlight
+          style={styles.editButton}
+          onPress={() => this.addGroupPressed()}>
+          <Text>Add</Text>
+        </TouchableHighlight>
 
         <View style={styles.container}>
           <ListView
