@@ -8,7 +8,8 @@ import {
   TabBarIOS,
   Text,
   TouchableHighlight,
-  View
+  View,
+  AsyncStorage,
 } from 'react-native';
 
 import PlayDateCreate from './PlayDateCreate';
@@ -31,11 +32,18 @@ class PlayDates extends Component {
   }
 
   componentDidMount(){
-    this.fetchData();
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+        this.setState({userID: value});
+    })
+    .then((value) => {
+      this.fetchData();
+    })
+    .done();
   }
 
   fetchData(){
-    fetch(REQUEST_URL)
+    fetch(REQUEST_URL + "?user_id=" + this.state.userID)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({

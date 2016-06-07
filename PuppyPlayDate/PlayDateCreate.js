@@ -20,20 +20,32 @@ class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
     this.state={
-      userID: false
+      name: '',
+      address: '',
+      time_day: '',
+      description: '',
+      userID: false,
     };
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+        this.setState({userID: value});
+    }).done();
   }
 
   createGroupPressed() {
     console.log('createGroupPressed');
-    // AsyncStorage.getItem("userID")
-    //             .then((value) => { this.setState( {"userID": value} ); })
-    //             .done();
     console.log('this.state: ' + this.state);
     let data = {
       method: 'POST',
       body: JSON.stringify({
-        name: this.state.name, time_day: this.state.time_day, location: this.state.location, description: this.state.description, user_id: "21"
+        name: this.state.name,
+        time_day: this.state.time_day,
+        address: this.state.address,
+        description: this.state.description,
+        user_id: this.state.userID
       }),
       headers: {
         'Accept':       'application/json',
@@ -41,15 +53,16 @@ class PlayDateCreate extends Component {
       }
     }
     fetch('http://localhost:3000/playdates', data)
-        .then((response) => response.json())  // promise
-        .then((responseData) => console.log(responseData))
-        .catch((error) => console.log("boo"));
-    this.props.navigator.pop();
+      .then((response) => response.json())  // promise
+      .then((responseData) => {
+        console.log(responseData)
+        this.props.navigator.pop();
+      })
+      .catch((error) => console.log("boo"))
+      .done();
   }
 
-  componentDidMount() {
-    console.log("PlayDateCreate: componentDidMount: " + this.props);
-  }
+
 
   render() {
     return (
@@ -65,11 +78,11 @@ class PlayDateCreate extends Component {
           onChangeText={(text) => this.setState({name: text})}
         />
 
-        <Text style={styles.label}>Location:</Text>
+        <Text style={styles.label}>Address:</Text>
         <TextInput
           style={styles.inputText}
-          value={this.state.location}
-          onChangeText={(text) => this.setState({location: text})}
+          value={this.state.address}
+          onChangeText={(text) => this.setState({address: text})}
         />
 
         <Text style={styles.label}>Time & Day of Week:</Text>

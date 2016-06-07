@@ -2,7 +2,7 @@ class PlaydatesController < ApplicationController
   before_action :set_playdate, only: [:show, :update, :destroy]
 
   def index
-    render json: Playdate.all
+    render json: Playdate.where(user_id: params[:user_id])
   end
 
   def show
@@ -40,6 +40,6 @@ class PlaydatesController < ApplicationController
     end
 
     def playdate_params
-      params.permit(:name, :description, :location, :frequency, :time_day, :user_id)
+      params.permit(:name, :description, :location, :address, :frequency, :time_day, :user_id)
     end
 end

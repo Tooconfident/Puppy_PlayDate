@@ -8,8 +8,11 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
+
+const REQUEST_URL= 'http://localhost:3000/dogs';
 
 class DogCreate extends Component {
 
@@ -25,8 +28,45 @@ class DogCreate extends Component {
     }
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+        this.setState({userID: value});
+    }).done();
+  }
+
   onPressCreate() {
     // TODO: create dog in backend
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        age: this.state.age,
+        breed: this.state.breed,
+        toy: this.state.toy,
+        user_id: this.state.userID,
+
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          //Add a Dog
+          this.props.navigator.pop();
+
+
+        } else {
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
+        }
+      })
+      .done();
 
     this.props.navigator.pop();
   }
@@ -45,21 +85,32 @@ class DogCreate extends Component {
         <TextInput
           placeholder="Dog Name"
           style={styles.input}
+          value = {this.state.name}
+          onChangeText = {(text)=> this.setState({name:text})}
         />
 
         <TextInput
           placeholder="Breed"
           style={styles.input}
+          value = {this.state.breed}
+          onChangeText = {(text)=> this.setState({breed:text})}
+
         />
 
         <TextInput
           placeholder="Age"
           style={styles.input}
+          value = {this.state.age}
+          onChangeText = {(text)=> this.setState({age:text})}
+
         />
 
         <TextInput
           placeholder="Favorite Toy"
           style={styles.input}
+          value = {this.state.toy}
+          onChangeText = {(text)=> this.setState({toy:text})}
+
         />
 
         <TouchableHighlight
