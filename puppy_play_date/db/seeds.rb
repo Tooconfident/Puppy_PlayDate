@@ -52,7 +52,8 @@ end
     location: "1, 2",
     frequency: [nil, "daily", "weekly", "monthly"].sample,
     time_day: "#{Date::DAYNAMES.sample} at #{rand(0..24)}",
-    organizer: User.all.sample
+    organizer: User.all.sample,
+    address: Faker::Address.street_address + ", " + Faker::Address.city + ", " + Faker::Address.state_abbr
   )
 end
 
