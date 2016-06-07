@@ -82,6 +82,7 @@ class UserDogs extends Component {
   onPressEdit() {
     console.log("onPressEdit")
     this.props.navigator.push({
+      title: 'Edit User Profile',
       component: UserEdit,
       passProps: { user_id: this.state.userID },
     });
@@ -123,14 +124,9 @@ class UserDogs extends Component {
 
     return(
       <View>
-        <Navbar navigator={this.props.navigator} title='User Profile' hasBackButton={false}>
-
-            <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
-              <Text>Edit</Text>
-            </TouchableHighlight>
-
-        </Navbar>
-
+        <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
+          <Text>Edit</Text>
+        </TouchableHighlight>
         <View style={styles.mainContent}>
           <ListView
             dataSource={this.state.dataSource}
@@ -195,11 +191,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   navbar: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
     backgroundColor: 'skyblue',
     marginBottom: 6,
+    height: 30,
   },
 });
 

@@ -48,7 +48,7 @@ class PuppyPlayDateApp extends Component {
       <NavigatorIOS
         style={styles.wrapper}
         initialRoute= {{
-          title: 'Login Page',
+          title: 'Puppy Playdate',
           component: Login,
         }}/>
       );
