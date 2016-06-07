@@ -9,7 +9,8 @@ import {
   Navigator,
   Image,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  AlertIOS,
 } from 'react-native';
 
 import MainScene from './MainScene';
@@ -42,6 +43,7 @@ class UserSignup extends Component {
         console.log(responseData)
         if (responseData.success != false){
           this.makeSession(responseData.userID)
+
         } else {
           AlertIOS.alert(
            'Please fill all fields'
@@ -67,15 +69,13 @@ class UserSignup extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.pageTitle}>
-          Sign Up
-        </Text>
 
         <TextInput
           placeholder="Username"
           style={styles.inputText}
           value={user.username}
           onChangeText={(text) => this.setState({username: text})}
+          autoCapitalize={'none'}
         />
 
         <TextInput
@@ -90,6 +90,7 @@ class UserSignup extends Component {
           style={styles.inputText}
           value={user.email}
           onChangeText={(text) => this.setState({email: text})}
+          autoCapitalize={'none'}
         />
 
         <TextInput
@@ -98,6 +99,8 @@ class UserSignup extends Component {
           value={user.password}
           password={true}
           onChangeText={(text) => this.setState({password: text})}
+          autoCapitalize={'none'}
+          autoCorrect={false}
         />
 
         <TouchableHighlight

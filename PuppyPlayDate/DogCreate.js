@@ -8,48 +8,125 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
+const REQUEST_URL= 'http://localhost:3000/dogs';
+
 class DogCreate extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      breed: "",
+      age: 0,
+      toy: "",
+      avatar: "",
+    }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+        this.setState({userID: value});
+    }).done();
+  }
+
+  onPressCreate() {
+    // TODO: create dog in backend
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        age: this.state.age,
+        breed: this.state.breed,
+        toy: this.state.toy,
+        user_id: this.state.userID,
+
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          //Add a Dog
+          this.props.navigator.pop();
+
+
+        } else {
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
+        }
+      })
+      .done();
+
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
           Welcome USER to PuppyPlayDate!
         </Text>
+
         <Text style={styles.bigText}>
           Tell us About your Dog
         </Text>
+
         <TextInput
           placeholder="Dog Name"
           style={styles.input}
+          value = {this.state.name}
+          onChangeText = {(text)=> this.setState({name:text})}
         />
+
         <TextInput
           placeholder="Breed"
           style={styles.input}
+          value = {this.state.breed}
+          onChangeText = {(text)=> this.setState({breed:text})}
+
         />
+
         <TextInput
           placeholder="Age"
           style={styles.input}
+          value = {this.state.age}
+          onChangeText = {(text)=> this.setState({age:text})}
+
         />
+
         <TextInput
           placeholder="Favorite Toy"
           style={styles.input}
+          value = {this.state.toy}
+          onChangeText = {(text)=> this.setState({toy:text})}
+
         />
+
         <TouchableHighlight
           style={styles.cameraButton}>
           <Image source={require("./Resources/dog_avatar.png")} style={styles.image}>
             <Text>
               Add Photo
             </Text>
-          </Image>  
+          </Image>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.button}>
-
+          style={styles.button}
+          onPress={() => this.onPressCreate()}
+        >
           <Text style={styles.buttonText}>
-            Sign Up
+            Add Dog
           </Text>
         </TouchableHighlight>
       </View>

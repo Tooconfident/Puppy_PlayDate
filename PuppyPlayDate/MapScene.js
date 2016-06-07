@@ -13,9 +13,12 @@ import {
   TouchableHighlight,
   Animated,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import UserDogs from './UserDogs';
+import PlayDates from './PlayDates';
 
 var { width, height } = Dimensions.get('window');
 
@@ -30,9 +33,9 @@ var REQUEST_URL = 'http://localhost:3000/playdates';
 
 class MapScene extends Component {
   constructor(props) {
-   super(props);
+    super(props);
 
-   this.state = {
+    this.state = {
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -57,7 +60,14 @@ class MapScene extends Component {
   }
 
   componentDidMount(){
+
     this.fetchData();
+
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+      this.setState({"userID": value});
+    }).done();
+
   }
 
   show() {
@@ -69,13 +79,45 @@ class MapScene extends Component {
   }
 
   renderLoadingView() {
-   return (
+    return (
      <View>
        <Text>
          Loading PlayDates...
        </Text>
      </View>
-   );
+    );
+  }
+
+  onPressHome(){
+    console.log('PressHome');
+    // this.props.navigator.resetTo ({
+    //   title: 'Home Page',
+    //   component: MapScene,
+    //   passProps: {userData: this.props.userData}
+    // })
+  }
+
+  onPressProfile(){
+    console.log('PressProfile');
+    this.props.navigator.push ({
+      title: 'Profile',
+      component: UserDogs,
+      passProps: {userData: this.props.userData, userId: this.props.userId}
+    })
+  }
+
+  onPressPlayDate(){
+    console.log('PressPlayDate');
+    this.props.navigator.push ({
+      title: 'Playdates',
+      component: PlayDates,
+      passProps: {userData: this.props.userData, userId: this.props.userId}
+    })
+  }
+
+  logout() {
+    AsyncStorage.clear();
+    this.props.navigator.pop();
   }
 
   render() {
@@ -87,7 +129,7 @@ class MapScene extends Component {
     var playdates = this.state.playdates;
 
     return (
-      <View>
+      <View style={styles.container}>
         <MapView
           style={styles.map}
           initialRegion={region}
@@ -105,6 +147,29 @@ class MapScene extends Component {
             />
           ))}
         </MapView>
+
+        <View style={styles.tabBar}>
+          <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Home</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Profile</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Playdates</Text>
+          </TouchableOpacity>
+
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.logout.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
+            <Text>Logout</Text>
+          </TouchableHighlight>
+        </View>
+
       </View>
   )};
 
@@ -114,37 +179,63 @@ class MapScene extends Component {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   map: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    flex: 1,
-    width: width,
-    height: height,
-    borderWidth: 1,
+    //flex: 9,
+    // flex: 4,
+    // width: width,
+    // height: height,
+    // borderWidth: 1,
+    backgroundColor: 'blue',
   },
   bubble: {
     flex: 1,
     backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
+    // borderRadius: 20,
   },
   latlng: {
     width: 200,
     alignItems: 'stretch',
   },
   button: {
-    width: 80,
-    paddingHorizontal: 12,
+    height: height * .08,
+    width: width * .20,
     alignItems: 'center',
-    marginHorizontal: 10,
+    justifyContent: 'center'
   },
   buttonContainer: {
+    flex: 1,
     flexDirection: 'row',
-    marginVertical: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+  },
+  tabBar: {
+    // flex: 1,
+    // flexDirection: 'row',
+    // justifyContent: 'space-around',
+    // backgroundColor: '#e6f2ff',
+    // alignSelf: 'flex-end',
+    // marginTop: 100,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     backgroundColor: 'transparent',
   },
 });

@@ -3,7 +3,7 @@ class Playdate < ActiveRecord::Base
   has_many :memberships
   has_many :dogs, through: :memberships
 
-  validates :name, :time_day, :location, presence: true
+  validates :name, :time_day, :address, presence: true
 
   def member_count
     self.dogs.count

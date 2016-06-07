@@ -5,14 +5,43 @@ import {
   Text,
   View,
   ListView,
+  PropTypes,
   Navigator,
+  AlertIOS,
+  LinkingIOS,
+  TabBarIOS,
+  Dimensions,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  Animated,
+  TouchableOpacity,
 } from 'react-native';
 
+
+import UserDogs from './UserDogs';
+import TestPage from './TestPage';
+import UserSignup from './UserSignup';
+import Login from './Login';
+import DogCreate from './DogCreate';
+import UserEdit from './UserEdit'
+import MapScene from './MapScene'
+import PlayDates from './PlayDates'
+
 class WelcomePage extends Component {
+  renderScene(route, navigator){
+    console.log("renderScene was called: passProps: " + route.passProps);
+    return(
+      <route.component navigator={navigator} {...route.passProps}/>
+    );
+  }
   render() {
+    // initialRoute={{
+    //   title: 'Main',
+    //   component: Main,
+    // }}
+
     return (
+
       <Image style={styles.bgImage} source={require('./Resources/0.jpg')}>
         <Text style={styles.bigText}>
           Puppy Play Date
@@ -28,13 +57,20 @@ class WelcomePage extends Component {
             </Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.button}>
+          style={styles.button}
+          onPress={() =>
+            this.props.navigator.push({
+              component: Login,
+            })
+          }
+        >
 
         <Text style={styles.buttonText}>
           Login
         </Text>
       </TouchableHighlight>
       </Image>
+
     );
   }
 }
