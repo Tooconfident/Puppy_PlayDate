@@ -13,9 +13,12 @@ import {
   TouchableHighlight,
   Animated,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import UserDogs from './UserDogs';
+import PlayDates from './PlayDates';
 
 var { width, height } = Dimensions.get('window');
 
@@ -59,6 +62,13 @@ class MapScene extends Component {
     };
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+      this.setState({"userID": value});
+    }).done();
+  }
+
   show() {
     this.refs.m1.showCallout();
   }
@@ -67,10 +77,42 @@ class MapScene extends Component {
     this.refs.m1.hideCallout();
   }
 
+  onPressHome(){
+    console.log('PressHome');
+    // this.props.navigator.resetTo ({
+    //   title: 'Home Page',
+    //   component: MapScene,
+    //   passProps: {userData: this.props.userData}
+    // })
+  }
+
+  onPressProfile(){
+    console.log('PressProfile');
+    this.props.navigator.push ({
+      title: 'Profile Page',
+      component: UserDogs,
+      passProps: {userData: this.props.userData, userId: this.props.userId}
+    })
+  }
+
+  onPressPlayDate(){
+    console.log('PressPlayDate');
+    this.props.navigator.push ({
+      title: 'Playdates Page',
+      component: PlayDates,
+      passProps: {userData: this.props.userData, userId: this.props.userId}
+    })
+  }
+
+  logout() {
+    AsyncStorage.clear();
+    this.props.navigator.pop();
+  }
+
   render() {
     const { region, markers } = this.state;
     return (
-      <View>
+      <View style={styles.container}>
         <MapView
           style={styles.map}
           initialRegion={region}
@@ -113,6 +155,23 @@ class MapScene extends Component {
             <Text>Hide</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={this.onPressHome.bind(this)} style={styles.button}>
+              <Text>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={styles.button}>
+              <Text>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={styles.button}>
+              <Text>Playdates</Text>
+            </TouchableOpacity>
+            <TouchableHighlight
+              style={styles.button}
+              onPress={this.logout.bind(this)}
+            >
+              <Text>Logout</Text>
+            </TouchableHighlight>
+          </View>
       </View>
   )};
   onRegionChangeComplete(region) {
@@ -121,13 +180,16 @@ class MapScene extends Component {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   map: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    flex: 1,
+    flex: 9,
     width: width,
     height: height,
     borderWidth: 1,
@@ -150,8 +212,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttonContainer: {
+    flex: 1,
     flexDirection: 'row',
-    marginVertical: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     backgroundColor: 'transparent',
   },
 });
