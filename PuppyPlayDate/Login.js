@@ -12,22 +12,27 @@ import {
   AsyncStorage,
   AlertIOS
 } from 'react-native';
-
+import MapScene from './MapScene'
 const styles = require('./style.js')
 const REQUEST_URL ='http://localhost:3000/session/login'
 
+import MainScene from './MainScene';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userID: 0,
+    };
   }
+
   componentDidMount() {
-        AsyncStorage.getItem("userID").then((value) => {
-          console.log('current.val '+ value);
-            this.setState({"userID": value});
-        }).done();
-    }
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('current.val '+ value);
+        this.setState({userID: value});
+    }).done();
+  }
+
   render() {
     return (
     <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
@@ -44,6 +49,8 @@ class Login extends Component {
           style={styles.input}
           value={this.state.username}
           onChangeText={(text) => this.setState({username: text})}
+          autoCapitalize={'none'}
+          autoCorrect={false}
         />
         {
           //secureTextEntry={true} add this line on production
@@ -54,6 +61,8 @@ class Login extends Component {
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={(text) => this.setState({password: text})}
+          autoCapitalize={'none'}
+          autoCorrect={false}
         />
         <TouchableHighlight
           style={styles.button}
@@ -87,7 +96,17 @@ class Login extends Component {
       .then((responseData) => {
         console.log(responseData)
         if (responseData.success != false){
-          this.makeSession(responseData)
+          //Login successfully
+          this.props.navigator.push({
+            title: 'Puppy Playdate',
+            component: MapScene,
+            leftButtonTitle: ' '
+          })
+          this.setState({
+            username: '',
+            password: ''
+          });
+
         } else {
           AlertIOS.alert(
            'Something went wrong!'
