@@ -65,14 +65,10 @@ class DogProfile extends Component {
   render() {
     var dog = this.state.dog;
     return (
-      <View>
-        <Navbar navigator={this.props.navigator} title='Edit Dog Profile'>
-
-            <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-              <Text>Edit</Text>
-            </TouchableHighlight>
-
-        </Navbar>
+      <View style={styles.container}>
+        <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+        <Text>Edit</Text>
+        </TouchableHighlight>
 
         <View style={styles.container}>
           <Image style={styles.dogImage} source={{ uri: dog.avatar }} />

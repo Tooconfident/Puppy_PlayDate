@@ -7,7 +7,7 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import PlayDateEdit from "./PlayDateEdit";
@@ -60,14 +60,10 @@ class PlayDateShow extends Component {
     var group = this.state.group;
 
     return (
-      <View>
-        <Navbar navigator={this.props.navigator} title='User Profile'>
-
-            <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
-              <Text>Edit</Text>
-            </TouchableHighlight>
-
-        </Navbar>
+      <View style={styles.container}>
+        <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+          <Text>Edit</Text>
+        </TouchableHighlight>
 
         <View style={styles.container}>
           <Text style={styles.pageTitle}>
@@ -99,6 +95,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 70,
   },
   button: {
     borderWidth: 2,
@@ -110,6 +107,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     alignSelf: 'flex-end',
+  },
+  backButton: {
+    borderWidth: 1,
+    padding: 10,
+    alignSelf: 'flex-start'
   },
   textContainer: {
     flex: 1,
