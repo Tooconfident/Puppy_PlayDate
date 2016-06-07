@@ -1,4 +1,6 @@
 class Dog < ActiveRecord::Base
+  before_save :ensure_avatar
+
   has_many :memberships
   has_many :playdates, through: :memberships
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
@@ -16,5 +18,13 @@ class Dog < ActiveRecord::Base
 
   def owner_username
     self.owner.username
+  end
+
+  # Ensures a dog has a photo if no one was provided
+  def ensure_avatar
+    if self.photo.nil?
+      default_avatar_url = "http://coastalgsrsd.org/wp-content/uploads/2015/10/dogPlaceholder.png"
+      Photo.create!(dog: self, url: default_avatar_url)
+    end
   end
 end

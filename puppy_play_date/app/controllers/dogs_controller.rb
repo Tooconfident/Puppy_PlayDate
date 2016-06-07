@@ -6,6 +6,7 @@ class DogsController < ApplicationController
   end
 
   def create
+    p params
     @dog = Dog.new(dog_params)
     if @dog.save
       render json: @dog, status: :created, location: @dog
@@ -36,6 +37,6 @@ class DogsController < ApplicationController
     end
 
     def dog_params
-      params.permit(:name, :breed, :age, :gender, :toy, :description)
+      params.permit(:name, :breed, :age, :gender, :toy, :description, :user_id)
     end
 end
