@@ -43,7 +43,7 @@ class DogCreate extends Component {
             <Text>
               Add Photo
             </Text>
-          </Image>  
+          </Image>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}>
