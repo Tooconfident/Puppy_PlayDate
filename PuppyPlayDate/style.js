@@ -6,7 +6,7 @@ module.exports = require('react-native').StyleSheet.create({
   center:{
     justifyContent: 'center'
   },
-    bImage:{
+  bImage:{
     flex: 1,
     width: null,
     height: null,

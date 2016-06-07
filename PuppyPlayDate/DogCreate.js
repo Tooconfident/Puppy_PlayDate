@@ -12,44 +12,70 @@ import {
 } from 'react-native';
 
 class DogCreate extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      breed: "",
+      age: 0,
+      toy: "",
+      avatar: "",
+    }
+  }
+
+  onPressCreate() {
+    // TODO: create dog in backend
+
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
           Welcome USER to PuppyPlayDate!
         </Text>
+
         <Text style={styles.bigText}>
           Tell us About your Dog
         </Text>
+
         <TextInput
           placeholder="Dog Name"
           style={styles.input}
         />
+
         <TextInput
           placeholder="Breed"
           style={styles.input}
         />
+
         <TextInput
           placeholder="Age"
           style={styles.input}
         />
+
         <TextInput
           placeholder="Favorite Toy"
           style={styles.input}
         />
+
         <TouchableHighlight
           style={styles.cameraButton}>
           <Image source={require("./Resources/dog_avatar.png")} style={styles.image}>
             <Text>
               Add Photo
             </Text>
-          </Image>  
+          </Image>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.button}>
-
+          style={styles.button}
+          onPress={() => this.onPressCreate()}
+        >
           <Text style={styles.buttonText}>
-            Sign Up
+            Add Dog
           </Text>
         </TouchableHighlight>
       </View>

@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 import MapScene from "./MapScene";
@@ -13,9 +14,7 @@ import PlayDates from "./PlayDates";
 
 class TestPage extends Component {
 
-  componentDidMount(){
-    this.props.navigator.pop();
-  }
+
 
   makeButtonLink(text, component) {
     return (
@@ -32,12 +31,23 @@ class TestPage extends Component {
     );
   }
 
+  logout() {
+    AsyncStorage.clear();
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>This is a test page</Text>
         {this.makeButtonLink("MapScene", MapScene)}
         {this.makeButtonLink("PlayDates", PlayDates)}
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.logout.bind(this)}
+        >
+          <Text>Logout</Text>
+        </TouchableHighlight>
       </View>
     );
   }

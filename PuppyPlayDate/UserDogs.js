@@ -7,10 +7,12 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 import DogProfile from './DogProfile';
+import DogCreate from './DogCreate';
 import UserEdit from './UserEdit';
 import Navbar from './Navbar';
 
@@ -32,6 +34,7 @@ class UserDogs extends Component {
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
       loaded: false,
+      userID: 0,
     };
     // var dataSource = new ListView.DataSource(
     //   {rowHasChanged: (r1, r2) => r1 !== r2}
@@ -42,12 +45,22 @@ class UserDogs extends Component {
   }
 
   componentDidMount(){
-    this.fetchData();
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('userID: current.val '+ value);
+      this.setState({
+        userID: value
+      });
+    })
+    .then((value) => {
+      this.fetchData();
+    })
+    .done();
   }
 
   fetchData(){
+    console.log("fetchData for UserDogs using " + this.state.userID + "for userID");
     // assume a user_id is passed to this component
-    fetch(REQUEST_URL + this.props.user_id)
+    fetch(REQUEST_URL + this.state.userID)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
@@ -70,8 +83,18 @@ class UserDogs extends Component {
   onPressEdit() {
     console.log("onPressEdit")
     this.props.navigator.push({
+      title: 'Edit User Profile',
       component: UserEdit,
-      passProps: { user_id: this.props.user_id },
+      passProps: { user_id: this.state.userID },
+    });
+  }
+
+  onPressAdd() {
+    console.log("onPressAdd")
+    this.props.navigator.push({
+      title: 'Add Dog',
+      component: DogCreate,
+      passProps: { user_id: this.state.userID },
     });
   }
 
@@ -110,15 +133,13 @@ class UserDogs extends Component {
     }
 
     return(
-      <View>
-        <Navbar navigator={this.props.navigator} title='User Profile' hasBackButton={false}>
-
-            <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
-              <Text>Edit</Text>
-            </TouchableHighlight>
-
-        </Navbar>
-
+      <View style={{marginTop: 80}}>
+        <TouchableHighlight style={styles.editButton} onPress={() => this.onPressAdd()}>
+          <Text>Add</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.editButton} onPress={() => this.onPressEdit()}>
+          <Text>Edit</Text>
+        </TouchableHighlight>
         <View style={styles.mainContent}>
           <ListView
             dataSource={this.state.dataSource}
@@ -183,11 +204,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   navbar: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
     backgroundColor: 'skyblue',
     marginBottom: 6,
+    height: 30,
   },
 });
 
