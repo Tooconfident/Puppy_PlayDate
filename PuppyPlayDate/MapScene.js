@@ -150,7 +150,9 @@ class MapScene extends Component {
 
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
+            <Image source={require('./Resources/bone4.jpeg')}>
             <Text>Home</Text>
+            </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
