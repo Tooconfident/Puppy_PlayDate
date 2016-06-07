@@ -29,44 +29,45 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = 0.0421;
 const SPACE = 0.01;
 
+var REQUEST_URL = 'http://localhost:3000/playdates';
+
 class MapScene extends Component {
   constructor(props) {
-   super(props);
-   this.state = {
+    super(props);
+
+    this.state = {
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      markers: [
-        {
-          coordinate: {
-            latitude: LATITUDE + SPACE,
-            longitude: LONGITUDE + SPACE,
-          },
-        },
-        {
-          coordinate: {
-            latitude: LATITUDE,
-            longitude: LONGITUDE,
-          },
-        },
-        {
-          coordinate: {
-            latitude: LATITUDE + SPACE,
-            longitude: LONGITUDE - SPACE,
-          },
-        },
-      ],
+      playdates: [],
+      loaded: false,
     };
   }
 
-  componentDidMount() {
+  fetchData(){
+    fetch(REQUEST_URL)
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.setState({
+        playdates: responseData,
+        loaded: true,
+      })
+    })
+    .done();
+  }
+
+  componentDidMount(){
+
+    this.fetchData();
+
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val '+ value);
       this.setState({"userID": value});
     }).done();
+
   }
 
   show() {
@@ -75,6 +76,16 @@ class MapScene extends Component {
 
   hide() {
     this.refs.m1.hideCallout();
+  }
+
+  renderLoadingView() {
+    return (
+     <View>
+       <Text>
+         Loading PlayDates...
+       </Text>
+     </View>
+    );
   }
 
   onPressHome(){
@@ -110,7 +121,13 @@ class MapScene extends Component {
   }
 
   render() {
-    const { region, markers } = this.state;
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
+    var region = this.state.region;
+    var playdates = this.state.playdates;
+
     return (
       <View style={styles.container}>
         <MapView
@@ -119,33 +136,16 @@ class MapScene extends Component {
           showsUserLocation= {true}
           followsUserLocation= {false}
           showsPointsOfInterest= {false}
-          // onMarkerPress= show event // callback function
-          // onMarkSelect= go to group page // these two may have to be flipped
-        >
-          <MapView.Marker
-            ref="m1"
-            coordinate={markers[0].coordinate}
-            title="PlayDate Title"
-            description="Brief Description"
-            pinColor=""
-          />
-          <MapView.Marker ref="m2" coordinate={markers[1].coordinate}>
-            <MapView.Callout>
-              <View>
-                <Text>This is a plain view</Text>
-              </View>
-            </MapView.Callout>
-          </MapView.Marker>
-          <MapView.Marker
-            ref="m3"
-            coordinate={markers[2].coordinate}
-            calloutOffset={{ x: -8, y: 28 }}
-            calloutAnchor={{ x: 0.5, y: 0.4 }}
+          // onPlayDatePress= show event // callback function
+          // onPlayDateSelect= go to group page // these two may have to be flipped
           >
-            <MapView.Callout tooltip>
-              <Text style={{ color: '#fff', backgroundColor: 'black' }}>This is a custom callout bubble view</Text>
-            </MapView.Callout>
-          </MapView.Marker>
+          {this.state.playdates.map(playdate => (
+            <MapView.Marker
+            coordinate={JSON.parse(playdate.location).coordinate}
+            title={playdate.name}
+            description={playdate.description}
+            />
+          ))}
         </MapView>
 
         <View style={styles.tabBar}>
@@ -174,6 +174,7 @@ class MapScene extends Component {
 
       </View>
   )};
+
   onRegionChangeComplete(region) {
     console.log(region);
   }
