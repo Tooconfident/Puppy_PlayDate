@@ -7,7 +7,8 @@ import {
   ListView,
   Navigator,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 import DogProfile from './DogProfile';
@@ -32,6 +33,7 @@ class UserDogs extends Component {
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
       loaded: false,
+      userID: 0,
     };
     // var dataSource = new ListView.DataSource(
     //   {rowHasChanged: (r1, r2) => r1 !== r2}
@@ -42,12 +44,22 @@ class UserDogs extends Component {
   }
 
   componentDidMount(){
-    this.fetchData();
+    AsyncStorage.getItem("userID").then((value) => {
+      console.log('userID: current.val '+ value);
+      this.setState({
+        userID: value
+      });
+    })
+    .then((value) => {
+      this.fetchData();
+    })
+    .done();
   }
 
   fetchData(){
+    console.log("fetchData for UserDogs using " + this.state.userID + "for userID");
     // assume a user_id is passed to this component
-    fetch(REQUEST_URL + this.props.user_id)
+    fetch(REQUEST_URL + this.state.userID)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
@@ -71,7 +83,7 @@ class UserDogs extends Component {
     console.log("onPressEdit")
     this.props.navigator.push({
       component: UserEdit,
-      passProps: { user_id: this.props.user_id },
+      passProps: { user_id: this.state.userID },
     });
   }
 
