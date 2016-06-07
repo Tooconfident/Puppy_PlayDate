@@ -89,7 +89,7 @@ class MapScene extends Component {
   onPressProfile(){
     console.log('PressProfile');
     this.props.navigator.push ({
-      title: 'Profile Page',
+      title: 'Profile',
       component: UserDogs,
       passProps: {userData: this.props.userData, userId: this.props.userId}
     })
@@ -98,7 +98,7 @@ class MapScene extends Component {
   onPressPlayDate(){
     console.log('PressPlayDate');
     this.props.navigator.push ({
-      title: 'Playdates Page',
+      title: 'Playdates',
       component: PlayDates,
       passProps: {userData: this.props.userData, userId: this.props.userId}
     })
@@ -121,7 +121,7 @@ class MapScene extends Component {
           showsPointsOfInterest= {false}
           // onMarkerPress= show event // callback function
           // onMarkSelect= go to group page // these two may have to be flipped
-          >
+        >
           <MapView.Marker
             ref="m1"
             coordinate={markers[0].coordinate}
@@ -147,31 +147,29 @@ class MapScene extends Component {
             </MapView.Callout>
           </MapView.Marker>
         </MapView>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.show} style={[styles.bubble, styles.button]}>
-            <Text>Show</Text>
+
+        <View style={styles.tabBar}>
+          <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Home</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.hide} style={[styles.bubble, styles.button]}>
-            <Text>Hide</Text>
+
+          <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Profile</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
+            <Text>Playdates</Text>
+          </TouchableOpacity>
+
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.logout.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
+            <Text>Logout</Text>
+          </TouchableHighlight>
         </View>
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={this.onPressHome.bind(this)} style={styles.button}>
-              <Text>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={styles.button}>
-              <Text>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={styles.button}>
-              <Text>Playdates</Text>
-            </TouchableOpacity>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={this.logout.bind(this)}
-            >
-              <Text>Logout</Text>
-            </TouchableHighlight>
-          </View>
+
       </View>
   )};
   onRegionChangeComplete(region) {
@@ -181,7 +179,13 @@ class MapScene extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   map: {
     position: 'absolute',
@@ -189,30 +193,45 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    flex: 9,
-    width: width,
-    height: height,
-    borderWidth: 1,
+    //flex: 9,
+    // flex: 4,
+    // width: width,
+    // height: height,
+    // borderWidth: 1,
+    backgroundColor: 'blue',
   },
   bubble: {
     flex: 1,
     backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
+    // borderRadius: 20,
   },
   latlng: {
     width: 200,
     alignItems: 'stretch',
   },
   button: {
-    width: 80,
-    paddingHorizontal: 12,
+    height: height * .08,
+    width: width * .20,
     alignItems: 'center',
-    marginHorizontal: 10,
+    justifyContent: 'center'
   },
   buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+  },
+  tabBar: {
+    // flex: 1,
+    // flexDirection: 'row',
+    // justifyContent: 'space-around',
+    // backgroundColor: '#e6f2ff',
+    // alignSelf: 'flex-end',
+    // marginTop: 100,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
