@@ -97,6 +97,7 @@ class Login extends Component {
         console.log(responseData)
         if (responseData.success != false){
           //Login successfully
+          this.makeSession(responseData);
           this.props.navigator.push({
             title: 'Puppy Playdate',
             component: MapScene,
