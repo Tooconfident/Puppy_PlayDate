@@ -3,7 +3,7 @@ import {
   AppRegistry,
   Image,
   ListView,
-  Navigator,
+  NavigatorIOS,
   StyleSheet,
   TabBarIOS,
   Text,
@@ -27,11 +27,15 @@ class PlayDates extends Component {
       dataSource : new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
-      loaded: false
+      loaded: false,
+      ola: "false",
     };
+
+    console.log("Constructor for Playdates called");
   }
 
-  componentDidMount(){
+  componentWillMount(){
+
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val '+ value);
         this.setState({userID: value});
@@ -40,6 +44,8 @@ class PlayDates extends Component {
       this.fetchData();
     })
     .done();
+
+    console.log("componentDidMount for Playdates called");
   }
 
   fetchData(){
@@ -79,6 +85,7 @@ class PlayDates extends Component {
               {', '}
               <Text style={styles.subtitle}>Day and Time:</Text> {rowData.time_day}
             </Text>
+            <Text>{this.props.ola}</Text>
             <Text>
               <Text style={styles.subtitle}>Description:</Text> {rowData.description}
             </Text>
@@ -116,7 +123,7 @@ class PlayDates extends Component {
         <TouchableHighlight
           style={styles.editButton}
           onPress={() => this.addGroupPressed()}>
-          <Text>Add</Text>
+          <Text>Add<Text>{this.props.quickfix}</Text></Text>
         </TouchableHighlight>
 
         <View style={styles.container}>
@@ -125,6 +132,7 @@ class PlayDates extends Component {
             renderRow={this.renderRow.bind(this)}
           />
         </View>
+
       </View>
     );
   }

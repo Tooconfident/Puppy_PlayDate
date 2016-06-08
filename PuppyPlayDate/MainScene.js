@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   View,
-  Navigator,
+  NavigatorIOS,
   TouchableHighlight,
   TabBarIOS,
   selectedTab,

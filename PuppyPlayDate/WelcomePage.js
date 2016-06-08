@@ -6,7 +6,7 @@ import {
   View,
   ListView,
   PropTypes,
-  Navigator,
+  NavigatorIOS,
   AlertIOS,
   LinkingIOS,
   TabBarIOS,
