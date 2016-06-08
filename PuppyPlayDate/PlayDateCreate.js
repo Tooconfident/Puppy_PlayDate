@@ -17,6 +17,8 @@ import MainScene from './MainScene';
 import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
+const styles = require('./style.js')
+
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
@@ -85,78 +87,82 @@ class PlayDateCreate extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.pageTitle}>
-          Create your new PlayDate
-        </Text>
+        <View style={styles.innerContainer}>
 
-        <Text style={styles.label}>Group Name:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.name}
-          onChangeText={(text) => this.setState({name: text})}
-        />
+          <Text style={[styles.pageHeading, {color: 'black'}]}>
+            Create your new playdate
+          </Text>
 
-        <Text style={styles.label}>Address:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.address}
-          onChangeText={(text) => this.setState({address: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.name}
+            placeholder="Playdate Name"
+            onChangeText={(text) => this.setState({name: text})}
+          />
 
-        <Text style={styles.label}>Time & Day of Week:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.time_day}
-          onChangeText={(text) => this.setState({time_day: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.address}
+            placeholder="Address"
+            onChangeText={(text) => this.setState({address: text})}
+          />
 
-        <Text style={styles.label}>Description:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.description}
-          onChangeText={(text) => this.setState({description: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.time_day}
+            placeholder="Time & Day of Week"
+            onChangeText={(text) => this.setState({time_day: text})}
+          />
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.createGroupPressed()}>
-          <Text>Create PlayDate</Text>
-        </TouchableHighlight>
+          <TextInput
+            style={[styles.inputText, styles.textArea]}
+            value={this.state.description}
+            multiline={true}
+            placeholder="Description"
+            onChangeText={(text) => this.setState({description: text})}
+          />
+
+          <TouchableHighlight
+            style={styles.submitButton}
+            onPress={() => this.createGroupPressed()}>
+            <Text style={styles.buttonText}>Create Playdate</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 14,
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  inputText: {
-    height: 30,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 10,
-    backgroundColor: '#EBFAFF',
-    marginBottom: 10,
-  },
-  textArea: {
-    height: 100,
-  },
-  label: {
-    fontSize: 14,
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontSize: 14,
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   inputText: {
+//     height: 30,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     borderRadius: 16,
+//     padding: 10,
+//     backgroundColor: '#EBFAFF',
+//     marginBottom: 10,
+//   },
+//   textArea: {
+//     height: 100,
+//   },
+//   label: {
+//     fontSize: 14,
+//   }
+// });
 
 module.exports = PlayDateCreate;
