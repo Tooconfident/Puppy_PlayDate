@@ -136,6 +136,7 @@ class MapScene extends Component {
       }
     })
   }
+  
 
   render() {
     if (!this.state.loaded) {
