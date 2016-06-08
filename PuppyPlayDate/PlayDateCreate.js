@@ -3,7 +3,7 @@ import {
   AppRegistry,
   AsyncStorage,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   StyleSheet,
   Text,

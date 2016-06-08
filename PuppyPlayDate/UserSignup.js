@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   TouchableHighlight,
   AsyncStorage,
