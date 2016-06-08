@@ -30,6 +30,7 @@ module.exports = require('react-native').StyleSheet.create({
     // borderWidth: 3,
     // margin: 0,
     // padding: 0,
+    backgroundColor: '#ffb272',    
   },
   innerContainer: {
     flex: 1,
