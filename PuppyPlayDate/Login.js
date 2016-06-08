@@ -97,56 +97,55 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <Image source={require('./Resources/0.jpg')} style={styles.bImage}>
-          <View style={styles.topMargin}>
-          </View>
-          <View style={styles.container}>
-            <View style={styles.outterMargin}>
-            </View>
+          <View style={styles.innerContainer}>
 
-            <View style={styles.content}>
-              <Text style={styles.text}>
-                Login
+            <View style={styles.mainContent}>
+
+              <Text style={styles.pageHeading}>
+                Your dog also needs to have fun!
               </Text>
+
               <TextInput
                 placeholder="Username"
-                style={styles.input}
+                style={styles.inputText}
                 value={this.state.username}
                 onChangeText={(text) => this.setState({username: text})}
                 autoCapitalize={'none'}
                 autoCorrect={false}
               />
 
-            <TextInput
-              placeholder="Password"
-              style={styles.input}
-              secureTextEntry={true}
-              value={this.state.password}
-              onChangeText={(text) => this.setState({password: text})}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-            />
-            <TouchableHighlight
-              style={styles.button}
-              onPress={this.loginPress.bind(this)}>
-              <Text style={styles.buttonText}>
-                Login
-              </Text>
-            </TouchableHighlight>
+              <TextInput
+                placeholder="Password"
+                style={styles.inputText}
+                secureTextEntry={true}
+                value={this.state.password}
+                onChangeText={(text) => this.setState({password: text})}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+              />
+              <TouchableHighlight
+                style={styles.submitButton}
+                onPress={this.loginPress.bind(this)}>
+                <Text style={styles.buttonText}>
+                  Login
+                </Text>
+              </TouchableHighlight>
+            </View>
 
-            <TouchableHighlight
-              style={styles.button}
-              onPress={this.onPressSignup.bind(this)}>
-              <Text style={styles.buttonText}>
-                Sign Up
-              </Text>
-            </TouchableHighlight>
+            <View style={styles.pageFooter}>
+              <TouchableHighlight
+                style={[styles.submitButton, styles.signupButton]}
+                onPress={this.onPressSignup.bind(this)}>
+                <Text style={styles.buttonText}>
+                  Sign Up
+                </Text>
+              </TouchableHighlight>
+            </View>
+
           </View>
-        <View style={styles.outterMargin}>
-        </View>
-      </View>
-      </Image>
+        </Image>
       </View>
     );
   }

@@ -15,7 +15,8 @@ import {
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
-import Navbar from './Navbar';
+
+const styles = require('./style.js');
 
 var REQUEST_URL = 'http://localhost:3000/playdates';
 
@@ -75,20 +76,19 @@ class PlayDates extends Component {
   renderRow(rowData, sectionID, rowID){
     return(
       <TouchableHighlight onPress={() => this.onPressPlayDate(rowData.id)}>
-        <View style={styles.rowContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>
+        <View style={styles.listEntry}>
+          <View style={styles.listEntryContent}>
+
+            <Text style={styles.entryLabel}>
               {rowData.name}
             </Text>
-            <Text>
-              <Text style={styles.subtitle}>Location:</Text> {rowData.location}
-              {', '}
-              <Text style={styles.subtitle}>Day and Time:</Text> {rowData.time_day}
-            </Text>
-            <Text>{this.props.ola}</Text>
-            <Text>
-              <Text style={styles.subtitle}>Description:</Text> {rowData.description}
-            </Text>
+
+            <Text style={styles.entryLabel}>Location: <Text style={styles.entryText}>{rowData.location}</Text></Text>
+
+            <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
+
+            <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{rowData.description}</Text></Text>
+
           </View>
         </View>
       </TouchableHighlight>
@@ -110,70 +110,68 @@ class PlayDates extends Component {
     }
 
     return (
-      <View style={{marginTop: 80, flex: 1}}>
-        <TouchableHighlight
-          style={styles.editButton}
-          onPress={() => this.addGroupPressed()}>
-          <Text>Add<Text>{this.props.quickfix}</Text></Text>
-        </TouchableHighlight>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <TouchableHighlight
+            onPress={() => this.addGroupPressed()}>
+            <Text>Add</Text>
+          </TouchableHighlight>
 
-        <View style={styles.container}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />
         </View>
-
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  editButton: {
-    borderWidth: 1,
-    padding: 10,
-    alignSelf: 'flex-end',
-  },
-  textContainer: {
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    padding: 10,
-    borderBottomWidth: 2,
-  },
-  pageTitle: {
-    marginTop: 20,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    backgroundColor: 'skyblue',
-    marginBottom: 6,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexWrap: 'wrap',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   editButton: {
+//     borderWidth: 1,
+//     padding: 10,
+//     alignSelf: 'flex-end',
+//   },
+//   textContainer: {
+//     flex: 1,
+//     flexWrap: 'wrap',
+//   },
+//   rowContainer: {
+//     flexDirection: 'column',
+//     padding: 10,
+//     borderBottomWidth: 2,
+//   },
+//   pageTitle: {
+//     marginTop: 20,
+//   },
+//   title: {
+//     fontWeight: 'bold',
+//     fontSize: 20,
+//   },
+//   subtitle: {
+//     fontWeight: 'bold',
+//     fontSize: 14,
+//   },
+//   navbar: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     marginTop: 20,
+//     backgroundColor: 'skyblue',
+//     marginBottom: 6,
+//   },
+// });
 
 module.exports = PlayDates;

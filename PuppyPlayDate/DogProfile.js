@@ -5,6 +5,7 @@ import {
   Text,
   View,
   ListView,
+  ScrollView,
   NavigatorIOS,
   Image,
   TouchableHighlight
@@ -12,7 +13,8 @@ import {
 
 import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
-import Navbar from './Navbar';
+
+const styles = require('./style.js');
 
 var REQUEST_URL = 'http://localhost:3000/dogs/';
 
@@ -71,66 +73,90 @@ class DogProfile extends Component {
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-          <Text>Edit</Text>
-        </TouchableHighlight>
+        <View style={styles.innerContainer}>
 
-        <View style={styles.container}>
-          <Image style={styles.dogImage} source={{ uri: dog.avatar }} />
-          <Text>Owner:  {dog.owner_username}</Text>
-          <Text>Breed:  {dog.breed}</Text>
-          <Text>Age:  {dog.age}</Text>
-          <Text>Favorite Toy:  {dog.toy}</Text>
-          <Text>PlayDates: N/A</Text>
-          <Text>Gender:  {dog.gender}</Text>
-          <Text>Description: </Text>
-          <Text style={styles.dogDescription}>
-             {dog.description}
-          </Text>
+          <ScrollView>
+            <View style={{alignSelf: 'center'}}>
+              <TouchableHighlight onPress={() => this.onPressEdit()}>
+                <Text style={{alignSelf: 'center'}}>Edit</Text>
+              </TouchableHighlight>
+              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
+              <Text style={styles.entryLabel}>{dog.name}</Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Breed: <Text style={styles.entryText}>{dog.breed}</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Age: <Text style={styles.entryText}>{dog.age}</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Favorite Toy: <Text style={styles.entryText}>{dog.toy}</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>PlayDates: <Text style={styles.entryText}>N/A</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Gender: <Text style={styles.entryText}>{dog.gender}</Text></Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{dog.description}</Text></Text>
+
+            </View>
+          </ScrollView>
         </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 75,
-  },
-  text: {
-    fontSize: 14,
-  },
-  dogImage: {
-    width: 128,
-    height: 128,
-    borderRadius: 128/2,
-  },
-  dogDescription: {
-    height: 50,
-  },
-  backButton: {
-    borderWidth: 1,
-    padding: 10,
-    alignSelf: 'flex-start'
-  },
-  editButton: {
-    borderWidth: 1,
-    padding: 10,
-    alignSelf: 'flex-end',
-  },
-  backButtonText: {
-    fontSize: 14,
-    borderRadius: 12,
-    fontWeight: 'bold',
-  },
-  navbar: {
-    marginTop: 20,
-    backgroundColor: 'skyblue',
-    marginBottom: 6,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     marginTop: 75,
+//   },
+//   text: {
+//     fontSize: 14,
+//   },
+//   dogImage: {
+//     width: 128,
+//     height: 128,
+//     borderRadius: 128/2,
+//   },
+//   dogDescription: {
+//     height: 50,
+//   },
+//   backButton: {
+//     borderWidth: 1,
+//     padding: 10,
+//     alignSelf: 'flex-start'
+//   },
+//   editButton: {
+//     borderWidth: 1,
+//     padding: 10,
+//     alignSelf: 'flex-end',
+//   },
+//   backButtonText: {
+//     fontSize: 14,
+//     borderRadius: 12,
+//     fontWeight: 'bold',
+//   },
+//   navbar: {
+//     marginTop: 20,
+//     backgroundColor: 'skyblue',
+//     marginBottom: 6,
+//   },
+// });
 
 module.exports = DogProfile;
