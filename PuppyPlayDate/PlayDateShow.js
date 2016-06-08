@@ -7,6 +7,7 @@ import {
   ListView,
   NavigatorIOS,
   Image,
+  AlertIOS,
   TouchableHighlight,
 } from 'react-native';
 
@@ -14,6 +15,7 @@ import PlayDateEdit from "./PlayDateEdit";
 import Navbar from "./Navbar";
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
+var LEAVE_URL = 'http://localhost:3000/memberships/leave';
 
 class PlayDateShow extends Component {
   constructor(props) {
@@ -26,7 +28,15 @@ class PlayDateShow extends Component {
   }
 
   componentDidMount(){
-    console.log("PlayDateShow: componentDidMount: " + this.props.playdate_id);
+    // AsyncStorage.getItem("userID").then((value) => {
+    //   console.log('current.val '+ value);
+    //     this.setState({userID: value});
+    // })
+    // .then((value) => {
+    //   this.fetchData();
+    // })
+    // .done();
+
     this.fetchData();
   }
 
@@ -46,6 +56,37 @@ class PlayDateShow extends Component {
     this.props.navigator.pop();
   }
 
+  leavePlaydate() {
+    console.log(this.props.playdate_id)
+    console.log("press leave")
+    fetch(LEAVE_URL, {
+      method: "POST",
+      hearders: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.playdate_id,
+        dog_id: this.props.dog_id,
+      })
+    })
+    .then((response) => {
+        console.log(response);
+        return response.json()
+      })
+      .then((responseData) => {
+        console.log(responseData)
+        if(responseData.success) {
+          render()
+        } else {
+          AlertIOS.alert(
+            "Something went wrong!"
+          );
+        }
+      })
+      .done();
+  }
+
   onPressEdit() {
     console.log("onPressEdit");
     this.props.navigator.push({
@@ -55,6 +96,22 @@ class PlayDateShow extends Component {
       // Note the value has to be an object of key-value properties!
       passProps: { playdate_id: this.props.playdate_id }
     });
+  }
+
+  onPressLeave() {
+
+    AlertIOS.alert(
+      "Leave Group?",
+      "",
+      [
+      {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'Yes', onPress: () => {
+        this.leavePlaydate();
+        this.render();
+
+        }},
+      ],
+      );
   }
 
   render() {
@@ -70,8 +127,10 @@ class PlayDateShow extends Component {
           <Text style={styles.pageTitle}>
             {group.name}
           </Text>
-          <Text>Join</Text>
-          <Text>Leave</Text>
+          <TouchableHighlight onPress={() => this.onPressLeave()}>
+            <Text>Leave Group</Text>
+          </TouchableHighlight>
+          <Text>Join Group</Text>
           <Text>
             Location: {group.location}
           </Text>
