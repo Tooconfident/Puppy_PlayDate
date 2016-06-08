@@ -150,24 +150,36 @@ class MapScene extends Component {
 
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
-            <Text>Home</Text>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/dog-house.png')}>
+            </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
-            <Text>Profile</Text>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/dog_paw.png')}>
+            </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
-            <Text>Playdates</Text>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/bone2.png')}>
+            </Image>
           </TouchableOpacity>
 
-          <TouchableHighlight
+          <TouchableOpacity
             style={styles.button}
             onPress={this.logout.bind(this)}
             style={[styles.button, styles.bubble]}
           >
-            <Text>Logout</Text>
-          </TouchableHighlight>
+          <Image
+            style={styles.icon}
+            source={require('./Resources/log_out.png')}>
+          </Image>
+          </TouchableOpacity>
         </View>
 
       </View>
@@ -194,19 +206,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    //flex: 9,
-    // flex: 4,
-    // width: width,
-    // height: height,
-    // borderWidth: 1,
     backgroundColor: 'blue',
   },
   bubble: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    // borderRadius: 20,
+    backgroundColor: 'rgba(10,41,41,0.4)',
   },
   latlng: {
     width: 200,
@@ -217,6 +221,10 @@ const styles = StyleSheet.create({
     width: width * .20,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  icon: {
+    height: 30,
+    width: 30,
   },
   buttonContainer: {
     flex: 1,
