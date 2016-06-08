@@ -141,7 +141,7 @@ class MapScene extends Component {
           >
           {this.state.playdates.map(playdate => (
             <MapView.Marker
-            coordinate={JSON.parse(playdate.location).coordinate}
+            coordinate={JSON.parse(playdate.location)}
             title={playdate.name}
             description={playdate.description}
             />
