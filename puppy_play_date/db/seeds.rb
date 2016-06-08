@@ -19,7 +19,8 @@ CSV.foreach('./db/data/breeds.csv') do |row|
 end
 
 # Create fake users
-500.times do
+# 500.times do
+20.times do
   user = User.create!(
     name: Faker::Name.name,
     username: Faker::Internet.user_name,
@@ -49,7 +50,7 @@ end
   Playdate.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.paragraph,
-    location: "1, 2",
+    location: "{\"coordinate\":{\"latitude\": " + (rand()*(37.8-37.71)+37.71).to_s + ", \"longitude\": " + ((rand()*(122.48-122.39)+122.39)* -1).to_s + "}}",
     frequency: [nil, "daily", "weekly", "monthly"].sample,
     time_day: "#{Date::DAYNAMES.sample} at #{rand(0..24)}",
     organizer: User.all.sample,
