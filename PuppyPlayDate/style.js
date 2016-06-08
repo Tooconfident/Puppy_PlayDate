@@ -27,23 +27,23 @@ module.exports = require('react-native').StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     // flexDirection: 'column',
-    // borderWidth: 3,
+     borderWidth: 3,
     // margin: 0,
     // padding: 0,
     backgroundColor: '#ffb272',
   },
   innerContainer: {
     flex: 1,
-    //borderWidth: 1,
+    borderWidth: 1,
     borderColor: 'red',
     // make things inside inner container centered
     justifyContent: 'center',
     marginTop: 64, // need this because of the navigation bar
   },
-  topMargin:{
+  topMargin: {
       height:20,
   },
-  input:{
+  input: {
     height: 40,
     marginBottom:0,
     borderRadius:5,
@@ -124,8 +124,7 @@ module.exports = require('react-native').StyleSheet.create({
     flex: 0.2,
   },
   profileEntry: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    //alignItems: 'center',
     //borderTopWidth: 1,
     borderBottomWidth: 1,
     // paddingLeft: 6,
@@ -140,10 +139,32 @@ module.exports = require('react-native').StyleSheet.create({
   },
   entryText: {
     fontSize: 16,
+    fontWeight: 'normal',
   },
   profileAvatar: {
     width: 128,
     height: 128,
     borderRadius: 128/2,
+    borderWidth: 1,
+    alignSelf: 'center',
+    marginBottom: 12,
+    marginTop: 0,
+  },
+  listEntry: {
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    padding: 12,
+    marginLeft: 12,
+    marginRight: 12,
+  },
+  listEntryContent: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  entryAvatar: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+    borderRadius: 50/2,
   },
 });
