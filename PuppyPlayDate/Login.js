@@ -102,7 +102,7 @@ class Login extends Component {
           <View style={styles.innerContainer}>
 
             <View style={styles.mainContent}>
-            
+
               <Text style={styles.pageHeading}>
                 Your dog also needs to have fun!
               </Text>
