@@ -152,24 +152,21 @@ class MapScene extends Component {
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/bone4.jpeg')}>
-              <Text>Home</Text>
+              source={require('./Resources/dog-house.png')}>
             </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/bone4.jpeg')}>
-            <Text>Profile</Text>
+              source={require('./Resources/dog_paw.png')}>
             </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/bone4.jpeg')}>
-            <Text>Playdates</Text>
+              source={require('./Resources/bone2.png')}>
             </Image>
           </TouchableOpacity>
 
@@ -180,8 +177,7 @@ class MapScene extends Component {
           >
           <Image
             style={styles.icon}
-            source={require('./Resources/bone4.jpeg')}>
-            <Text>Logout</Text>
+            source={require('./Resources/log_out.png')}>
           </Image>
           </TouchableOpacity>
         </View>
@@ -235,7 +231,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   icon: {
-    flex: 1,
+    height: 30,
+    width: 30,
   },
   buttonContainer: {
     flex: 1,
