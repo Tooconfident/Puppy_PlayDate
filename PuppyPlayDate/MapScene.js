@@ -19,6 +19,7 @@ import {
 import MapView from 'react-native-maps';
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
+import PlayDateShow from './PlayDateShow';
 
 var { width, height } = Dimensions.get('window');
 
@@ -121,10 +122,19 @@ class MapScene extends Component {
 
   logout() {
     AsyncStorage.removeItem("userID");
-    //AsyncStorage.clear();
-
-    // Go back to the login page
     this.props.navigator.pop();
+  }
+
+  onPlaydateMarker(playdateName) {
+    console.log("bubble link clicked");
+    this.props.navigator.push ({
+      title: playdateName.name,
+      component: PlayDateShow,
+      passProps: {
+        userID: this.props.userID,
+        playdate_id: String(playdateName.id)
+      }
+    })
   }
 
   render() {
@@ -148,10 +158,15 @@ class MapScene extends Component {
           >
           {this.state.playdates.map(playdate => (
             <MapView.Marker
-            coordinate={JSON.parse(playdate.location)}
-            title={playdate.name}
-            description={playdate.description}
-            />
+            coordinate={JSON.parse(playdate.location)}>
+              <MapView.Callout>
+                <View>
+                  <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
+                    <Text>{playdate.name}</Text>
+                  </TouchableOpacity>
+                </View>
+              </MapView.Callout>
+            </MapView.Marker>
           ))}
         </MapView>
 
