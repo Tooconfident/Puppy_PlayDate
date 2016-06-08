@@ -39,11 +39,12 @@ class DogProfile extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         console.log("fetchData for DogProfile: " + responseData);
-
-        this.setState({
-          dog: responseData,
-          loaded: true,
-        });
+        for (let data in responseData) {
+          this.setState({
+            [data]:responseData[data]
+          });
+        }
+        this.setState({loaded: true,});
       })
       .done();
   }
@@ -59,16 +60,19 @@ class DogProfile extends Component {
       component: DogEdit,
       // Make sure to pass the playdate_id to the Edit component
       // Note the value has to be an object of key-value properties!
-      passProps: { dog_id: this.props.dog_id }
+      passProps: {
+        dog_id: this.props.dog_id
+      }
     });
   }
 
   render() {
-    var dog = this.state.dog;
+    var dog = this.state;
+
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-        <Text>Edit</Text>
+          <Text>Edit</Text>
         </TouchableHighlight>
 
         <View style={styles.container}>
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 75,
   },
   text: {
     fontSize: 14,
