@@ -30,7 +30,7 @@ module.exports = require('react-native').StyleSheet.create({
     // borderWidth: 3,
     // margin: 0,
     // padding: 0,
-    backgroundColor: '#ffb272',    
+    backgroundColor: '#ffb272',
   },
   innerContainer: {
     flex: 1,
@@ -90,6 +90,9 @@ module.exports = require('react-native').StyleSheet.create({
     borderRadius: 9,
     borderColor: '#904507',
     backgroundColor: 'rgba(255, 156, 74, 0.75)'//'#ff9c4a',
+  },
+  textArea: {
+    height: 150,
   },
   submitButton: {
     height: 50,
