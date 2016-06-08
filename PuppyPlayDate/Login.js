@@ -12,17 +12,22 @@ import {
   AsyncStorage,
   AlertIOS
 } from 'react-native';
-import MapScene from './MapScene'
-const styles = require('./style.js')
-const REQUEST_URL ='http://localhost:3000/session/login'
 
+import MapScene from './MapScene'
 import MainScene from './MainScene';
 import UserSignup from './UserSignup';
+
+const styles = require('./style.js')
+
+const REQUEST_URL ='http://localhost:3000/session/login'
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      username: "",
+      password: "",
       userID: 0,
     };
   }
@@ -34,7 +39,7 @@ class Login extends Component {
     }).done();
   }
 
-  loginPress(){
+  loginPress() {
     fetch(REQUEST_URL, {
       method: 'POST',
       headers: {
@@ -49,18 +54,22 @@ class Login extends Component {
     .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
-        if (responseData.success != false){
+        if (responseData.success != false) {
           //Login successfully
           this.makeSession(responseData);
+
+          // Redirect to Home scene
           this.props.navigator.push({
             title: 'Puppy Playdate',
             component: MapScene,
             leftButtonTitle: ' ',
             id: 'mapscene',
           })
+
+          // Makes sure to clean up the form after logging in
           this.setState({
-            username: '',
-            password: ''
+            //username: '',
+            password: '',
           });
 
         } else {
@@ -80,14 +89,10 @@ class Login extends Component {
     });
   }
 
-  makeSession(userID){
+  makeSession(userID) {
     console.log('state'+ this.state.userID);
     AsyncStorage.setItem("userID", String(userID));
     console.log('new-state'+ this.state.userID);
-    //this.props.navigator.popToTop();
-      // AsyncStorage.getItem("userID").then((value) => {
-      //         this.setState({"userID": value});
-      // }).done();
   }
 
   render() {
@@ -112,9 +117,7 @@ class Login extends Component {
                 autoCapitalize={'none'}
                 autoCorrect={false}
               />
-            {
-              //secureTextEntry={true} add this line on production
-          }
+
             <TextInput
               placeholder="Password"
               style={styles.input}
@@ -148,6 +151,5 @@ class Login extends Component {
     );
   }
 }
-
 
 module.exports = Login;
