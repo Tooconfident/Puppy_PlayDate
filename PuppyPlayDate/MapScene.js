@@ -105,7 +105,9 @@ class MapScene extends Component {
       component: UserDogs,
       passProps: {
         userID: this.props.userID,
-      }
+      },
+      // leftButtonTitle: 'Map',
+      // onLeftButtonPress: () => this.props.navigator.pop(),
     })
   }
 
@@ -116,7 +118,9 @@ class MapScene extends Component {
       component: PlayDates,
       passProps: {
         userID: this.props.userID,
-      }
+      },
+      //leftButtonTitle: 'Map',
+      //onLeftButtonPress: () => this.props.navigator.pop(),
     })
   }
 

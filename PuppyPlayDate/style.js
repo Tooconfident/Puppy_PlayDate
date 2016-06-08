@@ -53,7 +53,7 @@ module.exports = require('react-native').StyleSheet.create({
     color: '#FFF',
     alignItems: 'center',
   },
-  button:{
+  button: {
     borderRadius: 4,
     borderColor:'#bbb',
     backgroundColor: '#333',
@@ -61,8 +61,24 @@ module.exports = require('react-native').StyleSheet.create({
     padding: 5,
     flex: 1,
   },
-  outterMargin:{
-    flex: 1,
+  addButton: {
+    height: 30,
+    backgroundColor: '#904507',
+    alignSelf: 'center',
+    //marginTop: 10,
+    padding: 12,
+    borderWidth: 1,
+    borderRadius: 9,
+    justifyContent: 'center',
+    marginLeft: 24,
+    marginRight: 24,
+    marginBottom: 12,
+    marginTop: 12,
+  },
+  addButtonText: {
+    color: '#ffb272',
+    fontSize: 14,
+    alignSelf: 'center',
   },
   mainContent: {
     flex: 0.8,

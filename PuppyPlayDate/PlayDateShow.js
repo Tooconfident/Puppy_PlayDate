@@ -13,6 +13,8 @@ import {
 
 import PlayDateEdit from "./PlayDateEdit";
 
+const styles = require('./style.js');
+
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 
 class PlayDateShow extends Component {
@@ -20,7 +22,14 @@ class PlayDateShow extends Component {
     super(props);
 
     this.state = {
-      group: {},
+      name: "",
+      description: "",
+      location: "",
+      address: "",
+      frequency: "",
+      time_day: "",
+      user_id: "",
+      member_count: "",
       loaded: false,
     };
   }
@@ -34,10 +43,12 @@ class PlayDateShow extends Component {
     fetch(REQUEST_URL + this.props.playdate_id)
       .then((response) => response.json())
       .then((responseData) => {
-        this.setState({
-          group: responseData,
-          loaded: true,
-        });
+        for (let data in responseData) {
+          this.setState({
+            [data]:responseData[data]
+          });
+        }
+        this.setState({loaded: true,});
       })
       .done();
   }
@@ -58,35 +69,54 @@ class PlayDateShow extends Component {
   }
 
   render() {
-    var group = this.state.group;
+    var group = this.state;
 
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <ScrollView>
-            <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-              <Text>Edit</Text>
-            </TouchableHighlight>
 
-            <View style={styles.container}>
-              <Text style={styles.pageTitle}>
+          <ScrollView>
+            <View style={{alignSelf: 'center'}}>
+              <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+                <Text style={{alignSelf: 'center'}}>Edit</Text>
+              </TouchableHighlight>
+            </View>
+
+            <View style={{alignSelf: 'center'}}>
+              <Text style={styles.entryLabel}>
                 {group.name}
               </Text>
-              <Text>Join</Text>
+            </View>
+
+            <View style={{alignSelf: 'center', flexDirection: 'row'}}>
+              <Text>Join </Text>
               <Text>Leave</Text>
-              <Text>
-                Location: {group.location}
-              </Text>
-              <Text>
-                Creator: Creator Name
-              </Text>
-              <Text>
-                Number of Dogs: {group.member_count}
-              </Text>
-              <Text>
-                Description: {group.description}
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>
+                Address: <Text style={styles.entryText}>{group.address}</Text>
               </Text>
             </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>
+                Creator: <Text style={styles.entryText}>Creator Name</Text>
+              </Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>
+                Number of Dogs: <Text style={styles.entryText}>{group.member_count}</Text>
+              </Text>
+            </View>
+
+            <View style={styles.profileEntry}>
+              <Text style={styles.entryLabel}>
+                Description: <Text style={styles.entryText}>{group.description}</Text>
+              </Text>
+            </View>
+
           </ScrollView>
         </View>
       </View>
@@ -94,50 +124,50 @@ class PlayDateShow extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 70,
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  editButton: {
-    borderWidth: 1,
-    padding: 10,
-    alignSelf: 'flex-end',
-  },
-  backButton: {
-    borderWidth: 1,
-    padding: 10,
-    alignSelf: 'flex-start'
-  },
-  textContainer: {
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    padding: 10,
-    borderBottomWidth: 2,
-  },
-  pageTitle: {
-    marginTop: 20,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexWrap: 'wrap',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     marginTop: 70,
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   editButton: {
+//     borderWidth: 1,
+//     padding: 10,
+//     alignSelf: 'flex-end',
+//   },
+//   backButton: {
+//     borderWidth: 1,
+//     padding: 10,
+//     alignSelf: 'flex-start'
+//   },
+//   textContainer: {
+//     flex: 1,
+//     flexWrap: 'wrap',
+//   },
+//   rowContainer: {
+//     flexDirection: 'column',
+//     padding: 10,
+//     borderBottomWidth: 2,
+//   },
+//   pageTitle: {
+//     marginTop: 20,
+//   },
+//   title: {
+//     fontWeight: 'bold',
+//     fontSize: 20,
+//   },
+//   subtitle: {
+//     fontWeight: 'bold',
+//     fontSize: 14,
+//   },
+// });
 
 module.exports = PlayDateShow;
