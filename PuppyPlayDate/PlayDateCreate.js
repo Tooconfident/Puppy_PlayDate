@@ -36,15 +36,30 @@ class PlayDateCreate extends Component {
     }).done();
   }
 
+  getMarkerLatlng(address) {
+    address = address.toLowerCase().trim();
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyA-ZuNXFqKCOUj3Lmkv25H5AyBn-GO6-OY"
+    return fetch(url).then((res) => res.json());
+    // when using this method chain with this code to get the laglng in an object
+    // then((res) => console.log(res.results[0].geometry.location))
+  }
+
   createGroupPressed() {
     console.log('createGroupPressed');
     console.log('this.state: ' + this.state);
+
+    // var locResults = this.getMarkerLatlng(this.state.address).then((res) => { console.log("loc from google"); console.log(res.results[0].geometry.location);});
+
+    // Hardcode a random location in San Francisco
+    // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
+
     let data = {
       method: 'POST',
       body: JSON.stringify({
         name: this.state.name,
         time_day: this.state.time_day,
         address: this.state.address,
+        location: locResults.results[0].geometry.location,
         description: this.state.description,
         user_id: this.state.userID
       }),
@@ -53,6 +68,7 @@ class PlayDateCreate extends Component {
         'Content-Type': 'application/json'
       }
     }
+
     fetch('http://localhost:3000/playdates', data)
       .then((response) => response.json())  // promise
       .then((responseData) => {

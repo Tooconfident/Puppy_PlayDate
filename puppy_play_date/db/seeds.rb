@@ -50,7 +50,7 @@ end
   Playdate.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.paragraph,
-    location: "{\"coordinate\":{\"latitude\": " + (rand()*(37.8-37.71)+37.71).to_s + ", \"longitude\": " + ((rand()*(122.48-122.39)+122.39)* -1).to_s + "}}",
+    location: "{\"latitude\": " + (rand()*(37.8-37.71)+37.71).to_s + ", \"longitude\": " + ((rand()*(122.48-122.39)+122.39)* -1).to_s + "}",
     frequency: [nil, "daily", "weekly", "monthly"].sample,
     time_day: "#{Date::DAYNAMES.sample} at #{rand(0..24)}",
     organizer: User.all.sample,
