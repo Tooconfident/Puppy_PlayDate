@@ -12,6 +12,8 @@ import {
   AsyncStorage,
 } from 'react-native';
 
+import DogProfile from './DogProfile';
+
 const REQUEST_URL= 'http://localhost:3000/dogs';
 
 class DogCreate extends Component {
@@ -57,7 +59,13 @@ class DogCreate extends Component {
         console.log(responseData)
         if (responseData.success != false){
           //Add a Dog
-          this.props.navigator.popN(2);
+          //this.props.navigator.popN(2);
+          this.props.navigator.replacePreviousAndPop({
+            component: DogProfile,
+            passProps: {
+              dog_id: responseData.id,
+            },
+          });
         } else {
           AlertIOS.alert(
            'Something went wrong!'
