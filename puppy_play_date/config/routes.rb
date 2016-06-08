@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   post 'session/login'
 
+  post 'memberships/leave'
+
   get 'playdates/show_all'
 
   resources :users
