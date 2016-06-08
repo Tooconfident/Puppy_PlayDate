@@ -5,6 +5,7 @@ import {
   Text,
   View,
   ListView,
+  ScrollView,
   NavigatorIOS,
   Image,
   TouchableHighlight
@@ -73,52 +74,45 @@ class DogProfile extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-            <Text>Edit</Text>
-          </TouchableHighlight>
 
-          <View style={styles.container}>
-
+          <ScrollView>
             <View style={{alignSelf: 'center'}}>
+              <TouchableHighlight onPress={() => this.onPressEdit()}>
+                <Text style={{alignSelf: 'center'}}>Edit</Text>
+              </TouchableHighlight>
               <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
               <Text style={styles.entryLabel}>{dog.name}</Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Owner: </Text>
-              <Text style={styles.entryText}>{dog.owner_username}</Text>
+              <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Breed: </Text>
-              <Text style={styles.entryText}>{dog.breed}</Text>
+              <Text style={styles.entryLabel}>Breed: <Text style={styles.entryText}>{dog.breed}</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Age: </Text>
-              <Text style={styles.entryText}>{dog.age}</Text>
+              <Text style={styles.entryLabel}>Age: <Text style={styles.entryText}>{dog.age}</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Favorite Toy: </Text>
-              <Text style={styles.entryText}>{dog.toy}</Text>
+              <Text style={styles.entryLabel}>Favorite Toy: <Text style={styles.entryText}>{dog.toy}</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>PlayDates: </Text>
-              <Text style={styles.entryText}>N/A</Text>
+              <Text style={styles.entryLabel}>PlayDates: <Text style={styles.entryText}>N/A</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Gender: </Text>
-              <Text style={styles.entryText}>{dog.gender}</Text>
+              <Text style={styles.entryLabel}>Gender: <Text style={styles.entryText}>{dog.gender}</Text></Text>
             </View>
 
             <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Description: </Text>
-              <Text style={styles.entryText}>{dog.description}</Text>
+              <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{dog.description}</Text></Text>
+
             </View>
-          </View>
+          </ScrollView>
         </View>
       </View>
     );
