@@ -123,4 +123,27 @@ module.exports = require('react-native').StyleSheet.create({
     //borderWidth: 2,
     flex: 0.2,
   },
+  profileEntry: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    //borderTopWidth: 1,
+    borderBottomWidth: 1,
+    // paddingLeft: 6,
+    // paddingRight: 6,
+    padding: 12,
+    marginLeft: 12,
+    marginRight: 12,
+  },
+  entryLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  entryText: {
+    fontSize: 16,
+  },
+  profileAvatar: {
+    width: 128,
+    height: 128,
+    borderRadius: 128/2,
+  },
 });
