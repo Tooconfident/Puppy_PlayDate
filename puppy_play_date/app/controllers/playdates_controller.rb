@@ -5,6 +5,10 @@ class PlaydatesController < ApplicationController
     render json: Playdate.where(user_id: params[:user_id])
   end
 
+  def show_all
+    render json: Playdate.all
+  end
+
   def show
     render json: @playdate
   end
