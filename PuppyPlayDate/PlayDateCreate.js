@@ -3,7 +3,7 @@ import {
   AppRegistry,
   AsyncStorage,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   StyleSheet,
   Text,
@@ -14,6 +14,7 @@ import {
 
 import PlayDates from './PlayDates';
 import MainScene from './MainScene';
+import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
 class PlayDateCreate extends Component {
@@ -56,9 +57,10 @@ class PlayDateCreate extends Component {
       .then((response) => response.json())  // promise
       .then((responseData) => {
         console.log(responseData)
-        this.props.navigator.pop();
+        // Goes back to the map scene
+        this.props.navigator.popN(2);
       })
-      .catch((error) => console.log("boo"))
+      .catch((error) => console.log("An error occurred! " + error))
       .done();
   }
 

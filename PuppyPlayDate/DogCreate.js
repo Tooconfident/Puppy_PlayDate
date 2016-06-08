@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   TouchableHighlight,
   AsyncStorage,
@@ -22,7 +22,7 @@ class DogCreate extends Component {
     this.state = {
       name: "",
       breed: "",
-      age: 0,
+      age: "",
       toy: "",
       avatar: "",
     }
@@ -57,9 +57,7 @@ class DogCreate extends Component {
         console.log(responseData)
         if (responseData.success != false){
           //Add a Dog
-          this.props.navigator.pop();
-
-
+          this.props.navigator.popN(2);
         } else {
           AlertIOS.alert(
            'Something went wrong!'
@@ -67,8 +65,6 @@ class DogCreate extends Component {
         }
       })
       .done();
-
-    this.props.navigator.pop();
   }
 
   render() {

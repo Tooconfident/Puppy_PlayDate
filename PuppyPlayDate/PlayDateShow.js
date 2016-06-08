@@ -5,7 +5,7 @@ import {
   Text,
   View,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   TouchableHighlight,
 } from 'react-native';

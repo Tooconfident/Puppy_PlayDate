@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
   ListView,
-  Navigator,
+  NavigatorIOS,
   Image,
   TouchableHighlight,
   AsyncStorage,
@@ -55,7 +55,8 @@ class Login extends Component {
           this.props.navigator.push({
             title: 'Puppy Playdate',
             component: MapScene,
-            leftButtonTitle: ' '
+            leftButtonTitle: ' ',
+            id: 'mapscene',
           })
           this.setState({
             username: '',
