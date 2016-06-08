@@ -29,12 +29,13 @@ var data = [
 class UserDogs extends Component {
   constructor(props){
     super(props);
+
     this.state = {
       dataSource: new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
       loaded: false,
-      userID: 0,
+      userID: this.props.userID,
     };
     // var dataSource = new ListView.DataSource(
     //   {rowHasChanged: (r1, r2) => r1 !== r2}
@@ -44,7 +45,7 @@ class UserDogs extends Component {
     // }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
       console.log('userID: current.val '+ value);
       this.setState({
@@ -57,7 +58,7 @@ class UserDogs extends Component {
     .done();
   }
 
-  fetchData(){
+  fetchData() {
     console.log("fetchData for UserDogs using " + this.state.userID + "for userID");
     // assume a user_id is passed to this component
     fetch(REQUEST_URL + this.state.userID)
@@ -133,7 +134,7 @@ class UserDogs extends Component {
     }
 
     return(
-      <View style={{marginTop: 80}}>
+      <View style={{marginTop: 80, flex: 1}}>
         <TouchableHighlight style={styles.editButton} onPress={() => this.onPressAdd()}>
           <Text>Add</Text>
         </TouchableHighlight>
