@@ -17,6 +17,8 @@ import MainScene from './MainScene';
 import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
+const styles = require('./style.js')
+
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
@@ -44,14 +46,10 @@ class PlayDateCreate extends Component {
     // then((res) => console.log(res.results[0].geometry.location))
   }
 
-  createGroupPressed() {
-    console.log('createGroupPressed');
-    console.log('this.state: ' + this.state);
-
-    // var locResults = this.getMarkerLatlng(this.state.address).then((res) => { console.log("loc from google"); console.log(res.results[0].geometry.location);});
-
-    // Hardcode a random location in San Francisco
-    // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
+  persistPlayDate(res) {
+    var coordsJSONStringified = JSON.stringify(res.results[0].geometry.location);
+    coordsJSONStringified = coordsJSONStringified.replace('"lat"', '"latitude"');
+    coordsJSONStringified = coordsJSONStringified.replace('"lng"', '"longitude"');
 
     let data = {
       method: 'POST',
@@ -59,7 +57,7 @@ class PlayDateCreate extends Component {
         name: this.state.name,
         time_day: this.state.time_day,
         address: this.state.address,
-        location: locResults.results[0].geometry.location,
+        location: coordsJSONStringified,
         description: this.state.description,
         user_id: this.state.userID
       }),
@@ -74,89 +72,131 @@ class PlayDateCreate extends Component {
       .then((responseData) => {
         console.log(responseData)
         // Goes back to the map scene
-        this.props.navigator.popN(2);
+        // this.props.navigator.popN(2);
       })
       .catch((error) => console.log("An error occurred! " + error))
-      .done();
+      .done(() => {this.props.navigator.popN(2)});
   }
 
+  createGroupPressed() {
 
+    this.getMarkerLatlng(this.state.address)
+      .then((res) => { this.persistPlayDate(res); })
+      .catch((error) => console.log("An error occured! " + error))
+      .done();
+
+    // Hardcode a random location in San Francisco
+    // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
+    // console.log('loc:');
+    // console.log(loc);
+    //
+    // let data = {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     time_day: this.state.time_day,
+    //     address: this.state.address,
+    //     // location: locResults.results[0].geometry.location,
+    //     location: loc,
+    //     description: this.state.description,
+    //     user_id: this.state.userID
+    //   }),
+    //   headers: {
+    //     'Accept':       'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
+    //
+    // fetch('http://localhost:3000/playdates', data)
+    //   .then((response) => response.json())  // promise
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     // Goes back to the map scene
+    //     this.props.navigator.popN(2);
+    //   })
+    //   .catch((error) => console.log("An error occurred! " + error))
+    //   .done();
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.pageTitle}>
-          Create your new PlayDate
-        </Text>
+        <View style={styles.innerContainer}>
 
-        <Text style={styles.label}>Group Name:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.name}
-          onChangeText={(text) => this.setState({name: text})}
-        />
+          <Text style={[styles.pageHeading, {color: 'black'}]}>
+            Create your new playdate
+          </Text>
 
-        <Text style={styles.label}>Address:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.address}
-          onChangeText={(text) => this.setState({address: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.name}
+            placeholder="Playdate Name"
+            onChangeText={(text) => this.setState({name: text})}
+          />
 
-        <Text style={styles.label}>Time & Day of Week:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.time_day}
-          onChangeText={(text) => this.setState({time_day: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.address}
+            placeholder="Address"
+            onChangeText={(text) => this.setState({address: text})}
+          />
 
-        <Text style={styles.label}>Description:</Text>
-        <TextInput
-          style={styles.inputText}
-          value={this.state.description}
-          onChangeText={(text) => this.setState({description: text})}
-        />
+          <TextInput
+            style={styles.inputText}
+            value={this.state.time_day}
+            placeholder="Time & Day of Week"
+            onChangeText={(text) => this.setState({time_day: text})}
+          />
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.createGroupPressed()}>
-          <Text>Create PlayDate</Text>
-        </TouchableHighlight>
+          <TextInput
+            style={[styles.inputText, styles.textArea]}
+            value={this.state.description}
+            multiline={true}
+            placeholder="Description"
+            onChangeText={(text) => this.setState({description: text})}
+          />
+
+          <TouchableHighlight
+            style={styles.submitButton}
+            onPress={() => this.createGroupPressed()}>
+            <Text style={styles.buttonText}>Create Playdate</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 14,
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  inputText: {
-    height: 30,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 10,
-    backgroundColor: '#EBFAFF',
-    marginBottom: 10,
-  },
-  textArea: {
-    height: 100,
-  },
-  label: {
-    fontSize: 14,
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontSize: 14,
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   inputText: {
+//     height: 30,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     borderRadius: 16,
+//     padding: 10,
+//     backgroundColor: '#EBFAFF',
+//     marginBottom: 10,
+//   },
+//   textArea: {
+//     height: 100,
+//   },
+//   label: {
+//     fontSize: 14,
+//   }
+// });
 
 module.exports = PlayDateCreate;

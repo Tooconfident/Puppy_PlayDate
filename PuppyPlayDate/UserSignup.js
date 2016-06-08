@@ -14,6 +14,10 @@ import {
 } from 'react-native';
 
 import MainScene from './MainScene';
+
+// Universal Styles
+const styles = require('./style.js')
+
 const REQUEST_URL ='http://localhost:3000/users'
 
 class UserSignup extends Component {
@@ -27,7 +31,6 @@ class UserSignup extends Component {
       password: "",
     };
   }
-
 
   onPressSignup() {
     fetch(REQUEST_URL, {
@@ -60,125 +63,125 @@ class UserSignup extends Component {
     //   passProps: { user_id: 1 },
     // });
   }
-  makeSession(userID){
+
+  makeSession(userID) {
     AsyncStorage.setItem("userID", String(userID));
     this.props.navigator.popToTop();
   }
+
   render() {
     var user = this.state;
 
     return (
       <View style={styles.container}>
+        <View style={styles.innerContainer}>
 
-        <TextInput
-          placeholder="Username"
-          style={styles.inputText}
-          value={user.username}
-          onChangeText={(text) => this.setState({username: text})}
-          autoCapitalize={'none'}
-        />
-
-        <TextInput
-          placeholder="Name"
-          style={styles.inputText}
-          value={user.name}
-          onChangeText={(text) => this.setState({name: text})}
-        />
-
-        <TextInput
-          placeholder="Email"
-          style={styles.inputText}
-          value={user.email}
-          onChangeText={(text) => this.setState({email: text})}
-          autoCapitalize={'none'}
-        />
-
-        <TextInput
-          placeholder="Password"
-          style={styles.inputText}
-          value={user.password}
-          password={true}
-          onChangeText={(text) => this.setState({password: text})}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-        />
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onPressSignup.bind(this)}>
-          <Text style={styles.buttonText}>
-            Sign Up
+          <Text style={[styles.pageHeading, {color: 'black'}]}>
+            Please enter your user information
           </Text>
-        </TouchableHighlight>
 
-        <View>
-          <Text>Debug:</Text>
-          <Text>{user.name}</Text>
-          <Text>{user.password}</Text>
-          <Text>{user.email}</Text>
-          <Text>{user.username}</Text>
+          <TextInput
+            placeholder="Username"
+            style={styles.inputText}
+            value={user.username}
+            onChangeText={(text) => this.setState({username: text})}
+            autoCapitalize={'none'}
+          />
+
+          <TextInput
+            placeholder="Name"
+            style={styles.inputText}
+            value={user.name}
+            onChangeText={(text) => this.setState({name: text})}
+          />
+
+          <TextInput
+            placeholder="Email"
+            style={styles.inputText}
+            value={user.email}
+            onChangeText={(text) => this.setState({email: text})}
+            autoCapitalize={'none'}
+          />
+
+          <TextInput
+            placeholder="Password"
+            style={styles.inputText}
+            value={user.password}
+            password={true}
+            onChangeText={(text) => this.setState({password: text})}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+          />
+
+          <TouchableHighlight
+            style={styles.submitButton}
+            onPress={this.onPressSignup.bind(this)}>
+            <Text style={styles.buttonText}>
+              Sign Up
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 40,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "white",
-    alignSelf: "center",
-  },
-  input: {
-    height: 40,
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  inputLabel: {
-    fontWeight: 'bold',
-  },
-  inputText: {
-    height: 30,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 10,
-    backgroundColor: '#EBFAFF',
-    marginBottom: 10,
-  },
-  textArea: {
-    height: 100,
-  },
-  pageTitle: {
-    marginTop: 20,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    backgroundColor: 'skyblue',
-    marginBottom: 6,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontSize: 40,
+//   },
+//   buttonText: {
+//     fontSize: 18,
+//     color: "white",
+//     alignSelf: "center",
+//   },
+//   input: {
+//     height: 40,
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   inputLabel: {
+//     fontWeight: 'bold',
+//   },
+//   inputText: {
+//     height: 30,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     borderRadius: 16,
+//     padding: 10,
+//     backgroundColor: '#EBFAFF',
+//     marginBottom: 10,
+//   },
+//   textArea: {
+//     height: 100,
+//   },
+//   pageTitle: {
+//     marginTop: 20,
+//   },
+//   title: {
+//     fontWeight: 'bold',
+//     fontSize: 20,
+//   },
+//   subtitle: {
+//     fontWeight: 'bold',
+//     fontSize: 14,
+//   },
+//   navbar: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     marginTop: 20,
+//     backgroundColor: 'skyblue',
+//     marginBottom: 6,
+//   },
+// });
 
 module.exports = UserSignup;

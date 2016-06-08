@@ -14,6 +14,8 @@ import {
 
 import DogProfile from './DogProfile';
 
+const styles = require('./style.js');
+
 const REQUEST_URL= 'http://localhost:3000/dogs';
 
 class DogCreate extends Component {
@@ -78,98 +80,89 @@ class DogCreate extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          Welcome USER to PuppyPlayDate!
-        </Text>
+        <View style={styles.innerContainer}>
 
-        <Text style={styles.bigText}>
-          Tell us About your Dog
-        </Text>
-
-        <TextInput
-          placeholder="Dog Name"
-          style={styles.input}
-          value = {this.state.name}
-          onChangeText = {(text)=> this.setState({name:text})}
-        />
-
-        <TextInput
-          placeholder="Breed"
-          style={styles.input}
-          value = {this.state.breed}
-          onChangeText = {(text)=> this.setState({breed:text})}
-
-        />
-
-        <TextInput
-          placeholder="Age"
-          style={styles.input}
-          value = {this.state.age}
-          onChangeText = {(text)=> this.setState({age:text})}
-
-        />
-
-        <TextInput
-          placeholder="Favorite Toy"
-          style={styles.input}
-          value = {this.state.toy}
-          onChangeText = {(text)=> this.setState({toy:text})}
-
-        />
-
-        <TouchableHighlight
-          style={styles.cameraButton}>
-          <Image source={require("./Resources/dog_avatar.png")} style={styles.image}>
-            <Text>
-              Add Photo
-            </Text>
-          </Image>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.onPressCreate()}
-        >
-          <Text style={styles.buttonText}>
-            Add Dog
+          <Text style={[styles.pageHeading, {color: 'black'}]}>
+            Tell us About your Dog
           </Text>
-        </TouchableHighlight>
+
+          <TextInput
+            placeholder="Dog Name"
+            style={styles.inputText}
+            value = {this.state.name}
+            onChangeText = {(text)=> this.setState({name:text})}
+          />
+
+          <TextInput
+            placeholder="Breed"
+            style={styles.inputText}
+            value = {this.state.breed}
+            onChangeText = {(text)=> this.setState({breed:text})}
+
+          />
+
+          <TextInput
+            placeholder="Age"
+            style={styles.inputText}
+            value = {this.state.age}
+            onChangeText = {(text)=> this.setState({age:text})}
+
+          />
+
+          <TextInput
+            placeholder="Favorite Toy"
+            style={styles.inputText}
+            value = {this.state.toy}
+            onChangeText = {(text)=> this.setState({toy:text})}
+
+          />
+
+          <TouchableHighlight
+            style={styles.submitButton}
+            onPress={() => this.onPressCreate()}
+          >
+            <Text style={styles.buttonText}>
+              Add Dog
+            </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 40,
-  },
-  bigText: {
-    fontSize: 60,
-  },
-  button: {
-    height: 36,
-    backgroundColor: "#48bbec",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: "stretch",
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "white",
-    alignSelf: "center",
-  },
-  input: {
-    height: 40,
-  },
-  image: {
-    height: 100,
-    width: 100,
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontSize: 40,
+//   },
+//   bigText: {
+//     fontSize: 60,
+//   },
+//   button: {
+//     height: 36,
+//     backgroundColor: "#48bbec",
+//     borderWidth: 1,
+//     borderRadius: 8,
+//     marginBottom: 10,
+//     alignSelf: "stretch",
+//   },
+//   buttonText: {
+//     fontSize: 18,
+//     color: "white",
+//     alignSelf: "center",
+//   },
+//   input: {
+//     height: 40,
+//   },
+//   image: {
+//     height: 100,
+//     width: 100,
+//   }
+// });
 
 module.exports = DogCreate;

@@ -5,6 +5,7 @@ import {
   Text,
   View,
   ListView,
+  ScrollView,
   NavigatorIOS,
   Image,
   AlertIOS,
@@ -12,7 +13,6 @@ import {
 } from 'react-native';
 
 import PlayDateEdit from "./PlayDateEdit";
-import Navbar from "./Navbar";
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 var LEAVE_URL = 'http://localhost:3000/memberships/leave';
@@ -119,30 +119,32 @@ class PlayDateShow extends Component {
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-          <Text>Edit</Text>
-        </TouchableHighlight>
+        <View style={styles.innerContainer}>
+          <ScrollView>
+            <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
+              <Text>Edit</Text>
+            </TouchableHighlight>
 
-        <View style={styles.container}>
-          <Text style={styles.pageTitle}>
-            {group.name}
-          </Text>
-          <TouchableHighlight onPress={() => this.onPressLeave()}>
-            <Text>Leave Group</Text>
-          </TouchableHighlight>
-          <Text>Join Group</Text>
-          <Text>
-            Location: {group.location}
-          </Text>
-          <Text>
-            Creator: Creator Name
-          </Text>
-          <Text>
-            Number of Dogs: {group.member_count}
-          </Text>
-          <Text>
-            Description: {group.description}
-          </Text>
+            <View style={styles.container}>
+              <Text style={styles.pageTitle}>
+                {group.name}
+              </Text>
+              <Text>Join</Text>
+              <Text>Leave</Text>
+              <Text>
+                Location: {group.location}
+              </Text>
+              <Text>
+                Creator: Creator Name
+              </Text>
+              <Text>
+                Number of Dogs: {group.member_count}
+              </Text>
+              <Text>
+                Description: {group.description}
+              </Text>
+            </View>
+          </ScrollView>
         </View>
       </View>
     );
