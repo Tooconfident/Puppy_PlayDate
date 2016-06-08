@@ -23,19 +23,19 @@ class PlayDates extends Component {
 
   constructor(props){
     super(props);
+
     this.state = {
       dataSource : new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1 !== r2}
       ),
+      userID: 0,
       loaded: false,
-      ola: "false",
     };
 
     console.log("Constructor for Playdates called");
   }
 
   componentWillMount(){
-
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val '+ value);
         this.setState({userID: value});
@@ -48,7 +48,7 @@ class PlayDates extends Component {
     console.log("componentDidMount for Playdates called");
   }
 
-  fetchData(){
+  fetchData() {
     fetch(REQUEST_URL + "?user_id=" + this.state.userID)
       .then((response) => response.json())
       .then((responseData) => {
@@ -95,31 +95,22 @@ class PlayDates extends Component {
     );
   }
 
-  // onPressPlus() {
-  //   this.props.navigator.push({
-  //     component: MainScene,
-  //   });
-  // }
-
-  // onPressPlus() {
-  //   console.log('onPressPlug');
-  // }
-
   addGroupPressed() {
     console.log('addGroupPressed');
     this.props.navigator.push({
       title: 'PlayDate',
       component: PlayDateCreate,
-      passProps: {}
+      //passProps: {},
     });
   }
 
   render() {
-    if (!this.state.loaded){
+    if (!this.state.loaded) {
       return(<Text>Loading...</Text>)
     }
+
     return (
-      <View style={{marginTop: 80}}>
+      <View style={{marginTop: 80, flex: 1}}>
         <TouchableHighlight
           style={styles.editButton}
           onPress={() => this.addGroupPressed()}>
@@ -184,6 +175,5 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
 });
-
 
 module.exports = PlayDates;
