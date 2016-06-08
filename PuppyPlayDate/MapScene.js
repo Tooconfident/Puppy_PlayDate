@@ -150,26 +150,40 @@ class MapScene extends Component {
 
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
-            <Image source={require('./Resources/bone4.jpeg')}>
-            <Text>Home</Text>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/bone4.jpeg')}>
+              <Text>Home</Text>
             </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/bone4.jpeg')}>
             <Text>Profile</Text>
+            </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
+            <Image
+              style={styles.icon}
+              source={require('./Resources/bone4.jpeg')}>
             <Text>Playdates</Text>
+            </Image>
           </TouchableOpacity>
 
-          <TouchableHighlight
+          <TouchableOpacity
             style={styles.button}
             onPress={this.logout.bind(this)}
             style={[styles.button, styles.bubble]}
           >
+          <Image
+            style={styles.icon}
+            source={require('./Resources/bone4.jpeg')}>
             <Text>Logout</Text>
-          </TouchableHighlight>
+          </Image>
+          </TouchableOpacity>
         </View>
 
       </View>
@@ -219,6 +233,9 @@ const styles = StyleSheet.create({
     width: width * .20,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  icon: {
+    flex: 1,
   },
   buttonContainer: {
     flex: 1,
