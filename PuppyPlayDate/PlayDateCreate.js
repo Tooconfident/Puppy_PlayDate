@@ -44,14 +44,10 @@ class PlayDateCreate extends Component {
     // then((res) => console.log(res.results[0].geometry.location))
   }
 
-  createGroupPressed() {
-    console.log('createGroupPressed');
-    console.log('this.state: ' + this.state);
-
-    // var locResults = this.getMarkerLatlng(this.state.address).then((res) => { console.log("loc from google"); console.log(res.results[0].geometry.location);});
-
-    // Hardcode a random location in San Francisco
-    // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
+  persistPlayDate(res) {
+    var coordsJSONStringified = JSON.stringify(res.results[0].geometry.location);
+    coordsJSONStringified = coordsJSONStringified.replace('"lat"', '"latitude"');
+    coordsJSONStringified = coordsJSONStringified.replace('"lng"', '"longitude"');
 
     let data = {
       method: 'POST',
@@ -59,7 +55,7 @@ class PlayDateCreate extends Component {
         name: this.state.name,
         time_day: this.state.time_day,
         address: this.state.address,
-        location: locResults.results[0].geometry.location,
+        location: coordsJSONStringified,
         description: this.state.description,
         user_id: this.state.userID
       }),
@@ -74,13 +70,51 @@ class PlayDateCreate extends Component {
       .then((responseData) => {
         console.log(responseData)
         // Goes back to the map scene
-        this.props.navigator.popN(2);
+        // this.props.navigator.popN(2);
       })
       .catch((error) => console.log("An error occurred! " + error))
-      .done();
+      .done(() => {this.props.navigator.popN(2)});
   }
 
+  createGroupPressed() {
 
+    this.getMarkerLatlng(this.state.address)
+      .then((res) => { this.persistPlayDate(res); })
+      .catch((error) => console.log("An error occured! " + error))
+      .done();
+
+    // Hardcode a random location in San Francisco
+    // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
+    // console.log('loc:');
+    // console.log(loc);
+    //
+    // let data = {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     time_day: this.state.time_day,
+    //     address: this.state.address,
+    //     // location: locResults.results[0].geometry.location,
+    //     location: loc,
+    //     description: this.state.description,
+    //     user_id: this.state.userID
+    //   }),
+    //   headers: {
+    //     'Accept':       'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
+    //
+    // fetch('http://localhost:3000/playdates', data)
+    //   .then((response) => response.json())  // promise
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     // Goes back to the map scene
+    //     this.props.navigator.popN(2);
+    //   })
+    //   .catch((error) => console.log("An error occurred! " + error))
+    //   .done();
+  }
 
   render() {
     return (
