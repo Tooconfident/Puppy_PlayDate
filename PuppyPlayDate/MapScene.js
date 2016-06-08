@@ -70,6 +70,12 @@ class MapScene extends Component {
 
   }
 
+  componentWillUpdate() {
+    console.log('MapScene: componentWillUpdate');
+    // console.log('MapScene: componentWillUpdate, before call to render():');
+    // this.render();
+  }
+
   show() {
     this.refs.m1.showCallout();
   }

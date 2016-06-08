@@ -70,10 +70,10 @@ class PlayDateCreate extends Component {
       .then((responseData) => {
         console.log(responseData)
         // Goes back to the map scene
-        // this.props.navigator.popN(2);
+        this.props.navigator.popN(2);
       })
       .catch((error) => console.log("An error occurred! " + error))
-      .done(() => {this.props.navigator.popN(2)});
+      .done();
   }
 
   createGroupPressed() {
