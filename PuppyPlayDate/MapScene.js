@@ -43,11 +43,12 @@ class MapScene extends Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       playdates: [],
+      userID: 0,
       loaded: false,
     };
   }
 
-  fetchData(){
+  fetchData() {
     fetch(REQUEST_URL)
     .then((response) => response.json())
     .then((responseData) => {
@@ -59,8 +60,7 @@ class MapScene extends Component {
     .done();
   }
 
-  componentDidMount(){
-
+  componentDidMount() {
     this.fetchData();
 
     AsyncStorage.getItem("userID").then((value) => {
@@ -88,7 +88,7 @@ class MapScene extends Component {
     );
   }
 
-  onPressHome(){
+  onPressHome() {
     console.log('PressHome');
     // this.props.navigator.resetTo ({
     //   title: 'Home Page',
@@ -97,26 +97,33 @@ class MapScene extends Component {
     // })
   }
 
-  onPressProfile(){
+  onPressProfile() {
     console.log('PressProfile');
     this.props.navigator.push ({
       title: 'Profile',
       component: UserDogs,
-      passProps: {userData: this.props.userData, userId: this.props.userId}
+      passProps: {
+        userID: this.props.userID,
+      }
     })
   }
 
-  onPressPlayDate(){
+  onPressPlayDate() {
     console.log('PressPlayDate');
     this.props.navigator.push ({
       title: 'Playdates',
       component: PlayDates,
-      passProps: {userData: this.props.userData, userId: this.props.userId}
+      passProps: {
+        userID: this.props.userID,
+      }
     })
   }
 
   logout() {
-    AsyncStorage.clear();
+    AsyncStorage.removeItem("userID");
+    //AsyncStorage.clear();
+
+    // Go back to the login page
     this.props.navigator.pop();
   }
 
@@ -239,6 +246,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
 
 module.exports = MapScene;
