@@ -90,7 +90,7 @@ class PlayDates extends Component {
               {rowData.name}
             </Text>
 
-            <Text style={styles.entryLabel}>Location: <Text style={styles.entryText}>{rowData.location}</Text></Text>
+            <Text style={styles.entryLabel}>Address: <Text style={styles.entryText}>{rowData.address}</Text></Text>
 
             <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
 
@@ -119,9 +119,11 @@ class PlayDates extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
+
           <TouchableHighlight
+            style={styles.addButton}
             onPress={() => this.addGroupPressed()}>
-            <Text>Add</Text>
+            <Text style={styles.addButtonText}>Add</Text>
           </TouchableHighlight>
 
           <ListView
