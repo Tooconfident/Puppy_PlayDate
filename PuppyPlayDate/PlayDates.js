@@ -50,10 +50,10 @@ class PlayDates extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("PlayDates WillReceiveProps");
+    console.log('PlayDates: componentWillReceiveProps');
     if (!this.props.loaded) {
-       this.fetchData();
-     }
+      this.fetchData();
+    }
   }
 
   fetchData() {
