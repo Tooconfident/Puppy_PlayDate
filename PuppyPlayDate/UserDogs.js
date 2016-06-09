@@ -136,15 +136,15 @@ class UserDogs extends Component {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <View style={{alignSelf: 'center', alignItems: 'center', flexDirection: 'row'}}>
-            <Text style={styles.entryLabel}>{this.state.name}</Text>
+          <View style={styles.userProfileTop}>
+            <Text style={styles.entryLabel}>{this.state.name + "'s Dog"}</Text>
             <TouchableHighlight style={styles.addButton} onPress={() => this.onPressEdit()}>
-              <Text style={styles.addButtonText}>Edit</Text>
+              <Text style={styles.addButtonText}>Edit Profile</Text>
             </TouchableHighlight>
           </View>
 
-          <TouchableHighlight style={styles.addButton} onPress={() => this.onPressAdd()}>
-            <Text style={styles.addButtonText} >Add</Text>
+          <TouchableHighlight style={[styles.addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
+            <Text style={styles.addButtonText} >Add Dog</Text>
           </TouchableHighlight>
 
           <ListView

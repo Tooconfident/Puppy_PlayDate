@@ -213,4 +213,16 @@ module.exports = require('react-native').StyleSheet.create({
     backgroundColor: "red",
     flex: 2,
   },
+  userProfileTop: {
+    // alignSelf: 'center',
+     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: '#E8E8E8',
+    padding: 12,
+    paddingRight: 0,
+    marginLeft: 12,
+    marginRight: 12,
+  },
 });
