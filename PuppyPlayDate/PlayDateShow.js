@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import PlayDateEdit from "./PlayDateEdit";
+import DogList from "./DogList";
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
 var LEAVE_URL = 'http://localhost:3000/memberships/leave';
@@ -98,6 +99,13 @@ class PlayDateShow extends Component {
     });
   }
 
+  onJoin() {
+    AlertIOS.alert(
+      "Join Group?",
+      "",
+    )
+  }
+
   onPressLeave() {
 
     AlertIOS.alert(
@@ -129,8 +137,18 @@ class PlayDateShow extends Component {
               <Text style={styles.pageTitle}>
                 {group.name}
               </Text>
-              <Text>Join</Text>
-              <Text>Leave</Text>
+              <TouchableHighlight onPress={() => this.props.navigator.push({
+                title: 'Choose a dog',
+                component: DogList,
+                passProps:{
+                  group_id: group.id,
+                }
+              })}>
+                <Text>Join Group</Text>
+              </TouchableHighlight>
+              <TouchableHighlight>
+                <Text>Leave Group</Text>
+              </TouchableHighlight>
               <Text>
                 Location: {group.location}
               </Text>
