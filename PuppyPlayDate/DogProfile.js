@@ -32,7 +32,23 @@ class DogProfile extends Component {
   }
 
   componentDidMount() {
+    console.log("DogProfile didMount");
+
     this.fetchData();
+  }
+
+  componentWillUpdate() {
+    console.log("DogProfile WillUpdate");
+    // if (!this.state.loaded) {
+    //   this.fetchData();
+    // }
+  }
+
+  componentWillReceiveProps() {
+    console.log("DogProfile WillReceiveProps");
+    if (!this.props.loaded) {
+       this.fetchData();
+     }
   }
 
   fetchData() {

@@ -52,6 +52,13 @@ class UserDogs extends Component {
     .done();
   }
 
+  componentWillReceiveProps() {
+    console.log("UserDogs WillReceiveProps");
+    if (!this.props.loaded) {
+       this.fetchData();
+     }
+  }
+
   fetchData() {
     console.log("fetchData for UserDogs using " + this.state.userID + "for userID");
     // assume a user_id is passed to this component
