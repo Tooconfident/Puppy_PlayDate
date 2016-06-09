@@ -100,6 +100,8 @@ class DogProfile extends Component {
 
   render() {
     var dog = this.state;
+    console.log('DogProfile this.state:');
+    console.log(this.state);
 
     return (
       <View style={styles.container}>

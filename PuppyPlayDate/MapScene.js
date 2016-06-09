@@ -170,8 +170,9 @@ class MapScene extends Component {
           >
           {this.state.playdates.map(playdate => (
             <MapView.Marker
+            key={playdate.id}
             coordinate={JSON.parse(playdate.location)}
-            key={playdate.id}>
+            image={require('./Resources/dog-marker-green.png')}>
               <MapView.Callout>
                 <View>
                   <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
@@ -245,7 +246,8 @@ const styles = StyleSheet.create({
   },
   bubble: {
     flex: 1,
-    backgroundColor: 'rgba(10,41,41,0.4)',
+    // backgroundColor: 'rgba(10,41,41,0.4)',
+    backgroundColor: '#ffb27299',
   },
   latlng: {
     width: 200,
@@ -253,7 +255,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: height * .08,
-    width: width * .20,
+    width: width * .25,
     alignItems: 'center',
     justifyContent: 'center'
   },

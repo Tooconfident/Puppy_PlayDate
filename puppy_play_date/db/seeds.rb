@@ -41,12 +41,31 @@ end
     )
 
     # Create picture for the dog
-    Photo.create!(dog: dog, url: Faker::Placeholdit.image("50x50"))
+
+    puppies = ["https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/The-stages-of-puppy-growth.jpg",
+    "http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg",
+    "http://cdn.skim.gs/image/upload/v1456344012/msi/Puppy_2_kbhb4a.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/c/c7/Puppy_on_Halong_Bay.jpg",
+    "http://upload.wikimedia.org/wikipedia/commons/6/64/The_Puppy.jpg",
+    "http://blogs-images.forbes.com/kristintablang/files/2016/02/Uber-Puppies.jpg",
+    "http://cdn3-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-21.jpg",
+    "http://images2.fanpop.com/image/photos/9400000/Puppy-Love-puppies-9460996-1600-1200.jpg",
+    "http://lovelace-media.imgix.net/uploads/191/0f832b40-d622-0132-cea9-0e01949ad350.jpg?",
+    "http://www.cfau-pd.net/data/wallpapers/203/WDF_2411568.jpg",
+    "http://science-all.com/images/wallpapers/puppy-images/puppy-images-20.jpg",
+    "http://science-all.com/images/wallpapers/puppy-pic/puppy-pic-22.jpg",
+    "https://puppydogweb.com/wp-content/uploads/2015/05/husky-puppy-18220-1920x1200.jpg",
+    "http://www.pawderosa.com/images/puppies.jpg",
+    "http://cdn2-www.dogtime.com/assets/uploads/2010/12/puppies.jpg"]
+
+    url = puppies.sample
+
+    Photo.create!(dog: dog, url: url)
   end
 end
 
 # Create fake playdates
-50.times do
+60.times do
   Playdate.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.paragraph,
