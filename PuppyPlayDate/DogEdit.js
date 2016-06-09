@@ -12,6 +12,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import DogProfile from './DogProfile';
+
 const styles = require('./style.js');
 
 // URL to get a specific dog if you append an id
@@ -23,6 +25,7 @@ class DogEdit extends Component {
 
     // Initialize Dog Attributes
     this.state = {
+      id: "",
       name: "",
       breed: "",
       age: 0,
@@ -47,6 +50,7 @@ class DogEdit extends Component {
       .then((responseData) => {
         // Update the state with the information about the dog
         this.setState({
+          id: responseData.id,
           name: responseData.name,
           breed: responseData.breed,
           age: responseData.age,
@@ -63,6 +67,43 @@ class DogEdit extends Component {
   onPressEdit() {
     // TODO: perform an update request to update the
     // dog information in the backend
+    fetch(REQUEST_URL + this.state.id, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        breed: this.state.breed,
+        age: this.state.age,
+        toy: this.state.toy,
+        description: this.state.description,
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          // this.props.navigator.replacePreviousAndPop({
+          //   component: DogProfile,
+          //   passProps: {
+          //     dog_id: this.state.id,
+          //   },
+          // });
+          this.props.navigator.pop({
+            component: DogProfile,
+            passProps: {
+              loaded: false,
+            }
+          });
+        } else {
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
+        }
+      })
+      .done();
 
     this.props.navigator.pop();
   }
