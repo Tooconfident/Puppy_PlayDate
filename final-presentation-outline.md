@@ -6,12 +6,21 @@ Length: 8 minutes for the presentation and up to 2 minutes of Q&A from the audie
 
 Outline:
 - App and team/team member introductions
+  - Buck
 - Explanation of problem the app solves
+  - Ryan
 - Demo of app, explaining key features and general workflow
+  - Ryan
 - Technologies used/not used and why
+  - Carlos
 - Team values, goals, agreements
+  - Buck
 - Major hurdles overcome; successes, what you're proud of
+  - Renan
 - Major hurdles NOT overcome, stretch goals not met; failures and difficulties and reflections on why
+  - Renan
+- Future
+  - Renan
 - Display a link to the deployed app if applicable
 - Q&A
 
