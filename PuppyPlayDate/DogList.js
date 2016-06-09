@@ -22,7 +22,7 @@ const styles = require('./style.js');
 var REQUEST_URL = 'http://localhost:3000/users/';
 var JOIN_URL = 'http://localhost:3000/memberships/join/';
 
-class UserDogs extends Component {
+class DogList extends Component {
   constructor(props){
     super(props);
 
@@ -144,4 +144,4 @@ class UserDogs extends Component {
 
 
 
-module.exports = UserDogs;
+module.exports = DogList;
