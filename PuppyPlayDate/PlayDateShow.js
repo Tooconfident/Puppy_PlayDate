@@ -39,6 +39,13 @@ class PlayDateShow extends Component {
     this.fetchData();
   }
 
+  componentWillReceiveProps() {
+    console.log("PlayDateShow WillReceiveProps");
+    if (!this.props.loaded) {
+       this.fetchData();
+     }
+  }
+
   fetchData(){
     fetch(REQUEST_URL + this.props.playdate_id)
       .then((response) => response.json())
@@ -54,7 +61,11 @@ class PlayDateShow extends Component {
   }
 
   goBack() {
-    this.props.navigator.pop();
+    this.props.navigator.pop({
+      passProps: {
+        loaded: false,
+      },
+    });
   }
 
   onPressEdit() {

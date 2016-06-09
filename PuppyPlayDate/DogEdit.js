@@ -104,8 +104,6 @@ class DogEdit extends Component {
         }
       })
       .done();
-
-    this.props.navigator.pop();
   }
 
   render() {

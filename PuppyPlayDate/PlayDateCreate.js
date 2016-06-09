@@ -59,7 +59,7 @@ class PlayDateCreate extends Component {
         address: this.state.address,
         location: coordsJSONStringified,
         description: this.state.description,
-        user_id: this.state.userID
+        user_id: this.state.userID,
       }),
       headers: {
         'Accept':       'application/json',
