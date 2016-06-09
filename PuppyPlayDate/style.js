@@ -179,7 +179,7 @@ module.exports = require('react-native').StyleSheet.create({
     marginRight: 12,
   },
   listEntryContent: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-around',
   },
   entryAvatar: {
@@ -188,29 +188,29 @@ module.exports = require('react-native').StyleSheet.create({
     marginRight: 10,
     borderRadius: 50/2,
   },
-  pickerArea: {
-    // flex: 1,
-    marginBottom: 12,
-    marginLeft: 24,
-    marginRight: 24,
-    padding: 12,
-    height: 75,
-    borderWidth: 1,
-  },
-  picker: {
-    flex: 0,
-    //width: width * 0.5,
-    //flexwrap: 'wrap',
-    //justifyContent: '',
-    //alignSelf: 'flex-end',
-    //height: 50,
-    borderWidth: 1,
-  },
+  // pickerArea: {
+  //   // flex: 1,
+  //   marginBottom: 12,
+  //   marginLeft: 24,
+  //   marginRight: 24,
+  //   padding: 12,
+  //   height: 75,
+  //   borderWidth: 1,
+  // },
+  // picker: {
+  //   flex: 0,
+  //   //width: width * 0.5,
+  //   //flexwrap: 'wrap',
+  //   //justifyContent: '',
+  //   //alignSelf: 'flex-end',
+  //   //height: 50,
+  //   borderWidth: 1,
+  // },
   rowWithLeave:{
-      flex: 8
+    flex: 8,
   },
   deleteButton:{
     backgroundColor: "red",
-    flex: 2
+    flex: 2,
   },
 });
