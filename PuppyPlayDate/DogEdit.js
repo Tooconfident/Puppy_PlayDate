@@ -7,6 +7,7 @@ import {
   View,
   ListView,
   NavigatorIOS,
+  Picker,
   Image,
   TouchableHighlight,
   ScrollView,
@@ -79,6 +80,7 @@ class DogEdit extends Component {
         age: this.state.age,
         toy: this.state.toy,
         description: this.state.description,
+        gender: responseData.gender,
       })
     })
     .then((response) => response.json())
@@ -104,11 +106,15 @@ class DogEdit extends Component {
         }
       })
       .done();
-
-    this.props.navigator.pop();
   }
 
   render() {
+    // For the dog age picker
+    var ageRange = [];
+    for (var i = 1; i <= 35; i++) {
+      ageRange.push(i.toString());
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -138,6 +144,34 @@ class DogEdit extends Component {
               value={this.state.age.toString()}
               onChangeText={(text) => this.setState({age: text})}
             />
+
+            {
+            // <Text style={[styles.inputLabel, {alignSelf: 'center'}]}>Age </Text>
+            //
+            // <View style={styles.pickerArea}>
+            //
+            //   <Picker
+            //     selectedValue={this.state.age}
+            //     onValueChange={(text) => this.setState({age: text})}
+            //   >
+            //     {ageRange.map((age) => (
+            //       <Picker.Item
+            //         label={age}
+            //         value={age}
+            //       />
+            //     ))}
+            //   </Picker>
+            // </View>
+            }
+
+            {
+            // <TextInput
+            //   placeholder="Gender"
+            //   style={styles.inputText}
+            //   value={this.state.breed}
+            //   onChangeText={(text) => this.setState({gender: text})}
+            // />
+            }
 
             <TextInput
               placeholder="Favorite Toy"

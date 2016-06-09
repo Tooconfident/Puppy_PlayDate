@@ -11,6 +11,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import PlayDateShow from "./PlayDateShow";
+
 const styles = require('./style.js');
 
 // URL to get a specific playdate if you append an id
@@ -23,10 +25,11 @@ class PlayDateEdit extends Component {
 
     // Initialize Playdate Attributes
     this.state = {
+      id: "",
       name: "",
       location: "",
       address: "",
-      timeDay: "",
+      time_day: "",
       description: "",
       loaded: false,
     };
@@ -45,10 +48,11 @@ class PlayDateEdit extends Component {
       .then((responseData) => {
         // Update the state with the information about the playdate
         this.setState({
+          id: responseData.id,
           name: responseData.name,
           location: responseData.location,
           address: responseData.address,
-          timeDay: responseData.time_day,
+          time_day: responseData.time_day,
           description: responseData.description,
           loaded: true,
         });
@@ -59,8 +63,43 @@ class PlayDateEdit extends Component {
   onPressEdit() {
     // TODO: perform an update request to update the
     // playdate information in the backend
-
-    this.props.navigator.pop();
+    fetch(REQUEST_URL + this.state.id, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        location: this.state.location,
+        address: this.state.address,
+        time_day: this.state.time_day,
+        description: this.state.description,
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          // this.props.navigator.replacePreviousAndPop({
+          //   component: DogProfile,
+          //   passProps: {
+          //     dog_id: this.state.id,
+          //   },
+          // });
+          this.props.navigator.pop({
+            component: PlayDateShow,
+            passProps: {
+              loaded: false,
+            },
+          });
+        } else {
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
+        }
+      })
+      .done();
   }
 
   render() {
@@ -79,13 +118,13 @@ class PlayDateEdit extends Component {
             style={styles.inputText}
             placeholder="Address"
             value={this.state.address}
-            onChangeText={(text) => this.setState({location: text})} />
+            onChangeText={(text) => this.setState({address: text})} />
 
           <TextInput
             placeholder="Date and Time"
             style={styles.inputText}
-            value={this.state.timeDay}
-            onChangeText={(text) => this.setState({timeDay: text})} />
+            value={this.state.time_day}
+            onChangeText={(text) => this.setState({time_day: text})} />
 
           <TextInput
             placeholder="Description"
