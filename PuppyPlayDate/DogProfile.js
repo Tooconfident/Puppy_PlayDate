@@ -86,6 +86,8 @@ class DogProfile extends Component {
 
   render() {
     var dog = this.state;
+    console.log('DogProfile this.state:');
+    console.log(this.state);
 
     return (
       <View style={styles.container}>
@@ -96,7 +98,7 @@ class DogProfile extends Component {
               <TouchableHighlight onPress={() => this.onPressEdit()}>
                 <Text style={{alignSelf: 'center'}}>Edit</Text>
               </TouchableHighlight>
-              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
+              <Image style={styles.profileAvatar} source={{ uri: 'http://cdn2-www.dogtime.com/assets/uploads/2010/12/puppies.jpg' }} />
               <Text style={styles.entryLabel}>{dog.name}</Text>
             </View>
 
