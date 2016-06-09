@@ -70,12 +70,20 @@ class PlayDateCreate extends Component {
     fetch('http://localhost:3000/playdates', data)
       .then((response) => response.json())  // promise
       .then((responseData) => {
-        console.log(responseData)
+        console.log(responseData);
         // Goes back to the map scene
         // this.props.navigator.popN(2);
+
+        // Goes back to PlayDate list.
+        this.props.navigator.pop({
+          title: 'Your Playdates',
+          component: PlayDates,
+          leftButtonTitle: ' ',
+          loaded: false,
+        });
       })
       .catch((error) => console.log("An error occurred! " + error))
-      .done(() => {this.props.navigator.popN(2)});
+      .done();
   }
 
   createGroupPressed() {

@@ -62,10 +62,11 @@ class DogCreate extends Component {
         if (responseData.success != false){
           //Add a Dog
           //this.props.navigator.popN(2);
-          this.props.navigator.replacePreviousAndPop({
+          this.props.navigator.replace({
             component: DogProfile,
             passProps: {
               dog_id: responseData.id,
+              loaded: false,
             },
           });
         } else {

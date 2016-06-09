@@ -52,6 +52,13 @@ class UserDogs extends Component {
     .done();
   }
 
+  componentWillReceiveProps() {
+    console.log("UserDogs WillReceiveProps");
+    if (!this.props.loaded) {
+       this.fetchData();
+     }
+  }
+
   fetchData() {
     console.log("fetchData for UserDogs using " + this.state.userID + "for userID");
     // assume a user_id is passed to this component
@@ -59,6 +66,8 @@ class UserDogs extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
+          username: responseData.username,
+          name: responseData.name,
           dataSource: this.state.dataSource.cloneWithRows(responseData.dogs),
           loaded: true,
         });
@@ -125,11 +134,16 @@ class UserDogs extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <TouchableHighlight onPress={() => this.onPressAdd()}>
-            <Text>Add</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onPressEdit()}>
-            <Text>Edit</Text>
+
+          <View style={{alignSelf: 'center', alignItems: 'center', flexDirection: 'row'}}>
+            <Text style={styles.entryLabel}>{this.state.name}</Text>
+            <TouchableHighlight style={styles.addButton} onPress={() => this.onPressEdit()}>
+              <Text style={styles.addButtonText}>Edit</Text>
+            </TouchableHighlight>
+          </View>
+
+          <TouchableHighlight style={styles.addButton} onPress={() => this.onPressAdd()}>
+            <Text style={styles.addButtonText} >Add</Text>
           </TouchableHighlight>
 
           <ListView

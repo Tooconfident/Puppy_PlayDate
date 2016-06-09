@@ -11,7 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import Navbar from './Navbar'
+const styles = require('./style.js');
 
 // URL to get a specific playdate if you append an id
 var REQUEST_URL = 'http://localhost:3000/playdates/';
@@ -25,6 +25,7 @@ class PlayDateEdit extends Component {
     this.state = {
       name: "",
       location: "",
+      address: "",
       timeDay: "",
       description: "",
       loaded: false,
@@ -46,6 +47,7 @@ class PlayDateEdit extends Component {
         this.setState({
           name: responseData.name,
           location: responseData.location,
+          address: responseData.address,
           timeDay: responseData.time_day,
           description: responseData.description,
           loaded: true,
@@ -63,32 +65,30 @@ class PlayDateEdit extends Component {
 
   render() {
     return (
-      <View>
-        <Navbar navigator={this.props.navigator} title='Edit Playdate'>
-          <Text> </Text>
-        </Navbar>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
 
-        <View style={styles.container}>
-          <Text style={styles.inputLabel}>Playdate Name</Text>
           <TextInput
+            placeholder="Playdate Name"
             style={styles.inputText}
             value={this.state.name}
-            onChangeText={(text) => this.setState({name: text})} />
+            onChangeText={(text) => this.setState({name: text})}
+          />
 
-          <Text style={styles.inputLabel}>Playdate Location</Text>
           <TextInput
             style={styles.inputText}
-            value={this.state.location}
+            placeholder="Address"
+            value={this.state.address}
             onChangeText={(text) => this.setState({location: text})} />
 
-          <Text style={styles.inputLabel}>Playdate Date and Time</Text>
           <TextInput
+            placeholder="Date and Time"
             style={styles.inputText}
             value={this.state.timeDay}
             onChangeText={(text) => this.setState({timeDay: text})} />
 
-          <Text style={styles.inputLabel}>Playdate Description</Text>
           <TextInput
+            placeholder="Description"
             style={[styles.inputText, styles.textArea]}
             value={this.state.description}
             onChangeText={(text) => this.setState({description: text})}
@@ -96,11 +96,11 @@ class PlayDateEdit extends Component {
           />
 
           <TouchableHighlight
-            style={styles.button}
+            style={styles.submitButton}
             onPress={this.onPressEdit.bind(this)}
             underlayColor='#99d9f4'
           >
-            <Text style={styles.buttonText}>Edit</Text>
+            <Text style={styles.buttonText}>Update</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -108,37 +108,37 @@ class PlayDateEdit extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 14,
-  },
-  button: {
-    borderWidth: 2,
-    borderRadius: 12,
-    padding: 10,
-    backgroundColor: 'antiquewhite'
-  },
-  inputLabel: {
-    fontWeight: 'bold',
-  },
-  inputText: {
-    height: 30,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 10,
-    backgroundColor: '#EBFAFF',
-    marginBottom: 10,
-  },
-  textArea: {
-    height: 100,
-  },
-
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontSize: 14,
+//   },
+//   button: {
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
+//   },
+//   inputLabel: {
+//     fontWeight: 'bold',
+//   },
+//   inputText: {
+//     height: 30,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     borderRadius: 16,
+//     padding: 10,
+//     backgroundColor: '#EBFAFF',
+//     marginBottom: 10,
+//   },
+//   textArea: {
+//     height: 100,
+//   },
+//
+// });
 
 module.exports = PlayDateEdit;
