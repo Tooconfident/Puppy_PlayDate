@@ -158,6 +158,7 @@ class MapScene extends Component {
           >
           {this.state.playdates.map(playdate => (
             <MapView.Marker
+            pinColor="orange"
             coordinate={JSON.parse(playdate.location)}>
               <MapView.Callout>
                 <View>

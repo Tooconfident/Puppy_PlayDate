@@ -10,6 +10,8 @@ import {
   TouchableHighlight,
   View,
   AsyncStorage,
+  Alert,
+
 } from 'react-native';
 
 import PlayDateCreate from './PlayDateCreate';
@@ -73,21 +75,39 @@ class PlayDates extends Component {
     this.props.navigator.pop();
   }
 
+  onPressLeave() {
+    console.log("Confirmed")
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]
+    )
+  }
+
   renderRow(rowData, sectionID, rowID){
     return(
       <TouchableHighlight onPress={() => this.onPressPlayDate(rowData.id)}>
         <View style={styles.listEntry}>
           <View style={styles.listEntryContent}>
+            <View style={styles.rowWithLeave}>
+              <Text style={styles.entryLabel}>
+                {rowData.name}
+              </Text>
 
-            <Text style={styles.entryLabel}>
-              {rowData.name}
-            </Text>
+              <Text style={styles.entryLabel}>Location: <Text style={styles.entryText}>{rowData.address}</Text></Text>
 
-            <Text style={styles.entryLabel}>Location: <Text style={styles.entryText}>{rowData.address}</Text></Text>
+              <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
 
-            <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
+              <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{rowData.description}</Text></Text>
+            </View>
 
-            <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{rowData.description}</Text></Text>
+              <TouchableHighlight style={styles.deleteButton} onPress={() => this.onPressLeave()}>
+                <Text>Leave</Text>
+              </TouchableHighlight>
 
           </View>
         </View>

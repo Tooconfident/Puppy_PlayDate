@@ -1,7 +1,8 @@
 class MembershipsController < ApplicationController
-  # before_action :set_membership
+  before_action :set_membership, only: :leave
 
   def leave
+    p params
     if @membership.destroy
       render json: { success: true }
     else
