@@ -27,15 +27,15 @@ module.exports = require('react-native').StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     // flexDirection: 'column',
-     borderWidth: 3,
+    //  borderWidth: 3,
     // margin: 0,
     // padding: 0,
     backgroundColor: '#ffb272',
   },
   innerContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
+    // borderColor: 'red',
     // make things inside inner container centered
     justifyContent: 'center',
     marginTop: 64, // need this because of the navigation bar
