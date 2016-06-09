@@ -24,6 +24,7 @@ class UserEdit extends Component {
 
     // Initialize Playdate Attributes
     this.state = {
+      id: "",
       username: "",
       name: "",
       email: "",
@@ -45,6 +46,7 @@ class UserEdit extends Component {
       .then((responseData) => {
         // Update the state with the information about the playdate
         this.setState({
+          id: responseData.id,
           name: responseData.name,
           username: responseData.username,
           email: responseData.email,
@@ -57,8 +59,37 @@ class UserEdit extends Component {
   onPressEdit() {
     // TODO: perform an update request to update the
     // playdate information in the backend
-
-    this.props.navigator.pop();
+    fetch(REQUEST_URL + this.state.id, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false){
+          this.props.navigator.pop({
+            title: 'Profile',
+            component: UserDogs,
+            passProps: {
+              loaded: false,
+            },
+          });
+        } else {
+          AlertIOS.alert(
+           'Something went wrong!'
+          );
+        }
+      })
+      .done();
   }
 
   render() {

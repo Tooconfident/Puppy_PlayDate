@@ -13,6 +13,7 @@ import {
 
 import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
+import DogPlayDates from './DogPlayDates';
 
 const styles = require('./style.js');
 
@@ -71,6 +72,19 @@ class DogProfile extends Component {
     this.props.navigator.pop();
   }
 
+  onPressListPlaydates() {
+    console.log("List Playdates");
+    this.props.navigator.push({
+      title: 'My Playdates',
+      component: DogPlayDates,
+      // Make sure to pass the playdate_id to the Edit component
+      // Note the value has to be an object of key-value properties!
+      passProps: {
+        dog_id: this.props.dog_id
+      }
+    });
+  }
+
   onPressEdit() {
     console.log("onPressEdit");
     this.props.navigator.push({
@@ -98,7 +112,10 @@ class DogProfile extends Component {
               <TouchableHighlight onPress={() => this.onPressEdit()}>
                 <Text style={{alignSelf: 'center'}}>Edit</Text>
               </TouchableHighlight>
-              <Image style={styles.profileAvatar} source={{ uri: 'http://cdn2-www.dogtime.com/assets/uploads/2010/12/puppies.jpg' }} />
+              <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
+                <Text style={{alignSelf: 'center'}}>My Playdates</Text>
+              </TouchableHighlight>
+              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
               <Text style={styles.entryLabel}>{dog.name}</Text>
             </View>
 

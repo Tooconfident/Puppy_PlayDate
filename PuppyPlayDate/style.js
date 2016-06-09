@@ -94,6 +94,11 @@ module.exports = require('react-native').StyleSheet.create({
     color: '#ffb272',
     fontWeight: 'bold',
   },
+  inputLabel: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    alignSelf: 'flex-start',
+  },
   inputText: {
     height: 50,
     //marginTop: 10,
@@ -174,7 +179,7 @@ module.exports = require('react-native').StyleSheet.create({
     marginRight: 12,
   },
   listEntryContent: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-around',
   },
   entryAvatar: {
@@ -182,5 +187,30 @@ module.exports = require('react-native').StyleSheet.create({
     height: 50,
     marginRight: 10,
     borderRadius: 50/2,
+  },
+  pickerArea: {
+    // flex: 1,
+    marginBottom: 12,
+    marginLeft: 24,
+    marginRight: 24,
+    padding: 12,
+    height: 75,
+    borderWidth: 1,
+  },
+  picker: {
+    flex: 0,
+    //width: width * 0.5,
+    //flexwrap: 'wrap',
+    //justifyContent: '',
+    //alignSelf: 'flex-end',
+    //height: 50,
+    borderWidth: 1,
+  },
+  rowWithLeave:{
+      flex: 8
+  },
+  deleteButton:{
+    backgroundColor: "red",
+    flex: 2
   },
 });

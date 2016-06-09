@@ -79,6 +79,7 @@ class UserDogs extends Component {
   onPressDogShow(id) {
     console.log("onPressDogShow(" + id + ")")
     this.props.navigator.push({
+      title: 'Dog Profile',
       component: DogProfile,
       passProps: { dog_id: id },
     });

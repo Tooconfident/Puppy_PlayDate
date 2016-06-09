@@ -63,6 +63,7 @@ class DogCreate extends Component {
           //Add a Dog
           //this.props.navigator.popN(2);
           this.props.navigator.replace({
+            title: 'Dog Profile',
             component: DogProfile,
             passProps: {
               dog_id: responseData.id,
