@@ -5,21 +5,21 @@ Final Presentation Guidelines
 Length: 8 minutes for the presentation and up to 2 minutes of Q&A from the audience
 
 Outline:
-- App and team/team member introductions
+- App and team/team member introductions - 1 min
   - Buck
-- Explanation of problem the app solves
+- Explanation of problem the app solves - 15 secs
   - Ryan
-- Demo of app, explaining key features and general workflow
+- Demo of app, explaining key features and general workflow - 2 mins
   - Ryan
-- Technologies used/not used and why
+- Technologies used/not used and why - 1 min
   - Carlos
-- Team values, goals, agreements
+- Team values, goals, agreements - 1 min
   - Buck
-- Major hurdles overcome; successes, what you're proud of
+- Major hurdles overcome; successes, what you're proud of - 1 min
   - Renan
-- Major hurdles NOT overcome, stretch goals not met; failures and difficulties and reflections on why
+- Major hurdles NOT overcome, stretch goals not met; failures and difficulties and reflections on why - 1 min
   - Renan
-- Future
+- Future - 1 min
   - Renan
 - Display a link to the deployed app if applicable
 - Q&A
