@@ -49,6 +49,13 @@ class PlayDates extends Component {
     console.log("componentDidMount for Playdates called");
   }
 
+  componentWillReceiveProps() {
+    console.log('PlayDates: componentWillReceiveProps');
+    if (!this.props.loaded) {
+      this.fetchData();
+    }
+  }
+
   fetchData() {
     fetch(REQUEST_URL + "?user_id=" + this.state.userID)
       .then((response) => response.json())

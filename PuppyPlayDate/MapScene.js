@@ -20,6 +20,7 @@ import MapView from 'react-native-maps';
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
 import PlayDateShow from './PlayDateShow';
+import PlayDateCreate from './PlayDateCreate';
 
 var { width, height } = Dimensions.get('window');
 
@@ -71,10 +72,11 @@ class MapScene extends Component {
 
   }
 
-  componentWillUpdate() {
-    console.log('MapScene: componentWillUpdate');
-    // console.log('MapScene: componentWillUpdate, before call to render():');
-    // this.render();
+  componentWillReceiveProps() {
+    console.log('MapScene: componentWillReceiveProps');
+    if (!this.props.loaded) {
+      this.fetchData();
+    }
   }
 
   show() {
@@ -164,7 +166,8 @@ class MapScene extends Component {
           >
           {this.state.playdates.map(playdate => (
             <MapView.Marker
-            coordinate={JSON.parse(playdate.location)}>
+            coordinate={JSON.parse(playdate.location)}
+            key={playdate.id}>
               <MapView.Callout>
                 <View>
                   <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
