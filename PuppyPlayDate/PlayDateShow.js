@@ -8,14 +8,17 @@ import {
   ScrollView,
   NavigatorIOS,
   Image,
+  AlertIOS,
   TouchableHighlight,
 } from 'react-native';
 
 import PlayDateEdit from "./PlayDateEdit";
+import DogList from "./DogList";
 
 const styles = require('./style.js');
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
+var LEAVE_URL = 'http://localhost:3000/memberships/leave';
 
 class PlayDateShow extends Component {
   constructor(props) {
@@ -35,7 +38,15 @@ class PlayDateShow extends Component {
   }
 
   componentDidMount(){
-    console.log("PlayDateShow: componentDidMount: " + this.props.playdate_id);
+    // AsyncStorage.getItem("userID").then((value) => {
+    //   console.log('current.val '+ value);
+    //     this.setState({userID: value});
+    // })
+    // .then((value) => {
+    //   this.fetchData();
+    // })
+    // .done();
+
     this.fetchData();
   }
 
@@ -57,6 +68,37 @@ class PlayDateShow extends Component {
     this.props.navigator.pop();
   }
 
+  leavePlaydate() {
+    console.log(this.props.playdate_id)
+    console.log("press leave")
+    fetch(LEAVE_URL, {
+      method: "POST",
+      hearders: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.playdate_id,
+        dog_id: this.props.dog_id,
+      })
+    })
+    .then((response) => {
+        console.log(response);
+        return response.json()
+      })
+      .then((responseData) => {
+        console.log(responseData)
+        if(responseData.success) {
+          render()
+        } else {
+          AlertIOS.alert(
+            "Something went wrong!"
+          );
+        }
+      })
+      .done();
+  }
+
   onPressEdit() {
     console.log("onPressEdit");
     this.props.navigator.push({
@@ -68,6 +110,29 @@ class PlayDateShow extends Component {
     });
   }
 
+  onJoin() {
+    AlertIOS.alert(
+      "Join Group?",
+      "",
+    )
+  }
+
+  onPressLeave() {
+
+    AlertIOS.alert(
+      "Leave Group?",
+      "",
+      [
+      {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'Yes', onPress: () => {
+        this.leavePlaydate();
+        this.render();
+
+        }},
+      ],
+      );
+  }
+
   render() {
     var group = this.state;
 
@@ -76,26 +141,43 @@ class PlayDateShow extends Component {
         <View style={styles.innerContainer}>
 
           <ScrollView>
-            <View style={{alignSelf: 'center'}}>
+          <View style={styles.profileEntry}>
               <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
                 <Text style={{alignSelf: 'center'}}>Edit</Text>
               </TouchableHighlight>
-            </View>
-
-            <View style={{alignSelf: 'center'}}>
               <Text style={styles.entryLabel}>
-                {group.name}
+                Address: <Text style={styles.entryText}>{group.address}</Text>
               </Text>
             </View>
 
             <View style={{alignSelf: 'center', flexDirection: 'row'}}>
-              <Text>Join </Text>
-              <Text>Leave</Text>
-            </View>
+              <Text style={styles.entryLabel}>
+                {group.name}
+              </Text>
+
+              <TouchableHighlight onPress={() => this.props.navigator.push({
+                title: 'Choose a dog',
+                component: DogList,
+                passProps:{
+                  group_id: group.id,
+                }
+              })}>
+                <Text>Join Group</Text>
+              </TouchableHighlight>
+              <TouchableHighlight>
+                <Text>Leave Group</Text>
+              </TouchableHighlight>
+              <Text>
+                Location: {group.location}
+                </Text>
+                </View>
+
+
 
             <View style={styles.profileEntry}>
               <Text style={styles.entryLabel}>
                 Address: <Text style={styles.entryText}>{group.address}</Text>
+
               </Text>
             </View>
 
