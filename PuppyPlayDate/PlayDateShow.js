@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
   Text,
   View,
-  ListView,
-  ScrollView,
-  NavigatorIOS,
   Image,
-  AlertIOS,
+  Alert,
+  ListView,
+  StyleSheet,
+  ScrollView,
+  AppRegistry,
+  NavigatorIOS,
   TouchableHighlight,
 } from 'react-native';
 
@@ -18,7 +18,7 @@ import DogList from "./DogList";
 const styles = require('./style.js');
 
 var REQUEST_URL = 'http://localhost:3000/playdates/';
-var LEAVE_URL = 'http://localhost:3000/memberships/leave';
+var LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class PlayDateShow extends Component {
   constructor(props) {
@@ -80,9 +80,9 @@ class PlayDateShow extends Component {
   }
 
   leavePlaydate() {
-    console.log(this.props.playdate_id)
+    console.log(this.props)
     console.log("press leave")
-    fetch(LEAVE_URL, {
+    fetch(LEAVE_URL+"?id="+this.props.playdate_id+"&dog_id="+this.props.dog_id+"", {
       method: "POST",
       hearders: {
         "Accept": "application/json",
@@ -102,7 +102,7 @@ class PlayDateShow extends Component {
         if(responseData.success) {
           render()
         } else {
-          AlertIOS.alert(
+          Alert.alert(
             "Something went wrong!"
           );
         }
@@ -122,7 +122,7 @@ class PlayDateShow extends Component {
   }
 
   onJoin() {
-    AlertIOS.alert(
+    Alert.alert(
       "Join Group?",
       "",
     )
@@ -130,7 +130,7 @@ class PlayDateShow extends Component {
 
   onPressLeave() {
 
-    AlertIOS.alert(
+    Alert.alert(
       "Leave Group?",
       "",
       [
@@ -161,7 +161,7 @@ class PlayDateShow extends Component {
               </Text>
             </View>
 
-            <View style={{alignSelf: 'center', flexDirection: 'row'}}>
+            <View style={{alignSelf: 'center'}}>
               <Text style={styles.entryLabel}>
                 {group.name}
               </Text>
@@ -175,7 +175,16 @@ class PlayDateShow extends Component {
               })}>
                 <Text>Join Group</Text>
               </TouchableHighlight>
-              <TouchableHighlight>
+              <TouchableHighlight onPress={()=>{
+                Alert.alert(
+                  'Are you sure you want to leave',
+                  '',
+                  [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                    {text: 'OK', onPress: () => this.leavePlaydate()},
+                  ]
+                );
+              }}>
                 <Text>Leave Group</Text>
               </TouchableHighlight>
               <Text>
@@ -216,51 +225,5 @@ class PlayDateShow extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginTop: 70,
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
-//   },
-//   editButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-end',
-//   },
-//   backButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-start'
-//   },
-//   textContainer: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//   },
-//   rowContainer: {
-//     flexDirection: 'column',
-//     padding: 10,
-//     borderBottomWidth: 2,
-//   },
-//   pageTitle: {
-//     marginTop: 20,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//     fontSize: 20,
-//   },
-//   subtitle: {
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//   },
-// });
 
 module.exports = PlayDateShow;

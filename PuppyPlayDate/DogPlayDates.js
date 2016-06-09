@@ -14,15 +14,15 @@ import {
 
 } from 'react-native';
 
-import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
 
 const styles = require('./style.js');
 
 var REQUEST_URL = 'http://localhost:3000/dogs/playdates';
+var LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
-class PlayDates extends Component {
+class DogPlayDates extends Component {
 
   constructor(props){
     super(props);
@@ -35,7 +35,7 @@ class PlayDates extends Component {
       loaded: false,
     };
 
-    console.log("Constructor for Playdates called");
+    console.log("Constructor for Dog dates called");
   }
 
   componentWillMount(){
@@ -55,9 +55,12 @@ class PlayDates extends Component {
     fetch(REQUEST_URL + "?dog_id=" + this.props.dog_id)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log('>>>>');
+        console.log(responseData);
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
+          responseData: responseData[0]
         });
       })
       .done();
@@ -67,13 +70,46 @@ class PlayDates extends Component {
     console.log("onPressPlayDate(" + id + ")")
     this.props.navigator.push({
       component: PlayDateShow,
-      passProps: { playdate_id: id }
+      passProps: {
+        playdate_id: id,
+        dog_id: this.props.dog_id
+      }
     });
   }
 
   goBack() {
     this.props.navigator.pop();
   }
+  leavePlaydate(playdate_id) {
+    console.log("press leave")
+    console.log(this.state.responseData.id)
+    fetch(LEAVE_URL+"?id="+this.state.responseData.id+"&dog_id="+this.props.dog_id+"", {
+      method: "POST",
+      hearders: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.playdate_id,
+        dog_id: this.props.dog_id,
+      })
+    })
+    .then((response) => {
+        console.log(this.responseData);
+        return response.json()
+      })
+      .then((responseData) => {
+        console.log(responseData)
+        if(responseData.success) {
+          this.props.navigator.pop(2);
+        } else {
+          Alert.alert(
+            "Something went wrong!"
+          );
+        }
+      })
+      .done();
+    }
 
   onPressLeave() {
     console.log("Confirmed")
@@ -81,9 +117,8 @@ class PlayDates extends Component {
       'Alert Title',
       'My Alert Msg',
       [
-        {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {text: 'OK', onPress: () => this.leavePlaydate()},
       ]
     )
   }
@@ -95,7 +130,7 @@ class PlayDates extends Component {
           <View style={styles.listEntryContent}>
             <View style={styles.rowWithLeave}>
               <Text style={styles.entryLabel}>
-                {rowData.name}
+                {rowData.name + rowData.id}
               </Text>
 
               <Text style={styles.entryLabel}>Location: <Text style={styles.entryText}>{rowData.address}</Text></Text>
@@ -103,11 +138,12 @@ class PlayDates extends Component {
               <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
 
               <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{rowData.description}</Text></Text>
-            </View>
-
-              <TouchableHighlight style={styles.deleteButton} onPress={() => this.onPressLeave()}>
+              <TouchableHighlight style={styles.deleteButton} onPress={() => this.onPressLeave(rowData.id)}>
                 <Text>Leave</Text>
               </TouchableHighlight>
+            </View>
+
+
 
           </View>
         </View>
@@ -132,10 +168,7 @@ class PlayDates extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <TouchableHighlight
-            onPress={() => this.addGroupPressed()}>
-            <Text>Add</Text>
-          </TouchableHighlight>
+        
 
           <ListView
             dataSource={this.state.dataSource}
@@ -149,4 +182,4 @@ class PlayDates extends Component {
 
 
 
-module.exports = PlayDates;
+module.exports = DogPlayDates;

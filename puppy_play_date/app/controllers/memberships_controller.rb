@@ -1,9 +1,11 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: :leave
+  # before_action :set_membership, only: :leave
 
   def leave
     p params
-    if @membership.destroy
+    @membership2 = Membership.where("dog_id = #{params[:dog_id]} AND playdate_id = #{params[:id]}")
+    p @membership2
+    if @membership2[0].destroy
       render json: { success: true }
     else
       render json: { success: false }
