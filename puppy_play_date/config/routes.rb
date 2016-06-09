@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   post 'session/login'
 
   post 'memberships/leave'
+  post 'memberships/join'
 
   get 'playdates/show_all'
+  get 'dogs/playdates'
 
   resources :users
   resources :dogs
