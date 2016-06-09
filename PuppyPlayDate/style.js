@@ -179,7 +179,7 @@ module.exports = require('react-native').StyleSheet.create({
     marginRight: 12,
   },
   listEntryContent: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-around',
   },
   entryAvatar: {
@@ -205,5 +205,12 @@ module.exports = require('react-native').StyleSheet.create({
     //alignSelf: 'flex-end',
     //height: 50,
     borderWidth: 1,
+  },
+  rowWithLeave:{
+      flex: 8
+  },
+  deleteButton:{
+    backgroundColor: "red",
+    flex: 2
   },
 });

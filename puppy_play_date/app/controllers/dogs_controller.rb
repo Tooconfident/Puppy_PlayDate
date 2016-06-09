@@ -5,6 +5,11 @@ class DogsController < ApplicationController
     render json: @dog
   end
 
+  def playdates
+    dog = Dog.find(params[:dog_id])
+    render json: dog.playdates
+  end
+
   def create
     p params
     @dog = Dog.new(dog_params)
