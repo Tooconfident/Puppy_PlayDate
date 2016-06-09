@@ -21,7 +21,7 @@ carlos_dog = Dog.create!(
   owner: carlos
 )
 
-Photo.create!(dog: carlos_dog, url: Faker::Placeholdit.image("50x50"))
+Photo.create!(dog: carlos_dog, url: "https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/The-stages-of-puppy-growth.jpg")
 
 ryan = User.create!(
   name: "Ryan",
@@ -40,7 +40,7 @@ ryan_dog = Dog.create!(
   owner: ryan
 )
 
-Photo.create!(dog: ryan_dog, url: Faker::Placeholdit.image("50x50"))
+Photo.create!(dog: ryan_dog, url: "http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg")
 
 buck = User.create!(
   name: "Buck",
@@ -59,7 +59,7 @@ buck_dog = Dog.create!(
   owner: buck
 )
 
-Photo.create!(dog: buck_dog, url: Faker::Placeholdit.image("50x50"))
+Photo.create!(dog: buck_dog, url: "http://cdn.skim.gs/image/upload/v1456344012/msi/Puppy_2_kbhb4a.jpg")
 
 renan = User.create!(
   name: "Renan",
@@ -78,4 +78,4 @@ renan_dog = Dog.create!(
   owner: renan
 )
 
-Photo.create!(dog: renan_dog, url: Faker::Placeholdit.image("50x50"))
+Photo.create!(dog: renan_dog, url: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Puppy_on_Halong_Bay.jpg")
