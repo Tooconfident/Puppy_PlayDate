@@ -242,4 +242,14 @@ module.exports = require('react-native').StyleSheet.create({
     color: 'blue',
     fontSize: 14,
   },
+  joinGroupText: {
+    color: 'green',
+    alignSelf: 'flex-start',
+    fontWeight: 'bold'
+  },
+  leaveGroupText: {
+    color: 'red',
+    alignSelf: 'flex-end',
+    fontWeight: 'bold'
+  },
 });

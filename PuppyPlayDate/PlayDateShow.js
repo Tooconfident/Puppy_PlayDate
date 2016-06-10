@@ -154,7 +154,7 @@ class PlayDateShow extends Component {
           <ScrollView>
 
             <View style={{alignSelf: 'center', marginBottom: 10}}>
-              <Text style={styles.entryLabel}>
+              <Text style={{fontSize: 25, fontWeight: 'bold'}}>
                 {group.name}
               </Text>
               </View>
@@ -185,7 +185,7 @@ class PlayDateShow extends Component {
 
 
 
-            <View style={style=styles.dogList}>
+            <View style={[{borderRadius: 9}, styles.dogList]}>
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>
                   Address: <Text style={styles.entryText}>{group.address}</Text>
