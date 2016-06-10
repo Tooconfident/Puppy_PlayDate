@@ -256,9 +256,11 @@ module.exports = require('react-native').StyleSheet.create({
   joinGroupText: {
     color: 'green',
     alignSelf: 'flex-start',
+    fontWeight: 'bold'
   },
   leaveGroupText: {
     color: 'red',
     alignSelf: 'flex-end',
+    fontWeight: 'bold'
   },
 });
