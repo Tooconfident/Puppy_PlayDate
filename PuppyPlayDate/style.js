@@ -233,6 +233,7 @@ module.exports = require('react-native').StyleSheet.create({
     // borderWidth: 1,
     marginLeft: 12,
     marginRight: 12,
+    borderRadius: 8,
   },
   editProfileButton: {
     height: 30,
