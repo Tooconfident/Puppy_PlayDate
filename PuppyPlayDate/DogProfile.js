@@ -109,11 +109,11 @@ class DogProfile extends Component {
 
           <ScrollView>
             <View style={{alignSelf: 'center'}}>
+              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
+              <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
               <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
                 <Text style={{alignSelf: 'center'}}>My Playdates</Text>
               </TouchableHighlight>
-              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
-              <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
             </View>
 
             <View style={[{borderRadius: 9}, styles.dogList]}>
@@ -146,7 +146,7 @@ class DogProfile extends Component {
               </View>
 
               <TouchableHighlight onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'flex-end', color: 'blue', marginRight: 10}}>Edit</Text>
+                <Text style={{alignSelf: 'flex-end', color: ''}}>Edit</Text>
               </TouchableHighlight>
             </View>
           </ScrollView>

@@ -230,10 +230,10 @@ module.exports = require('react-native').StyleSheet.create({
   },
   dogList: {
     backgroundColor: 'rgb(239,239,239)',
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
     marginLeft: 12,
     marginRight: 12,
+    borderRadius: 8,
   },
   editProfileButton: {
     height: 30,

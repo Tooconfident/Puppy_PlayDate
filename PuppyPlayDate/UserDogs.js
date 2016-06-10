@@ -138,7 +138,7 @@ class UserDogs extends Component {
         <View style={styles.innerContainer}>
 
           <View style={styles.userProfileTop}>
-            <Text style={styles.entryLabel}>{this.state.name + "'s Dog"}</Text>
+            <Text style={styles.entryLabel}>{this.state.name + "'s Dogs"}</Text>
             <TouchableOpacity
               style={styles.editProfileButton} onPress={() => this.onPressEdit()}>
               <Text style={styles.editProfileButtonText}>Edit Profile</Text>
