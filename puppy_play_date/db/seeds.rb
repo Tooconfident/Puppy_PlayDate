@@ -30,7 +30,7 @@ end
 
   # Create fake dogs
   rand(0..10).times do
-    dog = Dog.create!(
+    dog = Dog.new(
       name: Faker::Name.name,
       breed: dog_breeds.sample,
       age: rand(3..20),
@@ -61,6 +61,7 @@ end
     url = puppies.sample
 
     Photo.create!(dog: dog, url: url)
+    dog.save!
   end
 end
 
