@@ -30,7 +30,7 @@ module.exports = require('react-native').StyleSheet.create({
     //  borderWidth: 3,
     // margin: 0,
     // padding: 0,
-    backgroundColor: '#ffb272',
+    backgroundColor: '#9cff92',
   },
   innerContainer: {
     flex: 1,
@@ -63,7 +63,7 @@ module.exports = require('react-native').StyleSheet.create({
   },
   addButton: {
     height: 30,
-    backgroundColor: '#904507',
+    backgroundColor: '#114800',
     alignSelf: 'center',
     //marginTop: 10,
     padding: 12,
@@ -76,7 +76,7 @@ module.exports = require('react-native').StyleSheet.create({
     marginTop: 12,
   },
   addButtonText: {
-    color: '#ffb272',
+    color: '#77ed6b',
     fontSize: 14,
     alignSelf: 'center',
   },
@@ -91,7 +91,7 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 18,
     marginBottom: 48,
     backgroundColor: 'transparent',
-    color: '#ffb272',
+    color: '#77ed6b',
     fontWeight: 'bold',
   },
   inputLabel: {
@@ -110,7 +110,7 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 15,
     borderWidth: 1,
     borderRadius: 9,
-    borderColor: '#904507',
+    borderColor: '#114800',
     backgroundColor: 'rgba(51, 31, 14, 0.40)'//'#ff9c4a',
   },
   textArea: {
@@ -118,7 +118,7 @@ module.exports = require('react-native').StyleSheet.create({
   },
   submitButton: {
     height: 35,
-    backgroundColor: '#904507',
+    backgroundColor: '#114800',
     alignSelf: 'stretch',
     //marginTop: 10,
     padding: 12,
@@ -132,13 +132,13 @@ module.exports = require('react-native').StyleSheet.create({
   },
   signupButton: {
     height: 35,
-    backgroundColor: '#de6909',
+    backgroundColor: '#479030',
     alignSelf: 'stretch',
     //marginTop: 10,
     justifyContent: 'center',
   },
   buttonText: {
-    color: '#ffb272',
+    color: '#77ed6b',
     fontSize: 18,
     alignSelf: 'center',
   },
@@ -149,7 +149,7 @@ module.exports = require('react-native').StyleSheet.create({
   profileEntry: {
     //alignItems: 'center',
     //borderTopWidth: 1,
-    // borderBottomWidth: 1,
+    borderBottomWidth: 1,
     // paddingLeft: 6,
     // paddingRight: 6,
     padding: 12,
@@ -160,20 +160,9 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  entryLabelTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 6,
-  },
-  entryLabelSmall: {
-    fontSize: 14,
-  },
   entryText: {
     fontSize: 16,
     fontWeight: 'normal',
-  },
-  entryTextSmall: {
-    fontSize: 14,
   },
   profileAvatar: {
     width: 128,
@@ -240,9 +229,9 @@ module.exports = require('react-native').StyleSheet.create({
     marginRight: 12,
   },
   dogList: {
-    backgroundColor: 'antiquewhite',
-    // borderWidth: 1,
-    // borderColor: 'red',
+    backgroundColor: 'rgb(239,239,239)',
+    borderWidth: 1,
+    borderColor: 'red',
     marginLeft: 12,
     marginRight: 12,
   },
@@ -252,13 +241,5 @@ module.exports = require('react-native').StyleSheet.create({
   editProfileButtonText: {
     color: 'blue',
     fontSize: 14,
-  },
-  joinGroupText: {
-    color: 'green',
-    alignSelf: 'flex-start',
-  },
-  leaveGroupText: {
-    color: 'red',
-    alignSelf: 'flex-end',
   },
 });
