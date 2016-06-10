@@ -8,6 +8,7 @@ import {
   NavigatorIOS,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 
@@ -136,18 +137,20 @@ class UserDogs extends Component {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <View style={{alignSelf: 'center', alignItems: 'center', flexDirection: 'row'}}>
-            <Text style={styles.entryLabel}>{this.state.name}</Text>
-            <TouchableHighlight style={styles.addButton} onPress={() => this.onPressEdit()}>
-              <Text style={styles.addButtonText}>Edit</Text>
-            </TouchableHighlight>
+          <View style={styles.userProfileTop}>
+            <Text style={styles.entryLabel}>{this.state.name + "'s Dog"}</Text>
+            <TouchableOpacity
+              style={styles.editProfileButton} onPress={() => this.onPressEdit()}>
+              <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+            </TouchableOpacity>
           </View>
 
-          <TouchableHighlight style={styles.addButton} onPress={() => this.onPressAdd()}>
-            <Text style={styles.addButtonText} >Add</Text>
+          <TouchableHighlight style={[styles.addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
+            <Text style={styles.addButtonText} >+ Add Dog</Text>
           </TouchableHighlight>
 
           <ListView
+            style={styles.dogList}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />

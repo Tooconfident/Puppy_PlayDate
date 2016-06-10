@@ -114,8 +114,8 @@ class MapScene extends Component {
       passProps: {
         userID: this.props.userID,
       },
-      // leftButtonTitle: 'Map',
-      // onLeftButtonPress: () => this.props.navigator.pop(),
+      leftButtonTitle: '< Map',
+      onLeftButtonPress: () => this.props.navigator.pop(),
     })
   }
 
