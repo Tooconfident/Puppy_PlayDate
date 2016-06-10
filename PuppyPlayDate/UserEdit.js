@@ -97,7 +97,7 @@ class UserEdit extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.innerContainer}>
+        <View style={[styles.innerContainer, {justifyContent: 'flex-start', marginTop: 114}]}>
 
           <TextInput
             placeholder="Username"

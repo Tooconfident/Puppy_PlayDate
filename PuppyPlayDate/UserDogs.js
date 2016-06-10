@@ -8,6 +8,7 @@ import {
   NavigatorIOS,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 
@@ -138,9 +139,10 @@ class UserDogs extends Component {
 
           <View style={styles.userProfileTop}>
             <Text style={styles.entryLabel}>{this.state.name + "'s Dog"}</Text>
-            <TouchableHighlight style={styles.editProfileButton} onPress={() => this.onPressEdit()}>
+            <TouchableOpacity
+              style={styles.editProfileButton} onPress={() => this.onPressEdit()}>
               <Text style={styles.editProfileButtonText}>Edit Profile</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <TouchableHighlight style={[styles.addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
