@@ -149,7 +149,7 @@ module.exports = require('react-native').StyleSheet.create({
   profileEntry: {
     //alignItems: 'center',
     //borderTopWidth: 1,
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     // paddingLeft: 6,
     // paddingRight: 6,
     padding: 12,
@@ -160,9 +160,20 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  entryLabelTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  entryLabelSmall: {
+    fontSize: 14,
+  },
   entryText: {
     fontSize: 16,
     fontWeight: 'normal',
+  },
+  entryTextSmall: {
+    fontSize: 14,
   },
   profileAvatar: {
     width: 128,
@@ -230,8 +241,8 @@ module.exports = require('react-native').StyleSheet.create({
   },
   dogList: {
     backgroundColor: 'antiquewhite',
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
+    // borderColor: 'red',
     marginLeft: 12,
     marginRight: 12,
   },
@@ -241,5 +252,13 @@ module.exports = require('react-native').StyleSheet.create({
   editProfileButtonText: {
     color: 'blue',
     fontSize: 14,
+  },
+  joinGroupText: {
+    color: 'green',
+    alignSelf: 'flex-start',
+  },
+  leaveGroupText: {
+    color: 'red',
+    alignSelf: 'flex-end',
   },
 });

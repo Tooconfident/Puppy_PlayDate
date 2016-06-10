@@ -152,76 +152,72 @@ class PlayDateShow extends Component {
         <View style={styles.innerContainer}>
 
           <ScrollView>
-          <View style={styles.profileEntry}>
-              <TouchableHighlight style={styles.backButton} onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'center'}}>Edit</Text>
-              </TouchableHighlight>
-              <Text style={styles.entryLabel}>
-                Address: <Text style={styles.entryText}>{group.address}</Text>
-              </Text>
-            </View>
 
-            <View style={{alignSelf: 'center'}}>
+            <View style={{alignSelf: 'center', marginBottom: 10}}>
               <Text style={styles.entryLabel}>
                 {group.name}
               </Text>
+              </View>
 
-              <TouchableHighlight onPress={() => this.props.navigator.push({
-                title: 'Choose a dog',
-                component: DogList,
-                passProps:{
-                  group_id: group.id,
-                }
-              })}>
-                <Text>Join Group</Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={()=>{
-                Alert.alert(
-                  'Are you sure you want to leave',
-                  '',
-                  [
-                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                    {text: 'OK', onPress: () => this.leavePlaydate()},
-                  ]
-                );
-              }}>
-                <Text>Leave Group</Text>
-              </TouchableHighlight>
-              <Text>
-                Location: {group.location}
+              <View style={{marginBottom: 10, flexDirection: 'row', justifyContent: 'space-around'}}>
+                <TouchableHighlight onPress={() => this.props.navigator.push({
+                  title: 'Choose a dog',
+                  component: DogList,
+                  passProps:{
+                    group_id: group.id,
+                  }
+                })}>
+                  <Text style={styles.joinGroupText}>Join Group</Text>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={()=>{
+                  Alert.alert(
+                    'Are you sure you want to leave',
+                    '',
+                    [
+                      {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                      {text: 'OK', onPress: () => this.leavePlaydate()},
+                    ]
+                  );
+                }}>
+                  <Text style={styles.leaveGroupText}>Leave Group</Text>
+                </TouchableHighlight>
+              </View>
+
+
+
+            <View style={style=styles.dogList}>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>
+                  Address: <Text style={styles.entryText}>{group.address}</Text>
                 </Text>
-                </View>
+              </View>
 
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>
+                  Creator: <Text style={styles.entryText}>Creator Name</Text>
+                </Text>
+              </View>
 
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>
+                  Number of Dogs: <Text style={styles.entryText}>{group.member_count}</Text>
+                </Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>
-                Address: <Text style={styles.entryText}>{group.address}</Text>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>
+                  Description: <Text style={styles.entryText}>{group.description}</Text>
+                </Text>
+              </View>
 
-              </Text>
-            </View>
-
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>
-                Creator: <Text style={styles.entryText}>Creator Name</Text>
-              </Text>
-            </View>
-
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>
-                Number of Dogs: <Text style={styles.entryText}>{group.member_count}</Text>
-              </Text>
-            </View>
-
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>
-                Description: <Text style={styles.entryText}>{group.description}</Text>
-              </Text>
-            </View>
-
-          </ScrollView>
+              <TouchableHighlight style={styles.editPlaydate} onPress={() => this.onPressEdit()}>
+                <Text style={{alignSelf: 'flex-end', marginRight: 36, color: 'blue'}}>Edit</Text>
+              </TouchableHighlight>
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
+
     );
   }
 }
