@@ -61,15 +61,15 @@ class DogCreate extends Component {
         console.log(responseData)
         if (responseData.success != false){
           //Add a Dog
-          //this.props.navigator.popN(2);
-          this.props.navigator.replace({
-            title: 'Dog Profile',
-            component: DogProfile,
-            passProps: {
-              dog_id: responseData.id,
-              loaded: false,
-            },
-          });
+          this.props.navigator.popN(2);
+          // this.props.navigator.replace({
+          //   title: 'Dog Profile',
+          //   component: DogProfile,
+          //   passProps: {
+          //     dog_id: responseData.id,
+          //     loaded: false,
+          //   },
+          // });
         } else {
           AlertIOS.alert(
            'Something went wrong!'
