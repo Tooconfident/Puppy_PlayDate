@@ -173,7 +173,8 @@ module.exports = require('react-native').StyleSheet.create({
   },
   listEntry: {
     flexDirection: 'row',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
+    borderColor: 'rgb(140, 140, 140)',
     padding: 12,
     marginLeft: 12,
     marginRight: 12,
@@ -215,14 +216,28 @@ module.exports = require('react-native').StyleSheet.create({
   },
   userProfileTop: {
     // alignSelf: 'center',
-     alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    //justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderColor: '#E8E8E8',
     padding: 12,
     paddingRight: 0,
     marginLeft: 12,
     marginRight: 12,
+  },
+  dogList: {
+    backgroundColor: 'antiquewhite',
+    borderWidth: 1,
+    borderColor: 'red',
+    marginLeft: 12,
+    marginRight: 12,
+  },
+  editProfileButton: {
+    height: 30,
+  },
+  editProfileButtonText: {
+    color: 'black',
+    fontSize: 14,
   },
 });
