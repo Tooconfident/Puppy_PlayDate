@@ -11,7 +11,7 @@ carlos = User.create!(
   email: "carlos@mail.com"
 )
 
-carlos_dog = Dog.create!(
+carlos_dog = Dog.new(
   name: Faker::Name.name,
   breed: dog_breeds.sample,
   age: rand(3..20),
@@ -22,6 +22,7 @@ carlos_dog = Dog.create!(
 )
 
 Photo.create!(dog: carlos_dog, url: "https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/The-stages-of-puppy-growth.jpg")
+carlos_dog.save!
 
 ryan = User.create!(
   name: "Ryan",
@@ -30,7 +31,7 @@ ryan = User.create!(
   email: "ryan@mail.com"
 )
 
-ryan_dog = Dog.create!(
+ryan_dog = Dog.new(
   name: "Link",
   breed: dog_breeds.sample,
   age: 1,
@@ -41,6 +42,7 @@ ryan_dog = Dog.create!(
 )
 
 Photo.create!(dog: ryan_dog, url: "http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg")
+ryan_dog.save!
 
 buck = User.create!(
   name: "Buck",
@@ -49,7 +51,7 @@ buck = User.create!(
   email: "buck@mail.com"
 )
 
-buck_dog = Dog.create!(
+buck_dog = Dog.new(
   name: "Mimi",
   breed: dog_breeds.sample,
   age: 1,
@@ -60,6 +62,7 @@ buck_dog = Dog.create!(
 )
 
 Photo.create!(dog: buck_dog, url: "http://cdn.skim.gs/image/upload/v1456344012/msi/Puppy_2_kbhb4a.jpg")
+buck_dog.save!
 
 renan = User.create!(
   name: "Renan",
@@ -68,7 +71,7 @@ renan = User.create!(
   email: "renan@mail.com"
 )
 
-renan_dog = Dog.create!(
+renan_dog = Dog.new(
   name: "Beegee",
   breed: dog_breeds.sample,
   age: 1,
@@ -79,3 +82,5 @@ renan_dog = Dog.create!(
 )
 
 Photo.create!(dog: renan_dog, url: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Puppy_on_Halong_Bay.jpg")
+renan_dog.save!
+
