@@ -109,43 +109,45 @@ class DogProfile extends Component {
 
           <ScrollView>
             <View style={{alignSelf: 'center'}}>
-              <TouchableHighlight onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'center'}}>Edit</Text>
-              </TouchableHighlight>
               <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
                 <Text style={{alignSelf: 'center'}}>My Playdates</Text>
               </TouchableHighlight>
               <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
-              <Text style={styles.entryLabel}>{dog.name}</Text>
+              <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
             </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
-            </View>
+            <View style={[{borderRadius: 9}, styles.dogList]}>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Breed: <Text style={styles.entryText}>{dog.breed}</Text></Text>
-            </View>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Breed: <Text style={styles.entryText}>{dog.breed}</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Age: <Text style={styles.entryText}>{dog.age}</Text></Text>
-            </View>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Age: <Text style={styles.entryText}>{dog.age}</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Favorite Toy: <Text style={styles.entryText}>{dog.toy}</Text></Text>
-            </View>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Favorite Toy: <Text style={styles.entryText}>{dog.toy}</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>PlayDates: <Text style={styles.entryText}>N/A</Text></Text>
-            </View>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>PlayDates: <Text style={styles.entryText}>N/A</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Gender: <Text style={styles.entryText}>{dog.gender}</Text></Text>
-            </View>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Gender: <Text style={styles.entryText}>{dog.gender}</Text></Text>
+              </View>
 
-            <View style={styles.profileEntry}>
-              <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{dog.description}</Text></Text>
+              <View style={styles.profileEntry}>
+                <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{dog.description}</Text></Text>
+              </View>
 
+              <TouchableHighlight onPress={() => this.onPressEdit()}>
+                <Text style={{alignSelf: 'flex-end', color: 'blue', marginRight: 10}}>Edit</Text>
+              </TouchableHighlight>
             </View>
           </ScrollView>
         </View>
