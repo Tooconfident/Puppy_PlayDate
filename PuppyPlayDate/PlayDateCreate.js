@@ -132,7 +132,7 @@ class PlayDateCreate extends Component {
         <View style={styles.innerContainer}>
 
           <Text style={[styles.pageHeading, {color: 'black'}]}>
-            Create your new playdate
+            Create your new Playdate
           </Text>
 
           <TextInput
