@@ -71,6 +71,7 @@ class PlayDates extends Component {
   onPressPlayDate(id) {
     console.log("onPressPlayDate(" + id + ")")
     this.props.navigator.push({
+      title: "Playdate",
       component: PlayDateShow,
       passProps: { playdate_id: id }
     });
@@ -82,19 +83,23 @@ class PlayDates extends Component {
 
   renderRow(rowData, sectionID, rowID){
     return(
-      <TouchableHighlight onPress={() => this.onPressPlayDate(rowData.id)}>
+      <TouchableHighlight
+        underlayColor='transparent'
+        onPress={() => this.onPressPlayDate(rowData.id)}>
         <View style={styles.listEntry}>
           <View style={styles.listEntryContent}>
 
-            <Text style={styles.entryLabel}>
+            <Text style={styles.entryLabelTitle}>
               {rowData.name}
             </Text>
 
-            <Text style={styles.entryLabel}>Address: <Text style={styles.entryText}>{rowData.address}</Text></Text>
+            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>Address: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.address}</Text></Text>
 
-            <Text style={styles.entryLabel}>Day and Time: <Text style={styles.entryText}>{rowData.time_day}</Text></Text>
+            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>Day and Time: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.time_day}</Text></Text>
 
-            <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{rowData.description}</Text></Text>
+            {
+            //<Text style={[styles.entryLabel, styles.entryLabelSmall]}>Description: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.description}</Text></Text>
+            }
 
           </View>
         </View>
@@ -127,6 +132,7 @@ class PlayDates extends Component {
           </TouchableHighlight>
 
           <ListView
+            style={styles.dogList}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />
