@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   bubble: {
     flex: 1,
     // backgroundColor: 'rgba(10,41,41,0.4)',
-    backgroundColor: '#ffb27299',
+    backgroundColor: '#42fa2f99',
   },
   latlng: {
     width: 200,
