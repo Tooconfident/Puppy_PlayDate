@@ -3,7 +3,17 @@
 Puppy Play Date is a community-based network connecting dogs to a healthy environment of other dogs.
 
 ## Team Members:
-Ryan Wilkins, Carlos González, Renan Martins, Buck Melton
+
+* [Ryan Wilkins](https://github.com/Tooconfident)
+* [Carlos González](https://github.com/cyberpolin)
+* [Renan Martins](https://github.com/nbkhope)
+* [Buck Melton](https://github.com/buckmelton)
+
+## Technologies
+
+* React Native
+* Ruby on Rails
+* PostgreSQL
 
 ## User Stories
 
@@ -34,3 +44,53 @@ Ryan Wilkins, Carlos González, Renan Martins, Buck Melton
 - A user who has created a group can leave the group, and an email gets sent to all other members of the group saying someone needs to become new creator otherwise group will be deleted within 14 days.
 
 
+## Database Schema
+
+![Database Schema](schema.png)
+
+## Installation (MAC OS X)
+
+You will need Brew, NodeJS and Xcode.
+
+Then, install the React Native command line tools:
+
+```
+npm install -g react-native-cli
+```
+
+Install Watchman and Flow:
+```
+brew install watchman
+
+brew install flow
+```
+
+To run the application, navigate to its directory and run the command:
+
+```
+react-native run-ios
+```
+
+### Installation Notes
+
+You might need to also to take care of Node dependencies using
+
+```
+npm install
+```
+
+In case you get an error where the development server is not running, type:
+
+```
+npm start
+```
+
+If you have trouble with the version of Node, you can install a newer version using:
+
+```
+npm install -g n
+n v4.1.2
+
+# Verify the Node version
+node -v
+```
