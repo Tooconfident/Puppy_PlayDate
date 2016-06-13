@@ -66,7 +66,7 @@ end
 end
 
 # Create fake playdates
-60.times do
+30.times do
   Playdate.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.paragraph,
