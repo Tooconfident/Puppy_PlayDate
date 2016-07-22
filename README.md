@@ -60,6 +60,10 @@ You can see each screenshot in more detail in the [screenshots/](screenshots/REA
 
 ## Installation (MAC OS X)
 
+### Front-End Environment
+
+The front-end is an iOS application built using React Native.
+
 You will need Brew, NodeJS and Xcode.
 
 Then, install the React Native command line tools:
@@ -81,7 +85,7 @@ To run the application, navigate to its directory and run the command:
 react-native run-ios
 ```
 
-### Installation Notes
+#### Front-End Installation Notes
 
 You might need to also to take care of Node dependencies using
 
@@ -103,4 +107,38 @@ n v4.1.2
 
 # Verify the Node version
 node -v
+```
+
+### Back-End Server
+
+The backend is a Rails API application that serves JSON. It is located in the [puppy_play_date/](puppy_play_date/) directory.
+
+After changing into the `puppy_play_date/` directory, run bundle to install all dependencies:
+
+```
+bundle install
+```
+
+Then, create, migrate, and seed the database:
+
+```
+bin/rake db:create db:migrate db:seed
+```
+
+(if you already have the database, but want to start from scratch, use `bin/rake db:drop` before executing the command above)
+
+Run the server using:
+
+```
+bin/rails server
+```
+
+The backend API will be available at http://localhost:3000/
+
+The API endpoints are:
+
+```
+/users/:id	(includes the user's dogs)
+/dogs/:id
+/playdates/:id  (includes the playdate's users)
 ```
