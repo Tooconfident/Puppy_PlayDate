@@ -133,7 +133,7 @@ Run the server using:
 bin/rails server
 ```
 
-The backend API will be available at http://localhost:3000/
+The backend API will be available at <http://localhost:3000/>
 
 The API endpoints are:
 
@@ -142,3 +142,5 @@ The API endpoints are:
 /dogs/:id
 /playdates/:id  (includes the playdate's users)
 ```
+
+Run `bin/rake routes` for more details about the endpoints.
