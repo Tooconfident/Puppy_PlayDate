@@ -5,9 +5,9 @@ Puppy Play Date is a community-based network connecting dogs to a healthy enviro
 ## Screenshots
 
 <div align="center">
-![demo01](screenshots/collage/login_signup_playdatemap.png)
-![demo02](screenshots/collage/userprofile_dogprofile_editdog.png)
-![demo03](screenshots/collage/playdate_page_alone.png)
+<img src="screenshots/collage/login_signup_playdatemap.png">
+<img src="screenshots/collage/userprofile_dogprofile_editdog.png">
+<img src="screenshots/collage/playdate_page_alone.png">
 </div>
 
 ## Team Members:
