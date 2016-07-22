@@ -10,6 +10,8 @@ Puppy Play Date is a community-based network connecting dogs to a healthy enviro
 <img src="screenshots/collage/playdate_page_alone.png">
 </div>
 
+You can see each screenshot in more detail in the [screenshots/](screenshots/README.md) directory.
+
 ## Team Members:
 
 * [Ryan Wilkins](https://github.com/Tooconfident)
