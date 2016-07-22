@@ -33,7 +33,7 @@ You can see each screenshot in more detail in the [screenshots/](screenshots/REA
 	- Create an account (sign-up, login)
 	- Create a profile for user
 	- Create a profile for my dogs
-		- photo, name, breed, age, temperment(?), location
+		- photo, name, breed, age, temperament, location
 	- Look for groups in my area, or in my dog's area, or anywhere on the map
 		- Click on the group pin to access group info
 			- Choose to join the groups / contact the group creator
