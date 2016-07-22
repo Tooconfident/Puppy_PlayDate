@@ -2,6 +2,16 @@
 
 Puppy Play Date is a community-based network connecting dogs to a healthy environment of other dogs.
 
+![login](screenshots/login.png)
+![signup](screenshots/signup.png)
+![playdate map](screenshots/playdate_map.png)
+
+![user profile](screenshots/user_profile.png)
+![dog profile](screenshots/dog_profile.png)
+![edit dog profile](screenshots/edit_dog_profile.png)
+
+![playdate page](screenshots/playdate_page.png)
+
 ## Team Members:
 
 * [Ryan Wilkins](https://github.com/Tooconfident)
