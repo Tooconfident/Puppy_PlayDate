@@ -2,9 +2,9 @@
 
 Puppy Play Date is a community-based network connecting dogs to a healthy environment of other dogs.
 
-![login](screenshots/login.png)
-![signup](screenshots/signup.png)
-![playdate map](screenshots/playdate_map.png)
+![login](screenshots/login.png =250x)
+![signup](screenshots/signup.png =250x)
+![playdate map](screenshots/playdate_map.png =250x)
 
 ![user profile](screenshots/user_profile.png)
 ![dog profile](screenshots/dog_profile.png)
