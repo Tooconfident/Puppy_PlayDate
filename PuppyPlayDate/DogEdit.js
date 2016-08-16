@@ -18,7 +18,7 @@ import DogProfile from './DogProfile';
 const styles = require('./style.js');
 
 // URL to get a specific dog if you append an id
-var REQUEST_URL = 'http://localhost:3000/dogs/';
+const REQUEST_URL = 'http://localhost:3000/dogs/';
 
 class DogEdit extends Component {
   constructor(props) {
@@ -252,4 +252,4 @@ class DogEdit extends Component {
 //   }
 // });
 
-module.exports = DogEdit;
+export default DogEdit;

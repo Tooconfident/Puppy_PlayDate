@@ -207,4 +207,4 @@ class PlayDateCreate extends Component {
 //   }
 // });
 
-module.exports = PlayDateCreate;
+export default PlayDateCreate;

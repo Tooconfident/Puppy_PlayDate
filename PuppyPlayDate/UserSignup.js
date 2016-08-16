@@ -184,4 +184,4 @@ class UserSignup extends Component {
 //   },
 // });
 
-module.exports = UserSignup;
+export default UserSignup;

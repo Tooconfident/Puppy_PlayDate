@@ -19,8 +19,8 @@ import PlayDateShow from './PlayDateShow';
 
 const styles = require('./style.js');
 
-var REQUEST_URL = 'http://localhost:3000/dogs/playdates';
-var LEAVE_URL = 'http://localhost:3000/memberships/leave/';
+const REQUEST_URL = 'http://localhost:3000/dogs/playdates';
+const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class DogPlayDates extends Component {
 
@@ -168,7 +168,7 @@ class DogPlayDates extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-        
+
 
           <ListView
             dataSource={this.state.dataSource}
@@ -182,4 +182,4 @@ class DogPlayDates extends Component {
 
 
 
-module.exports = DogPlayDates;
+export default DogPlayDates;

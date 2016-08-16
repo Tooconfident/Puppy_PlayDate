@@ -92,4 +92,4 @@ Navbar.defaultProps = {
   hasBackButton: true,
 };
 
-module.exports = Navbar;
+export default Navbar;

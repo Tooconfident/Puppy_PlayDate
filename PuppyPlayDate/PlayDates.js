@@ -18,7 +18,7 @@ import PlayDateShow from './PlayDateShow';
 
 const styles = require('./style.js');
 
-var REQUEST_URL = 'http://localhost:3000/playdates';
+const REQUEST_URL = 'http://localhost:3000/playdates';
 
 class PlayDates extends Component {
 
@@ -189,4 +189,4 @@ class PlayDates extends Component {
 //   },
 // });
 
-module.exports = PlayDates;
+export default PlayDates;

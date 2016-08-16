@@ -19,8 +19,8 @@ import PlayDateShow from './PlayDateShow';
 const styles = require('./style.js');
 
 // URL to the API to get a specific user if you append an id
-var REQUEST_URL = 'http://localhost:3000/users/';
-var JOIN_URL = 'http://localhost:3000/memberships/join/';
+const REQUEST_URL = 'http://localhost:3000/users/';
+const JOIN_URL = 'http://localhost:3000/memberships/join/';
 
 class DogList extends Component {
   constructor(props){
@@ -144,4 +144,4 @@ class DogList extends Component {
 
 
 
-module.exports = DogList;
+export default DogList;

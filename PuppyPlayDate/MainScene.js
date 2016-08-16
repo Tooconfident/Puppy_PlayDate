@@ -138,4 +138,4 @@ class MainScene extends Component {
 
 
 
-module.exports = MainScene;
+export default MainScene;

@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = WelcomePage;
+export default WelcomePage;
