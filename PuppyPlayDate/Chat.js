@@ -10,12 +10,12 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-class DogProfile extends Components {
+class Chat extends Components {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
-          This is Dog Profile
+          This is Chat
         </Text>
       </View>
     );
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = DogProfile;
+export default Chat;
