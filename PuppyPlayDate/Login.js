@@ -19,7 +19,7 @@ import UserSignup from './UserSignup';
 
 const styles = require('./style.js');
 
-const REQUEST_URL ='http://localhost:3000/session/login'
+const REQUEST_URL ='http://localhost:3000/session/login';
 
 class Login extends Component {
   constructor(props) {
