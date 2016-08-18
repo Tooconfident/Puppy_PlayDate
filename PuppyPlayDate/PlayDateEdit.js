@@ -16,7 +16,7 @@ import PlayDateShow from "./PlayDateShow";
 const styles = require('./style.js');
 
 // URL to get a specific playdate if you append an id
-var REQUEST_URL = 'http://localhost:3000/playdates/';
+const REQUEST_URL = 'http://localhost:3000/playdates/';
 
 class PlayDateEdit extends Component {
 
@@ -180,4 +180,4 @@ class PlayDateEdit extends Component {
 //
 // });
 
-module.exports = PlayDateEdit;
+export default PlayDateEdit;

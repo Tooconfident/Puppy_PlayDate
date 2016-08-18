@@ -31,7 +31,7 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = 0.0421;
 const SPACE = 0.01;
 
-var REQUEST_URL = 'http://localhost:3000/playdates/show_all';
+const REQUEST_URL = 'http://localhost:3000/playdates/show_all';
 
 class MapScene extends Component {
   constructor(props) {
@@ -285,4 +285,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = MapScene;
+export default MapScene;

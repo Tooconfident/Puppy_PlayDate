@@ -167,4 +167,4 @@ class DogCreate extends Component {
 //   }
 // });
 
-module.exports = DogCreate;
+export default DogCreate;

@@ -17,8 +17,8 @@ import DogList from "./DogList";
 
 const styles = require('./style.js');
 
-var REQUEST_URL = 'http://localhost:3000/playdates/';
-var LEAVE_URL = 'http://localhost:3000/memberships/leave/';
+const REQUEST_URL = 'http://localhost:3000/playdates/';
+const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class PlayDateShow extends Component {
   constructor(props) {
@@ -222,4 +222,4 @@ class PlayDateShow extends Component {
   }
 }
 
-module.exports = PlayDateShow;
+export default PlayDateShow;

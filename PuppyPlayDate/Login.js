@@ -13,13 +13,13 @@ import {
   AlertIOS
 } from 'react-native';
 
-import MapScene from './MapScene'
+import MapScene from './MapScene';
 import MainScene from './MainScene';
 import UserSignup from './UserSignup';
 
-const styles = require('./style.js')
+const styles = require('./style.js');
 
-const REQUEST_URL ='http://localhost:3000/session/login'
+const REQUEST_URL ='http://localhost:3000/session/login';
 
 class Login extends Component {
   constructor(props) {
@@ -151,4 +151,4 @@ class Login extends Component {
   }
 }
 
-module.exports = Login;
+export default Login;
