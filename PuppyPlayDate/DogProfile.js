@@ -17,7 +17,7 @@ import DogPlayDates from './DogPlayDates';
 
 const styles = require('./style.js');
 
-var REQUEST_URL = 'http://localhost:3000/dogs/';
+const REQUEST_URL = 'http://localhost:3000/dogs/';
 
 class DogProfile extends Component {
   constructor(props) {
@@ -196,4 +196,4 @@ class DogProfile extends Component {
 //   },
 // });
 
-module.exports = DogProfile;
+export default DogProfile;

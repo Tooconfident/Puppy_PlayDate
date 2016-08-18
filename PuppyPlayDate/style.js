@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 const _background = '#FFF';
 const _opacity = .4;
 const _inputBackground = '#666';
@@ -5,7 +7,7 @@ const _inputBackground = '#666';
 var Dimensions = require('Dimensions')
 var {width, height} = Dimensions.get('window');
 
-module.exports = require('react-native').StyleSheet.create({
+module.exports = StyleSheet.create({
   center: {
     justifyContent: 'center'
   },

@@ -19,7 +19,7 @@ import UserEdit from './UserEdit';
 const styles = require('./style.js');
 
 // URL to the API to get a specific user if you append an id
-var REQUEST_URL = 'http://localhost:3000/users/';
+const REQUEST_URL = 'http://localhost:3000/users/';
 
 class UserDogs extends Component {
   constructor(props){
@@ -222,4 +222,4 @@ class UserDogs extends Component {
 //   },
 // });
 
-module.exports = UserDogs;
+export default UserDogs;

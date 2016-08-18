@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = TestPage;
+export default TestPage;
