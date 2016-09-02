@@ -14,7 +14,7 @@ import {
 
 import DogProfile from './DogProfile';
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
 const REQUEST_URL= 'http://localhost:3000/dogs';
 

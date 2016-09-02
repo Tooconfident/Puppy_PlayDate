@@ -13,7 +13,7 @@ import {
 
 import UserDogs from './UserDogs';
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
 // URL to the API to get a specific user if you append an id
 const REQUEST_URL = 'http://localhost:3000/users/';
