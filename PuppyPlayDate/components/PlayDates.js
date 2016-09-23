@@ -13,15 +13,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { fetchPlaydates } from '../actions/index';
+import { fetchUserPlaydates } from '../actions/index';
 
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
 
 const styles = require('../style.js');
-
-const REQUEST_URL = 'http://localhost:3000/playdates';
 
 class PlayDates extends Component {
 
@@ -64,7 +62,7 @@ class PlayDates extends Component {
   }
 
   fetchData() {
-    this.props.fetchPlaydates(this.state.userID);
+    this.props.fetchUserPlaydates(this.state.userID);
   }
 
   onPressPlayDate(id) {
@@ -142,7 +140,7 @@ class PlayDates extends Component {
 }
 
 function mapStateToProps(state) {
-  return { playdates: state.playdates.all };
+  return { playdates: state.playdates.own };
 }
 
-export default connect(mapStateToProps, { fetchPlaydates })(PlayDates);
+export default connect(mapStateToProps, { fetchUserPlaydates })(PlayDates);

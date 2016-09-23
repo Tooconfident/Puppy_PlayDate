@@ -16,6 +16,9 @@ import {
   AsyncStorage,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { fetchPlaydates } from '../actions/index';
+
 import MapView from 'react-native-maps';
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
@@ -30,8 +33,6 @@ const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = 0.0421;
 const SPACE = 0.01;
-
-const REQUEST_URL = 'http://localhost:3000/playdates/show_all';
 
 class MapScene extends Component {
   constructor(props) {
@@ -52,24 +53,12 @@ class MapScene extends Component {
     };
   }
 
-  fetchData() {
-    fetch(REQUEST_URL)
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.setState({
-        playdates: responseData,
-        loaded: true,
-      })
-    })
-    .done();
-  }
-
-  componentDidMount() {
-    this.fetchData();
-
+  componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val '+ value);
       this.setState({"userID": value});
+
+      this.props.fetchPlaydates();
     }).done();
 
   }
@@ -152,12 +141,13 @@ class MapScene extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
+    const { playdates } = this.props;
+
+    if (!playdates) {
       return this.renderLoadingView();
     }
 
     var region = this.state.region;
-    var playdates = this.state.playdates;
 
     return (
       <View style={styles.container}>
@@ -170,7 +160,7 @@ class MapScene extends Component {
           // onPlayDatePress= show event // callback function
           // onPlayDateSelect= go to group page // these two may have to be flipped
           >
-          {this.state.playdates.map(playdate => (
+          {playdates.map(playdate => (
             <MapView.Marker
             key={playdate.id}
             coordinate={JSON.parse(playdate.location)}
@@ -287,4 +277,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MapScene;
+function mapStateToProps(state) {
+  return { playdates: state.playdates.all };
+}
+
+export default connect(mapStateToProps, { fetchPlaydates })(MapScene);
