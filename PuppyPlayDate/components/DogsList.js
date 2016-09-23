@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import {
   ListView,
+  Text,
   StyleSheet
 } from 'react-native';
 
 import DogListItem from './DogListItem';
+import DogProfile from './DogProfile';
 
 export default class DogsList extends Component {
   constructor(props) {
     super(props);
+
+    console.log("DogsList props", props);
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -19,15 +23,15 @@ export default class DogsList extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("DogsList WillReceiveProps");
-
-    if (nextProps.dogs !== this.props.dogs) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.dogs),
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("DogsList WillReceiveProps");
+  //
+  //   if (nextProps.dogs !== this.props.dogs) {
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(nextProps.dogs),
+  //     });
+  //   }
+  // }
 
   onPressDogShow(id) {
     console.log("onPressDogShow(" + id + ")")
@@ -53,6 +57,7 @@ export default class DogsList extends Component {
 
   render() {
     const { dogs } = this.props;
+    const dataSource = this.state.dataSource.cloneWithRows(dogs);
 
     if (!dogs) {
       return <Text>Loading...</Text>;
@@ -61,7 +66,7 @@ export default class DogsList extends Component {
     return (
       <ListView
         style={styles.dogList}
-        dataSource={this.state.dataSource}
+        dataSource={dataSource}
         renderRow={this.renderRow.bind(this)}
       />
     );
