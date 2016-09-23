@@ -19,6 +19,7 @@ import { fetchDog } from '../actions/index';
 import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
 import DogPlayDates from './DogPlayDates';
+import ProfileAvatar from './ProfileAvatar';
 
 const styles = require('../style.js');
 
@@ -93,7 +94,7 @@ class DogProfile extends Component {
 
           <ScrollView>
             <View style={{alignSelf: 'center'}}>
-              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
+              <ProfileAvatar source={{ uri: dog.avatar }} />
               <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
               <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
                 <Text style={{alignSelf: 'center'}}>My Playdates</Text>
