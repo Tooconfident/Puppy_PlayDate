@@ -31,6 +31,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # Returns all the dogs for a specific user
+  def dogs
+    user = User.find(params[:user_id])
+    render json: user.dogs
+  end
+
 
   private
 

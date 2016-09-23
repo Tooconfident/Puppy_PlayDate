@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   get 'playdates/show_all'
   get 'dogs/playdates'
 
-  resources :users
+  resources :users do
+    get 'dogs'
+  end
   resources :dogs
   resources :playdates
 
