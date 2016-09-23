@@ -15,6 +15,7 @@ import {
 import DogProfile from './DogProfile';
 import DogCreate from './DogCreate';
 import UserEdit from './UserEdit';
+import DogListItem from './DogListItem';
 
 const styles = require('../style.js');
 
@@ -110,21 +111,10 @@ class UserDogs extends Component {
     console.log("rowData.avatar = " + rowData.avatar);
 
     return(
-      <TouchableHighlight onPress={() => this.onPressDogShow(rowData.id)}>
-        <View style={styles.listEntry}>
-          <Image style={styles.entryAvatar} source={{ uri: rowData.avatar }}/>
-
-          <View style={styles.listEntryContent}>
-            <Text style={styles.entryLabel}>
-              {rowData.name}
-            </Text>
-
-            <Text style={styles.entryLabel}>
-              Age: <Text style={styles.entryText}>{rowData.age}</Text>
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
+      <DogListItem
+        item={rowData}
+        onPress={this.onPressDogShow.bind(this)}
+      />
     );
   }
 
