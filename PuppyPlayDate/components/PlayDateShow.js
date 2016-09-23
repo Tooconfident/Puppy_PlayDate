@@ -12,32 +12,22 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { fetchPlaydate } from '../actions/index';
+
 import PlayDateEdit from "./PlayDateEdit";
 import DogList from "./DogList";
 
 const styles = require('../style.js');
 
-const REQUEST_URL = 'http://localhost:3000/playdates/';
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class PlayDateShow extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      name: "",
-      description: "",
-      location: "",
-      address: "",
-      frequency: "",
-      time_day: "",
-      user_id: "",
-      member_count: "",
-      loaded: false,
-    };
   }
 
-  componentDidMount(){
+  componentWillMount(){
     // AsyncStorage.getItem("userID").then((value) => {
     //   console.log('current.val '+ value);
     //     this.setState({userID: value});
@@ -47,28 +37,14 @@ class PlayDateShow extends Component {
     // })
     // .done();
 
-    this.fetchData();
+    this.props.fetchPlaydate(this.props.playdate_id);
   }
 
   componentWillReceiveProps() {
     console.log("PlayDateShow WillReceiveProps");
-    if (!this.props.loaded) {
-       this.fetchData();
-     }
-  }
-
-  fetchData(){
-    fetch(REQUEST_URL + this.props.playdate_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        for (let data in responseData) {
-          this.setState({
-            [data]:responseData[data]
-          });
-        }
-        this.setState({loaded: true,});
-      })
-      .done();
+    // if (!this.props.loaded) {
+    //    this.fetchData();
+    //  }
   }
 
   goBack() {
@@ -145,7 +121,11 @@ class PlayDateShow extends Component {
   }
 
   render() {
-    var group = this.state;
+    const { playdate } = this.props;
+
+    if (!playdate) {
+      return <Text>Loading</Text>;
+    }
 
     return (
       <View style={styles.container}>
@@ -155,7 +135,7 @@ class PlayDateShow extends Component {
 
             <View style={{alignSelf: 'center', marginBottom: 10}}>
               <Text style={{fontSize: 25, fontWeight: 'bold'}}>
-                {group.name}
+                {playdate.name}
               </Text>
               </View>
 
@@ -164,7 +144,7 @@ class PlayDateShow extends Component {
                   title: 'Choose a dog',
                   component: DogList,
                   passProps:{
-                    group_id: group.id,
+                    group_id: playdate.id,
                   }
                 })}>
                   <Text style={styles.joinGroupText}>Join Group</Text>
@@ -183,12 +163,10 @@ class PlayDateShow extends Component {
                 </TouchableHighlight>
               </View>
 
-
-
             <View style={[{borderRadius: 9}, styles.dogList]}>
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>
-                  Address: <Text style={styles.entryText}>{group.address}</Text>
+                  Address: <Text style={styles.entryText}>{playdate.address}</Text>
                 </Text>
               </View>
 
@@ -200,13 +178,13 @@ class PlayDateShow extends Component {
 
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>
-                  Number of Dogs: <Text style={styles.entryText}>{group.member_count}</Text>
+                  Number of Dogs: <Text style={styles.entryText}>{playdate.member_count}</Text>
                 </Text>
               </View>
 
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>
-                  Description: <Text style={styles.entryText}>{group.description}</Text>
+                  Description: <Text style={styles.entryText}>{playdate.description}</Text>
                 </Text>
               </View>
 
@@ -222,4 +200,8 @@ class PlayDateShow extends Component {
   }
 }
 
-export default PlayDateShow;
+function mapStateToProps(state) {
+  return { playdate: state.playdates.playdate };
+}
+
+export default connect(mapStateToProps, { fetchPlaydate })(PlayDateShow);
