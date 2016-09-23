@@ -11,31 +11,29 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+// To connect react and redux
+import { connect } from 'react-redux';
+// Action creator
+import { fetchDog } from '../actions/index';
+
 import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
 import DogPlayDates from './DogPlayDates';
 
 const styles = require('../style.js');
 
-const REQUEST_URL = 'http://localhost:3000/dogs/';
-
 class DogProfile extends Component {
   constructor(props) {
     super(props);
     console.log("Constructing DogProfile");
-    console.log("this.props.dog_id is " + this.props.dog_id);
-    console.log("this.props.navigator is " + this.props.navigator);
-
-    this.state = {
-      dog: {},
-      loaded: false,
-    };
+    console.log("this.props.dog_id is", this.props.dog_id);
+    console.log("this.props.navigator is", this.props.navigator);
   }
 
-  componentDidMount() {
-    console.log("DogProfile didMount");
-
-    this.fetchData();
+  componentWillMount() {
+    // Call upon the action creator to send an action
+    // & ultimately retrieve data for the dog
+    this.props.fetchDog(this.props.dog_id);
   }
 
   componentWillUpdate() {
@@ -47,25 +45,9 @@ class DogProfile extends Component {
 
   componentWillReceiveProps() {
     console.log("DogProfile WillReceiveProps");
-    if (!this.props.loaded) {
-       this.fetchData();
-     }
-  }
-
-  fetchData() {
-    console.log("fetchData (DogProfile) called for dog_id " + this.props.dog_id);
-    fetch(REQUEST_URL + this.props.dog_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("fetchData for DogProfile: " + responseData);
-        for (let data in responseData) {
-          this.setState({
-            [data]:responseData[data]
-          });
-        }
-        this.setState({loaded: true,});
-      })
-      .done();
+    // if (!this.props.loaded) {
+    //    this.fetchData();
+    //  }
   }
 
   goBack() {
@@ -99,9 +81,11 @@ class DogProfile extends Component {
   }
 
   render() {
-    var dog = this.state;
-    console.log('DogProfile this.state:');
-    console.log(this.state);
+    const { dog } = this.props;
+
+    if (!dog) {
+      return <View style={styles.innerContainer}><Text>Loading</Text></View>;
+    }
 
     return (
       <View style={styles.container}>
@@ -156,44 +140,8 @@ class DogProfile extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginTop: 75,
-//   },
-//   text: {
-//     fontSize: 14,
-//   },
-//   dogImage: {
-//     width: 128,
-//     height: 128,
-//     borderRadius: 128/2,
-//   },
-//   dogDescription: {
-//     height: 50,
-//   },
-//   backButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-start'
-//   },
-//   editButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-end',
-//   },
-//   backButtonText: {
-//     fontSize: 14,
-//     borderRadius: 12,
-//     fontWeight: 'bold',
-//   },
-//   navbar: {
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
-// });
+function mapStateToProps(state) {
+  return { dog: state.dogs.dog };
+}
 
-export default DogProfile;
+export default connect(mapStateToProps, { fetchDog })(DogProfile);
