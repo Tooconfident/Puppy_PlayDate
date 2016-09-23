@@ -11,6 +11,16 @@ import {
  StyleSheet,
 } from 'react-native';
 
+// For Redux
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+
+import reducers from './reducers';
+import promise from 'redux-promise';
+
+// Add any middleware here
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
 import Login from './components/Login';
 import MainScene from './components/MainScene';
 import MapScene from './components/MapScene';
@@ -45,13 +55,16 @@ class PuppyPlayDateApp extends Component {
   //
   render() {
     return (
-      <NavigatorIOS
-        style={styles.wrapper}
-        initialRoute= {{
-          title: 'Puppy Playdate',
-          component: Login,
-        }}/>
-      );
+      <Provider store={createStoreWithMiddleware(reducers)}>
+        <NavigatorIOS
+          style={styles.wrapper}
+          initialRoute={{
+            title: 'Puppy Playdate',
+            component: Login,
+          }}
+        />
+      </Provider>
+    );
   }
 }
 AppRegistry.registerComponent('PuppyPlayDate', () => PuppyPlayDateApp);
