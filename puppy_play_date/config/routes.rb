@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :users do
     get 'dogs'
+    get 'playdates'
   end
   resources :dogs
   resources :playdates

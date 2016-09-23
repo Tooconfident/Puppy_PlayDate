@@ -37,6 +37,10 @@ class UsersController < ApplicationController
     render json: user.dogs
   end
 
+  def playdates
+    user = User.find(params[:user_id])
+    render json: user.playdates
+  end
 
   private
 
