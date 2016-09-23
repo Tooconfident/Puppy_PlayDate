@@ -172,7 +172,7 @@ class MapScene extends Component {
             <MapView.Marker
             key={playdate.id}
             coordinate={JSON.parse(playdate.location)}
-            image={require('./Resources/dog-marker-green.png')}>
+            image={require('../Resources/dog-marker-green.png')}>
               <MapView.Callout>
                 <View>
                   <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
@@ -188,21 +188,21 @@ class MapScene extends Component {
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/dog-house.png')}>
+              source={require('../Resources/dog-house.png')}>
             </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/dog_paw.png')}>
+              source={require('../Resources/dog_paw.png')}>
             </Image>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
             <Image
               style={styles.icon}
-              source={require('./Resources/bone2.png')}>
+              source={require('../Resources/bone2.png')}>
             </Image>
           </TouchableOpacity>
 
@@ -213,7 +213,7 @@ class MapScene extends Component {
           >
           <Image
             style={styles.icon}
-            source={require('./Resources/log_out.png')}>
+            source={require('../Resources/log_out.png')}>
           </Image>
           </TouchableOpacity>
         </View>

@@ -3,53 +3,57 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  TextInput,
   View,
   ListView,
   NavigatorIOS,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  TextInput,
 } from 'react-native';
 
-import UserDogs from './UserDogs';
+import PlayDateShow from "./PlayDateShow";
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
-// URL to the API to get a specific user if you append an id
-const REQUEST_URL = 'http://localhost:3000/users/';
+// URL to get a specific playdate if you append an id
+const REQUEST_URL = 'http://localhost:3000/playdates/';
 
-class UserEdit extends Component {
+class PlayDateEdit extends Component {
+
   constructor(props) {
     super(props);
 
     // Initialize Playdate Attributes
     this.state = {
       id: "",
-      username: "",
       name: "",
-      email: "",
-      password: "",
+      location: "",
+      address: "",
+      time_day: "",
+      description: "",
       loaded: false,
     };
   }
 
   componentDidMount() {
-    // As soon as the component is mounted, go and fetch the data for the user
+    // As soon as the component is mounted, go and fetch the data for the playdate
     this.fetchData();
   }
 
-  // Performs an Ajax call to retrieve information about the user
+  // Performs an Ajax call to retrieve information about the playdate
   fetchData(){
-    console.log("fetchData: UserEdit: user_id " + this.props.user_id)
-    fetch(REQUEST_URL + this.props.user_id)
+    console.log("fetchData: PlayDateEdit: playdate_id " + this.props.playdate_id)
+    fetch(REQUEST_URL + this.props.playdate_id)
       .then((response) => response.json())
       .then((responseData) => {
         // Update the state with the information about the playdate
         this.setState({
           id: responseData.id,
           name: responseData.name,
-          username: responseData.username,
-          email: responseData.email,
+          location: responseData.location,
+          address: responseData.address,
+          time_day: responseData.time_day,
+          description: responseData.description,
           loaded: true,
         });
       })
@@ -66,19 +70,25 @@ class UserEdit extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: this.state.username,
         name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
+        location: this.state.location,
+        address: this.state.address,
+        time_day: this.state.time_day,
+        description: this.state.description,
       })
     })
     .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
         if (responseData.success != false){
+          // this.props.navigator.replacePreviousAndPop({
+          //   component: DogProfile,
+          //   passProps: {
+          //     dog_id: this.state.id,
+          //   },
+          // });
           this.props.navigator.pop({
-            title: 'Profile',
-            component: UserDogs,
+            component: PlayDateShow,
             passProps: {
               loaded: false,
             },
@@ -93,39 +103,35 @@ class UserEdit extends Component {
   }
 
   render() {
-    var user = this.state;
-
     return (
       <View style={styles.container}>
-        <View style={[styles.innerContainer, {justifyContent: 'flex-start', marginTop: 114}]}>
+        <View style={styles.innerContainer}>
 
           <TextInput
-            placeholder="Username"
+            placeholder="Playdate Name"
             style={styles.inputText}
-            value={user.username}
-            onChangeText={(text) => this.setState({username: text})}
-          />
-
-          <TextInput
-            placeholder="Name"
-            style={styles.inputText}
-            value={user.name}
+            value={this.state.name}
             onChangeText={(text) => this.setState({name: text})}
           />
 
           <TextInput
-            placeholder="Email"
             style={styles.inputText}
-            value={user.email}
-            onChangeText={(text) => this.setState({email: text})}
-          />
+            placeholder="Address"
+            value={this.state.address}
+            onChangeText={(text) => this.setState({address: text})} />
 
           <TextInput
-            placeholder="Password"
+            placeholder="Date and Time"
             style={styles.inputText}
-            value={user.password}
-            password={true}
-            onChangeText={(text) => this.setState({password: text})}
+            value={this.state.time_day}
+            onChangeText={(text) => this.setState({time_day: text})} />
+
+          <TextInput
+            placeholder="Description"
+            style={[styles.inputText, styles.textArea]}
+            value={this.state.description}
+            onChangeText={(text) => this.setState({description: text})}
+            multiline={true}
           />
 
           <TouchableHighlight
@@ -133,9 +139,8 @@ class UserEdit extends Component {
             onPress={this.onPressEdit.bind(this)}
             underlayColor='#99d9f4'
           >
-            <Text style={styles.buttonText}>Edit</Text>
+            <Text style={styles.buttonText}>Update</Text>
           </TouchableHighlight>
-
         </View>
       </View>
     );
@@ -149,20 +154,13 @@ class UserEdit extends Component {
 //     justifyContent: 'center',
 //   },
 //   text: {
-//     fontSize: 40,
+//     fontSize: 14,
 //   },
 //   button: {
-//     height: 36,
-//     backgroundColor: "#48bbec",
-//     borderWidth: 1,
-//     borderRadius: 8,
-//     marginBottom: 10,
-//     alignSelf: "stretch",
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: "white",
-//     alignSelf: "center",
+//     borderWidth: 2,
+//     borderRadius: 12,
+//     padding: 10,
+//     backgroundColor: 'antiquewhite'
 //   },
 //   inputLabel: {
 //     fontWeight: 'bold',
@@ -179,27 +177,7 @@ class UserEdit extends Component {
 //   textArea: {
 //     height: 100,
 //   },
-//   input: {
-//     height: 40,
-//   },
-//   pageTitle: {
-//     marginTop: 20,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//     fontSize: 20,
-//   },
-//   subtitle: {
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//   },
-//   navbar: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
+//
 // });
 
-export default UserEdit;
+export default PlayDateEdit;

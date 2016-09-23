@@ -8,65 +8,88 @@ import {
   ListView,
   NavigatorIOS,
   Image,
-  TouchableHighlight,
-  AsyncStorage,
-  AlertIOS,
+  TouchableHighlight
 } from 'react-native';
 
-import MainScene from './MainScene';
+import UserDogs from './UserDogs';
 
-// Universal Styles
-const styles = require('./style.js')
+const styles = require('../style.js');
 
-const REQUEST_URL ='http://localhost:3000/users'
+// URL to the API to get a specific user if you append an id
+const REQUEST_URL = 'http://localhost:3000/users/';
 
-class UserSignup extends Component {
+class UserEdit extends Component {
   constructor(props) {
     super(props);
 
+    // Initialize Playdate Attributes
     this.state = {
+      id: "",
       username: "",
       name: "",
       email: "",
       password: "",
+      loaded: false,
     };
   }
 
-  onPressSignup() {
-    fetch(REQUEST_URL, {
-      method: 'POST',
+  componentDidMount() {
+    // As soon as the component is mounted, go and fetch the data for the user
+    this.fetchData();
+  }
+
+  // Performs an Ajax call to retrieve information about the user
+  fetchData(){
+    console.log("fetchData: UserEdit: user_id " + this.props.user_id)
+    fetch(REQUEST_URL + this.props.user_id)
+      .then((response) => response.json())
+      .then((responseData) => {
+        // Update the state with the information about the playdate
+        this.setState({
+          id: responseData.id,
+          name: responseData.name,
+          username: responseData.username,
+          email: responseData.email,
+          loaded: true,
+        });
+      })
+      .done();
+  }
+
+  onPressEdit() {
+    // TODO: perform an update request to update the
+    // playdate information in the backend
+    fetch(REQUEST_URL + this.state.id, {
+      method: 'PATCH',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify({
+        username: this.state.username,
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+      })
     })
     .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
         if (responseData.success != false){
-          this.makeSession(responseData.userID)
-
+          this.props.navigator.pop({
+            title: 'Profile',
+            component: UserDogs,
+            passProps: {
+              loaded: false,
+            },
+          });
         } else {
           AlertIOS.alert(
-           'Please fill all fields'
+           'Something went wrong!'
           );
         }
       })
       .done();
-    // TODO: connect to backend to create user account
-    // you also need to get the user_id back from the backend
-
-    //this.props.navigator.push({
-    // this.props.navigator.popToTop({
-    //   // where do you get the user_id ????
-    //   passProps: { user_id: 1 },
-    // });
-  }
-
-  makeSession(userID) {
-    AsyncStorage.setItem("userID", String(userID));
-    this.props.navigator.popToTop();
   }
 
   render() {
@@ -74,18 +97,13 @@ class UserSignup extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.innerContainer}>
-
-          <Text style={[styles.pageHeading, {color: 'black'}]}>
-            Please enter your user information
-          </Text>
+        <View style={[styles.innerContainer, {justifyContent: 'flex-start', marginTop: 114}]}>
 
           <TextInput
             placeholder="Username"
             style={styles.inputText}
             value={user.username}
             onChangeText={(text) => this.setState({username: text})}
-            autoCapitalize={'none'}
           />
 
           <TextInput
@@ -100,7 +118,6 @@ class UserSignup extends Component {
             style={styles.inputText}
             value={user.email}
             onChangeText={(text) => this.setState({email: text})}
-            autoCapitalize={'none'}
           />
 
           <TextInput
@@ -109,17 +126,16 @@ class UserSignup extends Component {
             value={user.password}
             password={true}
             onChangeText={(text) => this.setState({password: text})}
-            autoCapitalize={'none'}
-            autoCorrect={false}
           />
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={this.onPressSignup.bind(this)}>
-            <Text style={styles.buttonText}>
-              Sign Up
-            </Text>
+            onPress={this.onPressEdit.bind(this)}
+            underlayColor='#99d9f4'
+          >
+            <Text style={styles.buttonText}>Edit</Text>
           </TouchableHighlight>
+
         </View>
       </View>
     );
@@ -135,19 +151,18 @@ class UserSignup extends Component {
 //   text: {
 //     fontSize: 40,
 //   },
+//   button: {
+//     height: 36,
+//     backgroundColor: "#48bbec",
+//     borderWidth: 1,
+//     borderRadius: 8,
+//     marginBottom: 10,
+//     alignSelf: "stretch",
+//   },
 //   buttonText: {
 //     fontSize: 18,
 //     color: "white",
 //     alignSelf: "center",
-//   },
-//   input: {
-//     height: 40,
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
 //   },
 //   inputLabel: {
 //     fontWeight: 'bold',
@@ -163,6 +178,9 @@ class UserSignup extends Component {
 //   },
 //   textArea: {
 //     height: 100,
+//   },
+//   input: {
+//     height: 40,
 //   },
 //   pageTitle: {
 //     marginTop: 20,
@@ -184,4 +202,4 @@ class UserSignup extends Component {
 //   },
 // });
 
-export default UserSignup;
+export default UserEdit;

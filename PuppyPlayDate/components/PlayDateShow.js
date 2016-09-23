@@ -15,7 +15,7 @@ import {
 import PlayDateEdit from "./PlayDateEdit";
 import DogList from "./DogList";
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
 const REQUEST_URL = 'http://localhost:3000/playdates/';
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
