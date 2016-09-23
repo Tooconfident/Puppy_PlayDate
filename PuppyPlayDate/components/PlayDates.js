@@ -11,6 +11,9 @@ import {
   View,
   AsyncStorage,
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import { fetchPlaydates } from '../actions/index';
 
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
@@ -46,26 +49,22 @@ class PlayDates extends Component {
     })
     .done();
 
-    console.log("componentDidMount for Playdates called");
+    console.log("componentWillMount for Playdates finished");
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     console.log('PlayDates: componentWillReceiveProps');
-    if (!this.props.loaded) {
-      this.fetchData();
+    if (nextProps.playdates !== this.props.playdates) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.playdates),
+        loaded: true,
+      });
     }
+    console.log("State is now", this.state);
   }
 
   fetchData() {
-    fetch(REQUEST_URL + "?user_id=" + this.state.userID)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
-          loaded: true,
-        });
-      })
-      .done();
+    this.props.fetchPlaydates(this.state.userID);
   }
 
   onPressPlayDate(id) {
@@ -117,7 +116,7 @@ class PlayDates extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
+    if (!this.props.playdates) {
       return(<Text>Loading...</Text>)
     }
 
@@ -142,51 +141,8 @@ class PlayDates extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
-//   },
-//   editButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-end',
-//   },
-//   textContainer: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//   },
-//   rowContainer: {
-//     flexDirection: 'column',
-//     padding: 10,
-//     borderBottomWidth: 2,
-//   },
-//   pageTitle: {
-//     marginTop: 20,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//     fontSize: 20,
-//   },
-//   subtitle: {
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//   },
-//   navbar: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
-// });
+function mapStateToProps(state) {
+  return { playdates: state.playdates.all };
+}
 
-export default PlayDates;
+export default connect(mapStateToProps, { fetchPlaydates })(PlayDates);
