@@ -46,3 +46,12 @@ export function fetchPlaydates(userId) {
     payload: request
   };
 }
+
+export function fetchPlaydate(id) {
+  const request = axios(`${REQUEST_URL}/playdates/${id}`);
+
+  return {
+    type: FETCH_PLAYDATE,
+    payload: request
+  };
+}
