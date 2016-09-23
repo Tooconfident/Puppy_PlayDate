@@ -37,6 +37,8 @@ class MapScene extends Component {
   constructor(props) {
     super(props);
 
+    console.log("MapScene props:", props);
+
     this.state = {
       region: {
         latitude: LATITUDE,
@@ -74,9 +76,9 @@ class MapScene extends Component {
 
   componentWillReceiveProps() {
     console.log('MapScene: componentWillReceiveProps');
-    if (!this.props.loaded) {
-      this.fetchData();
-    }
+    // if (!this.props.loaded) {
+    //   this.fetchData();
+    // }
   }
 
   show() {
@@ -112,7 +114,7 @@ class MapScene extends Component {
       title: 'Profile',
       component: UserDogs,
       passProps: {
-        userID: this.props.userID,
+        userID: this.state.userID,
       },
       leftButtonTitle: '< Map',
       onLeftButtonPress: () => this.props.navigator.pop(),
