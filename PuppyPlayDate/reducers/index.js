@@ -10,7 +10,7 @@ import UsersReducer from './reducer_users';
 const rootReducer = combineReducers({
   dogs: DogsReducer,
   playdates: PlaydatesReducer,
-  users: UsersReducer
+  users: UsersReducer,
 });
 
 export default rootReducer;
