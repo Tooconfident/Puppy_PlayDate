@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import DogsReducer from './reducer_dogs';
 import PlaydatesReducer from './reducer_playdates';
 import UsersReducer from './reducer_users';
+import AuthReducer from './reducer_auth';
 
 // Combine all reducers here
 // (don't forget to assign key-value pairs)
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   dogs: DogsReducer,
   playdates: PlaydatesReducer,
   users: UsersReducer,
+  auth: AuthReducer
 });
 
 export default rootReducer;
