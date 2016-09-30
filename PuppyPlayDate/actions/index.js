@@ -114,3 +114,9 @@ export function loginUser({ username, password }) {
     })
     ;
 }
+
+export function registerUser({ username, password }) {
+  return {
+    type: AUTH_USER
+  };
+}
