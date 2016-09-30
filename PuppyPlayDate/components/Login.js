@@ -73,9 +73,9 @@ class Login extends Component {
           });
 
         } else {
-          AlertIOS.alert(
-           'Something went wrong!'
-          );
+          // AlertIOS.alert(
+          //  'Something went wrong!'
+          // );
         }
       })
       .done();
