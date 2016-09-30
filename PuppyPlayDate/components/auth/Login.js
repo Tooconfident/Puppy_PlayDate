@@ -15,7 +15,7 @@ import {
 
 import MapScene from './MapScene';
 import MainScene from './MainScene';
-import UserSignup from './UserSignup';
+import UserSignup from './auth/UserSignup';
 
 const styles = require('../style.js');
 
