@@ -1,4 +1,8 @@
-import { FETCH_USER_PLAYDATES, FETCH_PLAYDATES, FETCH_PLAYDATE } from '../actions/index';
+import {
+  FETCH_USER_PLAYDATES,
+  FETCH_PLAYDATES,
+  FETCH_PLAYDATE
+} from '../actions/types';
 
 INITIAL_STATE = {
   all: [],

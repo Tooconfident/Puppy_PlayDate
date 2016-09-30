@@ -1,4 +1,4 @@
-import { FETCH_DOGS, FETCH_DOG } from '../actions/index';
+import { FETCH_DOGS, FETCH_DOG } from '../actions/types';
 
 // Initial application state
 const INITIAL_STATE = {
