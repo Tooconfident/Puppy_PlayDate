@@ -96,3 +96,21 @@ export function updatePlaydate(playdate) {
     payload: request
   }
 }
+
+export function loginUser({ username, password }) {
+  axios.post(`${REQUEST_URL}/session/login`, { username, password })
+    .then(response => {
+      console.log("Login successful", response);
+
+      // Login successfully, so store user id locally
+      AsyncStorage.setItem("userID", String(response.data));
+
+      return {
+        type: AUTH_USER
+      };
+    })
+    .catch(error => {
+      console.log(error.response.data.error);
+    })
+    ;
+}
