@@ -12,10 +12,13 @@ import {
   AsyncStorage,
   AlertIOS
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import MapScene from './MapScene';
 import MainScene from './MainScene';
 import UserSignup from './auth/UserSignup';
+
+import { loginUser } from '../../actions/index';
 
 const styles = require('../style.js');
 
@@ -40,46 +43,65 @@ class Login extends Component {
   }
 
   loginPress() {
-    fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      })
+    this.props.loginUser({
+      username: this.state.username,
+      password: this.state.password
     })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false) {
-          //Login successfully
-          this.makeSession(responseData);
+      .then(() => {
+        // Makes sure to clean up the form after logging in
+        this.setState({
+          //username: '',
+          password: '',
+        });
 
-          // Redirect to Home scene
-          this.props.navigator.push({
-            title: 'Puppy Playdate',
-            component: MapScene,
-            leftButtonTitle: ' ',
-            id: 'mapscene',
-          })
-
-          // Makes sure to clean up the form after logging in
-          this.setState({
-            //username: '',
-            password: '',
-          });
-
-        } else {
-          // AlertIOS.alert(
-          //  'Something went wrong!'
-          // );
-        }
-      })
-      .done();
-    console.log(this.state.username);
+        // Redirect to Home scene
+        this.props.navigator.push({
+          title: 'Puppy Playdate',
+          component: MapScene,
+          leftButtonTitle: ' ',
+          id: 'mapscene',
+        });
+      });
+    // fetch(REQUEST_URL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     username: this.state.username,
+    //     password: this.state.password,
+    //   })
+    // })
+    // .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     if (responseData.success != false) {
+    //       //Login successfully
+    //       this.makeSession(responseData);
+    //
+    //       // Redirect to Home scene
+    //       this.props.navigator.push({
+    //         title: 'Puppy Playdate',
+    //         component: MapScene,
+    //         leftButtonTitle: ' ',
+    //         id: 'mapscene',
+    //       })
+    //
+    //       // Makes sure to clean up the form after logging in
+    //       this.setState({
+    //         //username: '',
+    //         password: '',
+    //       });
+    //
+    //     } else {
+    //       // AlertIOS.alert(
+    //       //  'Something went wrong!'
+    //       // );
+    //     }
+    //   })
+    //   .done();
+    // console.log(this.state.username);
   }
 
   onPressSignup() {
@@ -91,7 +113,7 @@ class Login extends Component {
 
   makeSession(userID) {
     console.log('state'+ this.state.userID);
-    AsyncStorage.setItem("userID", String(userID));
+
     console.log('new-state'+ this.state.userID);
   }
 
@@ -151,4 +173,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error };
+}
+
+export default connect(mapStateToProps, { loginUser })(Login);
