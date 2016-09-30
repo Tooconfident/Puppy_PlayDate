@@ -21,7 +21,7 @@ import promise from 'redux-promise';
 // Add any middleware here
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
-import Login from './components/Login';
+import Login from './components/auth/Login';
 import MainScene from './components/MainScene';
 import MapScene from './components/MapScene';
 import WelcomePage from './components/WelcomePage';
