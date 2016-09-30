@@ -12,11 +12,12 @@ import {
   AsyncStorage,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { fetchDog, createDog } from '../actions/index';
+
 import DogProfile from './DogProfile';
 
 const styles = require('../style.js');
-
-const REQUEST_URL= 'http://localhost:3000/dogs';
 
 class DogCreate extends Component {
 
@@ -40,43 +41,58 @@ class DogCreate extends Component {
   }
 
   onPressCreate() {
-    // TODO: create dog in backend
-    fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        age: this.state.age,
-        breed: this.state.breed,
-        toy: this.state.toy,
-        user_id: this.state.userID,
+    // fetch(REQUEST_URL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     age: this.state.age,
+    //     breed: this.state.breed,
+    //     toy: this.state.toy,
+    //     user_id: this.state.userID,
+    //
+    //   })
+    // })
+    // .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     if (responseData.success != false){
+    //       //Add a Dog
+    //       this.props.navigator.popN(2);
+    //       // this.props.navigator.replace({
+    //       //   title: 'Dog Profile',
+    //       //   component: DogProfile,
+    //       //   passProps: {
+    //       //     dog_id: responseData.id,
+    //       //     loaded: false,
+    //       //   },
+    //       // });
+    //     } else {
+    //       AlertIOS.alert(
+    //        'Something went wrong!'
+    //       );
+    //     }
+    //   })
+    //   .done();
 
-      })
-    })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
-          //Add a Dog
-          this.props.navigator.popN(2);
-          // this.props.navigator.replace({
-          //   title: 'Dog Profile',
-          //   component: DogProfile,
-          //   passProps: {
-          //     dog_id: responseData.id,
-          //     loaded: false,
-          //   },
-          // });
-        } else {
-          AlertIOS.alert(
-           'Something went wrong!'
-          );
-        }
-      })
-      .done();
+    const newDog = {
+      name: this.state.name,
+      age: this.state.age,
+      breed: this.state.breed,
+      toy: this.state.toy,
+      user_id: this.state.userID,
+    };
+
+    this.props.createDog(newDog)
+      .then(() => {
+        AlertIOS.alert('Your dog has been added successfully');
+        // this.props.navigator.push({
+        //   component: DogProfile
+        // });
+      });
   }
 
   render() {
@@ -167,4 +183,4 @@ class DogCreate extends Component {
 //   }
 // });
 
-export default DogCreate;
+export default connect(null, { fetchDog, createDog })(DogCreate);
