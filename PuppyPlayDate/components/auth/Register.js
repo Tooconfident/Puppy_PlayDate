@@ -12,6 +12,9 @@ import {
   AsyncStorage,
   AlertIOS,
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import { registerUser } from '../../actions/index';
 
 import MainScene from './MainScene';
 
@@ -20,7 +23,7 @@ const styles = require('../style.js')
 
 const REQUEST_URL ='http://localhost:3000/users'
 
-class UserSignup extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
 
@@ -184,4 +187,4 @@ class UserSignup extends Component {
 //   },
 // });
 
-export default UserSignup;
+export default connect(null, { registerUser })(Register);

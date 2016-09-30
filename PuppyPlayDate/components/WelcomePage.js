@@ -20,7 +20,7 @@ import {
 
 import UserDogs from './UserDogs';
 import TestPage from './TestPage';
-import UserSignup from './auth/UserSignup';
+import Register from './auth/Register';
 import Login from './auth/Login';
 import DogCreate from './DogCreate';
 import UserEdit from './UserEdit'

@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 import MapScene from './MapScene';
 import MainScene from './MainScene';
-import UserSignup from './auth/UserSignup';
+import Register from './auth/Register';
 
 import { loginUser } from '../../actions/index';
 
@@ -107,7 +107,7 @@ class Login extends Component {
   onPressSignup() {
     this.props.navigator.push({
       title: 'Sign Up',
-      component: UserSignup,
+      component: Register,
     });
   }
 
