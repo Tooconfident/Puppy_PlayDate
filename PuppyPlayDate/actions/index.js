@@ -1,7 +1,15 @@
 import axios from 'axios';
 
 // Import all action types
-export * from './types';
+import {
+  FETCH_DOGS,
+  FETCH_DOG,
+  FETCH_PLAYDATES,
+  FETCH_PLAYDATE,
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR
+} from './types';
 
 const REQUEST_URL = 'http://localhost:3000';
 
@@ -98,24 +106,35 @@ export function updatePlaydate(playdate) {
 }
 
 export function loginUser({ username, password }) {
-  axios.post(`${REQUEST_URL}/session/login`, { username, password })
+  console.log('loginUser action creator!');
+
+  return dispatch => {
+    return axios.post(`${REQUEST_URL}/session/login`, { username, password })
     .then(response => {
       console.log("Login successful", response);
 
       // Login successfully, so store user id locally
-      AsyncStorage.setItem("userID", String(response.data));
+      //AsyncStorage.setItem("userID", String(response.data));
 
-      return {
+      dispatch({
         type: AUTH_USER
-      };
+      });
+
+      // return Promise.resolve();
     })
     .catch(error => {
-      console.log(error.response.data.error);
+      //console.log(error.response.data.error);
+
+      dispatch({
+        type: AUTH_ERROR
+      });
     })
     ;
+  }
 }
 
-export function registerUser({ username, password }) {
+export function registerUser({ username, name, email, password }) {
+  console.log("registerUser!", username, name, email, password);
   return {
     type: AUTH_USER
   };
