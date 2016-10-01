@@ -16,10 +16,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import reducers from './reducers';
-import promise from 'redux-promise';
+//import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 
 // Add any middleware here
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 import Login from './components/auth/Login';
 import MainScene from './components/MainScene';
@@ -53,6 +54,11 @@ class PuppyPlayDateApp extends Component {
   // }
   //
   //
+  componentWillMount() {
+    //this.props.setNavigator()
+    console.log("index props", this.props);
+  }
+
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
