@@ -12,3 +12,5 @@ export const UPDATE_PLAYDATE = 'UPDATE_PLAYDATE';
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
+// export const SET_NAV = 'SET_NAV';
+// export const SET_ROUTE = 'SET_ROUTE';
