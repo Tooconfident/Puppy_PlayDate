@@ -36,6 +36,13 @@ class Register extends Component {
   }
 
   onPressSignup() {
+    // this.props.registerUser({
+    //   username: this.state.username,
+    //   name: this.state.name,
+    //   email: this.state.email,
+    //   password: this.state.password
+    // });
+
     fetch(REQUEST_URL, {
       method: 'POST',
       headers: {

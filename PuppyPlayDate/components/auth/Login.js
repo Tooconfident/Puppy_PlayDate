@@ -35,7 +35,7 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val '+ value);
         this.setState({userID: value});
@@ -43,65 +43,75 @@ class Login extends Component {
   }
 
   loginPress() {
-    this.props.loginUser({
-      username: this.state.username,
-      password: this.state.password
-    })
-      .then(() => {
-        // Makes sure to clean up the form after logging in
-        this.setState({
-          //username: '',
-          password: '',
-        });
-
-        // Redirect to Home scene
-        this.props.navigator.push({
-          title: 'Puppy Playdate',
-          component: MapScene,
-          leftButtonTitle: ' ',
-          id: 'mapscene',
-        });
-      });
-    // fetch(REQUEST_URL, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username: this.state.username,
-    //     password: this.state.password,
-    //   })
+    // console.log(this.state.username, this.state.password);
+    // console.log(this.props.loginUser({username: "hey", password: "123"}));
+    // this.props.loginUser({
+    //   username: this.state.username,
+    //   password: this.state.password
     // })
-    // .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     if (responseData.success != false) {
-    //       //Login successfully
-    //       this.makeSession(responseData);
+    //   .then(() => {
+    //     //console.log(response);
+    //     console.log("YAYYY");
     //
-    //       // Redirect to Home scene
-    //       this.props.navigator.push({
-    //         title: 'Puppy Playdate',
-    //         component: MapScene,
-    //         leftButtonTitle: ' ',
-    //         id: 'mapscene',
-    //       })
+    //     console.log(this);
+    //     // Makes sure to clean up the form after logging in
+    //     this.setState({
+    //       //username: '',
+    //       password: '',
+    //     });
     //
-    //       // Makes sure to clean up the form after logging in
-    //       this.setState({
-    //         //username: '',
-    //         password: '',
-    //       });
-    //
-    //     } else {
-    //       // AlertIOS.alert(
-    //       //  'Something went wrong!'
-    //       // );
-    //     }
+    //     // Redirect to Home scene
+    //     this.props.navigator.push({
+    //       title: 'Puppy Playdate',
+    //       component: MapScene,
+    //       leftButtonTitle: ' ',
+    //       id: 'mapscene',
+    //     });
     //   })
-    //   .done();
-    // console.log(this.state.username);
+    //   .catch((error) => {
+    //     console.log("Login failed");
+    //     console.log(error);
+    //   });
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      })
+    })
+    .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success != false) {
+          //Login successfully
+          this.makeSession(responseData);
+
+          // Redirect to Home scene
+          this.props.navigator.push({
+            title: 'Puppy Playdate',
+            component: MapScene,
+            leftButtonTitle: ' ',
+            id: 'mapscene',
+          })
+
+          // Makes sure to clean up the form after logging in
+          this.setState({
+            //username: '',
+            password: '',
+          });
+
+        } else {
+          // AlertIOS.alert(
+          //  'Something went wrong!'
+          // );
+        }
+      })
+      .done();
+    console.log(this.state.username);
   }
 
   onPressSignup() {
@@ -116,11 +126,11 @@ class Login extends Component {
 
     console.log('new-state'+ this.state.userID);
   }
-
+//Image source={require('../../Resources/0.jpg')} style={styles.bImage}
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../../Resources/0.jpg')} style={styles.bImage}>
+        <View>
           <View style={styles.innerContainer}>
 
             <View style={styles.mainContent}>
@@ -167,7 +177,7 @@ class Login extends Component {
             </View>
 
           </View>
-        </Image>
+        </View>
       </View>
     );
   }
