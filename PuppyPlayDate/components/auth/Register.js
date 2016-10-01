@@ -16,10 +16,10 @@ import { connect } from 'react-redux';
 
 import { registerUser } from '../../actions/index';
 
-import MainScene from './MainScene';
+import MainScene from '../MainScene';
 
 // Universal Styles
-const styles = require('../style.js')
+const styles = require('../../style.js')
 
 const REQUEST_URL ='http://localhost:3000/users'
 

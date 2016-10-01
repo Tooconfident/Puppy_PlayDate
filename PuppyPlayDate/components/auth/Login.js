@@ -14,13 +14,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import MapScene from './MapScene';
-import MainScene from './MainScene';
-import Register from './auth/Register';
+import MapScene from '../MapScene';
+import MainScene from '../MainScene';
+import Register from '../auth/Register';
 
 import { loginUser } from '../../actions/index';
 
-const styles = require('../style.js');
+const styles = require('../../style.js');
 
 const REQUEST_URL ='http://localhost:3000/session/login';
 
@@ -120,7 +120,7 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../Resources/0.jpg')} style={styles.bImage}>
+        <Image source={require('../../Resources/0.jpg')} style={styles.bImage}>
           <View style={styles.innerContainer}>
 
             <View style={styles.mainContent}>
