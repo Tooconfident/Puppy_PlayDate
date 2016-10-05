@@ -17,7 +17,7 @@ import MainScene from './MainScene';
 import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
-const styles = require('./style.js')
+const styles = require('../style.js')
 
 class PlayDateCreate extends Component {
   constructor(props) {

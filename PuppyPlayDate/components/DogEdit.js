@@ -15,7 +15,7 @@ import {
 
 import DogProfile from './DogProfile';
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
 // URL to get a specific dog if you append an id
 const REQUEST_URL = 'http://localhost:3000/dogs/';

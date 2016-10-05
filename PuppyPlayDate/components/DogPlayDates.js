@@ -17,7 +17,7 @@ import {
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
 
-const styles = require('./style.js');
+const styles = require('../style.js');
 
 const REQUEST_URL = 'http://localhost:3000/dogs/playdates';
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';

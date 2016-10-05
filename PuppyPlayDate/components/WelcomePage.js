@@ -42,7 +42,7 @@ class WelcomePage extends Component {
 
     return (
 
-      <Image style={styles.bgImage} source={require('./Resources/0.jpg')}>
+      <Image style={styles.bgImage} source={require('../Resources/0.jpg')}>
         <Text style={styles.bigText}>
           Puppy Play Date
         </Text>

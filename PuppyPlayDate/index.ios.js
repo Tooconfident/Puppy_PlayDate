@@ -11,10 +11,10 @@ import {
  StyleSheet,
 } from 'react-native';
 
-import Login from './Login';
-import MainScene from './MainScene';
-import MapScene from './MapScene';
-import WelcomePage from './WelcomePage';
+import Login from './components/Login';
+import MainScene from './components/MainScene';
+import MapScene from './components/MapScene';
+import WelcomePage from './components/WelcomePage';
 
 let styles = StyleSheet.create({
   wrapper: {
