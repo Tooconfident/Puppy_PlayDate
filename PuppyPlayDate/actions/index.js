@@ -34,8 +34,8 @@ export function fetchDog(id) {
 
   // return the action
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      return dispatch({
         type: FETCH_DOG,
         payload: response // redux-promise will take this and replace with the resolved promise
       });
