@@ -57,14 +57,16 @@ export function createDog(dog) {
   };
 }
 
-export function updateDog(dog) {
-  const request = axios.patch(`${REQUEST_URL}/dogs/${dog.id}`, dog);
+export function updateDog(dogId, dog) {
+  console.log(dogId, dog);
+  const request = axios.patch(`${REQUEST_URL}/dogs/${dogId}`, dog);
 
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      console.log(response);
+      return dispatch({
         type: UPDATE_DOG,
-        payload: response
+        payload: dog
       });
     });
   };

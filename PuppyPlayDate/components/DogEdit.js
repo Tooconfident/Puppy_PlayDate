@@ -80,8 +80,9 @@ class DogEdit extends Component {
       gender: this.state.gender,
     };
 
-    this.props.updateDog(updatedDog)
+    this.props.updateDog(this.props.dog.id, updatedDog)
       .then(() => {
+        console.log("Dog updated.");
         this.props.navigator.pop({
           component: DogProfile,
           passProps: {
@@ -89,6 +90,8 @@ class DogEdit extends Component {
           }
         });
       });
+
+      console.log("Dog updated 2. ");
 
     // TODO: perform an update request to update the
     // dog information in the backend

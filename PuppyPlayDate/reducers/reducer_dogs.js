@@ -1,4 +1,4 @@
-import { FETCH_DOGS, FETCH_DOG } from '../actions/types';
+import { FETCH_DOGS, FETCH_DOG, UPDATE_DOG } from '../actions/types';
 
 // Initial application state
 const INITIAL_STATE = {
@@ -15,6 +15,8 @@ export default function(state = INITIAL_STATE, action) {
     case FETCH_DOG:
       return { ...state, dog: action.payload.data };
       break;
+    case UPDATE_DOG:
+      return { ...state, dog: action.payload }
     default:
       // Always return the state as it is if no action matched
       return state;
