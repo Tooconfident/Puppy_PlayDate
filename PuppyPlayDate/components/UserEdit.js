@@ -10,8 +10,11 @@ import {
   Image,
   TouchableHighlight
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import UserDogs from './UserDogs';
+
+import { fetchUser } from '../actions/index';
 
 const styles = require('../style.js');
 
@@ -41,10 +44,24 @@ class UserEdit extends Component {
   // Performs an Ajax call to retrieve information about the user
   fetchData(){
     console.log("fetchData: UserEdit: user_id " + this.props.user_id)
-    fetch(REQUEST_URL + this.props.user_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        // Update the state with the information about the playdate
+    // fetch(REQUEST_URL + this.props.user_id)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     // Update the state with the information about the playdate
+    //     this.setState({
+    //       id: responseData.id,
+    //       name: responseData.name,
+    //       username: responseData.username,
+    //       email: responseData.email,
+    //       loaded: true,
+    //     });
+    //   })
+    //   .done();
+
+    this.props.fetchUser(this.props.user_id)
+      .then(() => {
+        const responseData = this.props.user;
+
         this.setState({
           id: responseData.id,
           name: responseData.name,
@@ -52,8 +69,7 @@ class UserEdit extends Component {
           email: responseData.email,
           loaded: true,
         });
-      })
-      .done();
+      });
   }
 
   onPressEdit() {
@@ -202,4 +218,8 @@ class UserEdit extends Component {
 //   },
 // });
 
-export default UserEdit;
+function mapStateToProps(state) {
+  return { user: state.users.user };
+}
+
+export default connect(mapStateToProps, { fetchUser })(UserEdit);
