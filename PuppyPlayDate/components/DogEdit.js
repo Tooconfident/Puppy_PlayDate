@@ -49,10 +49,11 @@ class DogEdit extends Component {
   // Performs an Ajax call to retrieve information about the dog
   fetchData() {
     this.props.fetchDog(this.props.dog_id)
-      .then((response) => {
-        console.log("response", response);
+      .then(() => {
+        //console.log("response", response);
 
-        const responseData = response.payload.data;
+        // dog information is injected as props from application state (redux)
+        const responseData = this.props.dog;
 
         // Update the state with the information about the dog
         this.setState({
@@ -281,4 +282,8 @@ class DogEdit extends Component {
 //   }
 // });
 
-export default connect(null, { fetchDog, updateDog })(DogEdit);
+function mapStateToProps(state) {
+  return { dog: state.dogs.dog };
+}
+
+export default connect(mapStateToProps, { fetchDog, updateDog })(DogEdit);
