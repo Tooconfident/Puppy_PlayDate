@@ -113,8 +113,8 @@ export function fetchPlaydate(id) {
   const request = axios.get(`${REQUEST_URL}/playdates/${id}`);
 
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      return dispatch({
         type: FETCH_PLAYDATE,
         payload: response
       });

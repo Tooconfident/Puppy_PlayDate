@@ -10,8 +10,10 @@ import {
   TouchableHighlight,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import PlayDateShow from "./PlayDateShow";
+import { fetchPlaydate } from '../actions/index';
 
 const styles = require('../style.js');
 
@@ -43,10 +45,26 @@ class PlayDateEdit extends Component {
   // Performs an Ajax call to retrieve information about the playdate
   fetchData(){
     console.log("fetchData: PlayDateEdit: playdate_id " + this.props.playdate_id)
-    fetch(REQUEST_URL + this.props.playdate_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        // Update the state with the information about the playdate
+    // fetch(REQUEST_URL + this.props.playdate_id)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     // Update the state with the information about the playdate
+    //     this.setState({
+    //       id: responseData.id,
+    //       name: responseData.name,
+    //       location: responseData.location,
+    //       address: responseData.address,
+    //       time_day: responseData.time_day,
+    //       description: responseData.description,
+    //       loaded: true,
+    //     });
+    //   })
+    //   .done();
+
+    this.props.fetchPlaydate(this.props.playdate_id)
+      .then(() => {
+        const responseData = this.props.playdate;
+
         this.setState({
           id: responseData.id,
           name: responseData.name,
@@ -56,8 +74,8 @@ class PlayDateEdit extends Component {
           description: responseData.description,
           loaded: true,
         });
-      })
-      .done();
+      });
+
   }
 
   onPressEdit() {
@@ -180,4 +198,8 @@ class PlayDateEdit extends Component {
 //
 // });
 
-export default PlayDateEdit;
+function mapStateToProps(state) {
+  return { playdate: state.playdates.playdate };
+}
+
+export default connect(mapStateToProps, { fetchPlaydate })(PlayDateEdit);
