@@ -102,8 +102,8 @@ class DogList extends Component {
 
   // Entry row
   renderRow(rowData, sectionID, rowID){
-    console.log("Rendering a row. . .");
-    console.log("rowData.avatar = " + rowData.avatar);
+    // console.log("Rendering a row. . .");
+    // console.log("rowData.avatar = " + rowData.avatar);
 
     return(
       <TouchableHighlight onPress={() => this.onPressDogJoin(rowData.id)}>
