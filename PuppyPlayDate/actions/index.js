@@ -6,6 +6,8 @@ import {
   FETCH_DOG,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
+  FETCH_USER,
+  FETCH_USER_PLAYDATES,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR
@@ -27,9 +29,13 @@ export function fetchDog(id) {
   const request = axios.get(`${REQUEST_URL}/dogs/${id}`);
 
   // return the action
-  return {
-    type: FETCH_DOG,
-    payload: request // redux-promise will take this and replace with the resolved promise
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_DOG,
+        payload: response // redux-promise will take this and replace with the resolved promise
+      });
+    });
   };
 }
 
@@ -54,36 +60,53 @@ export function updateDog(dog) {
 export function fetchUser(id) {
   const request = axios.get(`${REQUEST_URL}/users/${id}`);
 
-  return {
-    type: FETCH_USER,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_USER,
+        payload: response
+      });
+    });
   };
 }
 
 export function fetchPlaydates() {
   const request = axios.get(`${REQUEST_URL}/playdates`);
 
-  return {
-    type: FETCH_PLAYDATES,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      // Update the playdates after successful request
+      dispatch({
+        type: FETCH_PLAYDATES,
+        payload: response
+      });
+    });
   };
 }
 
 export function fetchUserPlaydates(userId) {
   const request = axios.get(`${REQUEST_URL}/users/${userId}/playdates`);
 
-  return {
-    type: FETCH_USER_PLAYDATES,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_USER_PLAYDATES,
+        payload: response
+      });
+    });
   };
 }
 
 export function fetchPlaydate(id) {
   const request = axios.get(`${REQUEST_URL}/playdates/${id}`);
 
-  return {
-    type: FETCH_PLAYDATE,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_PLAYDATE,
+        payload: response
+      });
+    });
   };
 }
 
