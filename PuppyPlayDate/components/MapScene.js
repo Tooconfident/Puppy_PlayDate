@@ -19,11 +19,12 @@ import {
 import { connect } from 'react-redux';
 import { fetchPlaydates } from '../actions/index';
 
-import MapView from 'react-native-maps';
+
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
 import PlayDateShow from './PlayDateShow';
 import PlayDateCreate from './PlayDateCreate';
+import PlaydateMap from './PlaydateMap';
 
 var { width, height } = Dimensions.get('window');
 
@@ -63,11 +64,12 @@ class MapScene extends Component {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     console.log('MapScene: componentWillReceiveProps');
     // if (!this.props.loaded) {
     //   this.fetchData();
     // }
+    console.log("Got new props coming in", nextProps);
   }
 
   show() {
@@ -147,34 +149,11 @@ class MapScene extends Component {
       return this.renderLoadingView();
     }
 
-    var region = this.state.region;
+    const { region } = this.state;
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={region}
-          showsUserLocation= {true}
-          followsUserLocation= {false}
-          showsPointsOfInterest= {false}
-          // onPlayDatePress= show event // callback function
-          // onPlayDateSelect= go to group page // these two may have to be flipped
-          >
-          {playdates.map(playdate => (
-            <MapView.Marker
-            key={playdate.id}
-            coordinate={JSON.parse(playdate.location)}
-            image={require('../Resources/dog-marker-green.png')}>
-              <MapView.Callout>
-                <View>
-                  <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
-                    <Text>{playdate.name}</Text>
-                  </TouchableOpacity>
-                </View>
-              </MapView.Callout>
-            </MapView.Marker>
-          ))}
-        </MapView>
+        <PlaydateMap playdates={playdates} region={region} onPlaydateMarker={this.onPlaydateMarker.bind(this)}/>
 
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
@@ -227,14 +206,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'blue',
   },
   bubble: {
     flex: 1,
