@@ -7,6 +7,7 @@ import {
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
   FETCH_USER,
+  UPDATE_USER,
   FETCH_USER_PLAYDATES,
   AUTH_USER,
   UNAUTH_USER,
@@ -180,5 +181,18 @@ export function registerUser({ username, name, email, password }) {
   console.log("registerUser!", username, name, email, password);
   return {
     type: AUTH_USER
+  };
+}
+
+export function updateUser(userId, user) {
+  return dispatch => {
+    return axios.patch(`${REQUEST_URL}/users/${userId}`, user)
+      then((response) => {
+        console.log(response);
+        return dispatch({
+          type: UPDATE_USER,
+          payload: user
+        })
+      });
   };
 }

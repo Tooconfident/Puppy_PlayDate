@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 import UserDogs from './UserDogs';
 
-import { fetchUser } from '../actions/index';
+import { fetchUser, updateUser } from '../actions/index';
 
 const styles = require('../style.js');
 
@@ -42,7 +42,7 @@ class UserEdit extends Component {
   }
 
   // Performs an Ajax call to retrieve information about the user
-  fetchData(){
+  fetchData() {
     console.log("fetchData: UserEdit: user_id " + this.props.user_id)
     // fetch(REQUEST_URL + this.props.user_id)
     //   .then((response) => response.json())
@@ -75,37 +75,60 @@ class UserEdit extends Component {
   onPressEdit() {
     // TODO: perform an update request to update the
     // playdate information in the backend
-    fetch(REQUEST_URL + this.state.id, {
-      method: 'PATCH',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
-      })
-    })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
-          this.props.navigator.pop({
-            title: 'Profile',
-            component: UserDogs,
-            passProps: {
-              loaded: false,
-            },
-          });
-        } else {
-          AlertIOS.alert(
-           'Something went wrong!'
-          );
-        }
-      })
-      .done();
+    // fetch(REQUEST_URL + this.state.id, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     username: this.state.username,
+    //     name: this.state.name,
+    //     email: this.state.email,
+    //     password: this.state.password,
+    //   })
+    // })
+    // .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     if (responseData.success != false){
+    //       this.props.navigator.pop({
+    //         title: 'Profile',
+    //         component: UserDogs,
+    //         passProps: {
+    //           loaded: false,
+    //         },
+    //       });
+    //     } else {
+    //       AlertIOS.alert(
+    //        'Something went wrong!'
+    //       );
+    //     }
+    //   })
+    //   .done();
+
+    const user = {
+      username: this.state.username,
+      name: this.state.name,
+      email: this.state.email,
+    };
+
+    if (this.state.password !== undefined || this.state.password !== '') {
+      user.password = this.state.password;
+    }
+
+    console.log("Edit user submit");
+
+    this.props.updateUser(this.props.user.id, user)
+      .then(() => {
+        this.props.navigator.pop({
+          title: 'Profile',
+          component: UserDogs,
+          passProps: {
+            loaded: false,
+          },
+        });
+      });
   }
 
   render() {
@@ -222,4 +245,4 @@ function mapStateToProps(state) {
   return { user: state.users.user };
 }
 
-export default connect(mapStateToProps, { fetchUser })(UserEdit);
+export default connect(mapStateToProps, { fetchUser, updateUser })(UserEdit);
