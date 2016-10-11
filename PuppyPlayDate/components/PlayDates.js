@@ -26,10 +26,12 @@ class PlayDates extends Component {
   constructor(props){
     super(props);
 
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
     this.state = {
-      dataSource : new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1 !== r2}
-      ),
+      dataSource,
       userID: 0,
       loaded: false,
     };
@@ -38,12 +40,12 @@ class PlayDates extends Component {
   }
 
   componentWillMount(){
-    AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
-    })
-    .then((value) => {
-      this.fetchData();
+    AsyncStorage.getItem("userID").then((userId) => {
+      console.log('current.val '+ userId);
+      // Set the user id in the state
+      this.setState({ userID: userId });
+      // Fetch all playdates for the given user id
+      this.props.fetchUserPlaydates(userId);
     })
     .done();
 
@@ -59,10 +61,6 @@ class PlayDates extends Component {
       });
     }
     console.log("State is now", this.state);
-  }
-
-  fetchData() {
-    this.props.fetchUserPlaydates(this.state.userID);
   }
 
   onPressPlayDate(id) {
