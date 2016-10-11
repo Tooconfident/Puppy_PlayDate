@@ -67,24 +67,36 @@ class UserDogs extends Component {
     const { user } = this.props;
     //const { dogs } = user;
 
+    // Destructure styles
+    const {
+      container,
+      innerContainer,
+      userProfileTop,
+      entryLabel,
+      editProfileButton,
+      editProfileButtonText,
+      addButton,
+      addButtonText,
+    } = styles;
+
     if (!user){
       return (<Text>Loading...</Text>);
     }
 
     return (
-      <View style={styles.container}>
-        <View style={styles.innerContainer}>
+      <View style={container}>
+        <View style={innerContainer}>
 
-          <View style={styles.userProfileTop}>
-            <Text style={styles.entryLabel}>{user.name + "'s Dogs"}</Text>
+          <View style={userProfileTop}>
+            <Text style={entryLabel}>{user.name + "'s Dogs"}</Text>
             <TouchableOpacity
-              style={styles.editProfileButton} onPress={() => this.onPressEdit()}>
-              <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+              style={editProfileButton} onPress={() => this.onPressEdit()}>
+              <Text style={editProfileButtonText}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
 
-          <TouchableHighlight style={[styles.addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
-            <Text style={styles.addButtonText} >+ Add Dog</Text>
+          <TouchableHighlight style={[addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
+            <Text style={addButtonText} >+ Add Dog</Text>
           </TouchableHighlight>
 
           <DogsList
