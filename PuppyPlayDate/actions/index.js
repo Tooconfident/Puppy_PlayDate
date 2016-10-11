@@ -19,9 +19,13 @@ const REQUEST_URL = 'http://localhost:3000';
 export function fetchDogs(userId) {
   const request = fetch(`${REQUEST_URL}/users/${userId}/dogs`);
 
-  return {
-    type: FETCH_DOGS,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_DOGS,
+        payload: response
+      });
+    });
   }
 }
 
@@ -42,18 +46,26 @@ export function fetchDog(id) {
 export function createDog(dog) {
   const request = axios.post(`${REQUEST_URL}/dogs`, dog);
 
-  return {
-    type: CREATE_DOG,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: CREATE_DOG,
+        payload: response
+      });
+    });
   };
 }
 
 export function updateDog(dog) {
   const request = axios.patch(`${REQUEST_URL}/dogs/${dog.id}`, dog);
 
-  return {
-    type: UPDATE_DOG,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: UPDATE_DOG,
+        payload: response
+      });
+    });
   };
 }
 
@@ -113,18 +125,26 @@ export function fetchPlaydate(id) {
 export function createPlaydate(playdate) {
   const request = axios.post(`${REQUEST_URL}/playdates`, playdate);
 
-  return {
-    type: CREATE_PLAYDATE,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: CREATE_PLAYDATE,
+        payload: response
+      });
+    });
   };
 }
 
 export function updatePlaydate(playdate) {
   const request = axios.patch(`${REQUEST_URL}/playdates/${playdate.id}`, playdate);
 
-  return {
-    type: UPDATE_PLAYDATE,
-    payload: request
+  return dispatch => {
+    request.then(response => {
+      dispatch({
+        type: UPDATE_PLAYDATE,
+        payload: response
+      });
+    });
   }
 }
 
