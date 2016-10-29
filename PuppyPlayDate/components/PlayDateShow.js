@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  Image,
   Alert,
-  ListView,
   StyleSheet,
   ScrollView,
-  AppRegistry,
-  NavigatorIOS,
   TouchableHighlight,
 } from 'react-native';
 
@@ -18,16 +14,12 @@ import { fetchPlaydate } from '../actions/index';
 import PlayDateEdit from "./PlayDateEdit";
 import DogList from "./DogList";
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class PlayDateShow extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount(){
+  componentWillMount() {
     // AsyncStorage.getItem("userID").then((value) => {
     //   console.log('current.val '+ value);
     //     this.setState({userID: value});
@@ -56,9 +48,9 @@ class PlayDateShow extends Component {
   }
 
   leavePlaydate() {
-    console.log(this.props)
-    console.log("press leave")
-    fetch(LEAVE_URL+"?id="+this.props.playdate_id+"&dog_id="+this.props.dog_id+"", {
+    console.log(this.props);
+    console.log("press leave");
+    fetch(LEAVE_URL + "?id=" + this.props.playdate_id + "&dog_id=" + this.props.dog_id + "", {
       method: "POST",
       hearders: {
         "Accept": "application/json",
@@ -71,12 +63,12 @@ class PlayDateShow extends Component {
     })
     .then((response) => {
         console.log(response);
-        return response.json()
+        return response.json();
       })
       .then((responseData) => {
-        console.log(responseData)
-        if(responseData.success) {
-          render()
+        console.log(responseData);
+        if (responseData.success) {
+          this.render();
         } else {
           Alert.alert(
             "Something went wrong!"
@@ -101,21 +93,19 @@ class PlayDateShow extends Component {
     Alert.alert(
       "Join Group?",
       "",
-    )
+    );
   }
 
   onPressLeave() {
-
     Alert.alert(
       "Leave Group?",
       "",
       [
-      {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-      {text: 'Yes', onPress: () => {
+      { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+      { text: 'Yes', onPress: () => {
         this.leavePlaydate();
         this.render();
-
-        }},
+        } },
       ],
       );
   }
@@ -133,29 +123,29 @@ class PlayDateShow extends Component {
 
           <ScrollView>
 
-            <View style={{alignSelf: 'center', marginBottom: 10}}>
-              <Text style={{fontSize: 25, fontWeight: 'bold'}}>
+            <View style={{ alignSelf: 'center', marginBottom: 10 }}>
+              <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
                 {playdate.name}
               </Text>
               </View>
 
-              <View style={{marginBottom: 10, flexDirection: 'row', justifyContent: 'space-around'}}>
+              <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'space-around' }}>
                 <TouchableHighlight onPress={() => this.props.navigator.push({
                   title: 'Choose a dog',
                   component: DogList,
-                  passProps:{
+                  passProps: {
                     group_id: playdate.id,
                   }
                 })}>
                   <Text style={styles.joinGroupText}>Join Group</Text>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={()=>{
+                <TouchableHighlight onPress={() => {
                   Alert.alert(
                     'Are you sure you want to leave',
                     '',
                     [
-                      {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                      {text: 'OK', onPress: () => this.leavePlaydate()},
+                      { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+                      { text: 'OK', onPress: () => this.leavePlaydate() },
                     ]
                   );
                 }}>
@@ -163,7 +153,7 @@ class PlayDateShow extends Component {
                 </TouchableHighlight>
               </View>
 
-            <View style={[{borderRadius: 9}, styles.dogList]}>
+            <View style={[{ borderRadius: 9 }, styles.dogList]}>
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>
                   Address: <Text style={styles.entryText}>{playdate.address}</Text>
@@ -189,7 +179,7 @@ class PlayDateShow extends Component {
               </View>
 
               <TouchableHighlight style={styles.editPlaydate} onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'flex-end', marginRight: 36, color: 'blue'}}>Edit</Text>
+                <Text style={{ alignSelf: 'flex-end', marginRight: 36, color: 'blue' }}>Edit</Text>
               </TouchableHighlight>
               </View>
             </ScrollView>
