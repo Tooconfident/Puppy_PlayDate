@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -20,8 +19,8 @@ import {
 
 import UserDogs from './UserDogs';
 import TestPage from './TestPage';
-import UserSignup from './UserSignup';
-import Login from './Login';
+import Register from './auth/Register';
+import Login from './auth/Login';
 import DogCreate from './DogCreate';
 import UserEdit from './UserEdit'
 import MapScene from './MapScene'
@@ -42,7 +41,7 @@ class WelcomePage extends Component {
 
     return (
 
-      <Image style={styles.bgImage} source={require('./Resources/0.jpg')}>
+      <Image style={styles.bgImage} source={require('../Resources/0.jpg')}>
         <Text style={styles.bigText}>
           Puppy Play Date
         </Text>
@@ -114,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = WelcomePage;
+export default WelcomePage;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -92,4 +91,4 @@ Navbar.defaultProps = {
   hasBackButton: true,
 };
 
-module.exports = Navbar;
+export default Navbar;

@@ -109,6 +109,10 @@ n v4.1.2
 node -v
 ```
 
+##### JavaScript Linter
+
+An **ESLint** configuration file (`.eslintrc`) has been added to use the `eslint-config-rallycoding` set of rules from npm. In order to enable ESLint, you have to install the ESLint module for your text editor. For example, for **Atom**, you need only install the **linter-eslint** package.
+
 ### Back-End Server
 
 The backend is a Rails API application that serves JSON. It is located in the [puppy_play_date/](puppy_play_date/) directory.

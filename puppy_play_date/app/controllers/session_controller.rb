@@ -1,12 +1,17 @@
 class SessionController < ApplicationController
-  def login
 
-    new_user = User.find_by(username: params[:username])
-    if new_user && new_user.authenticate(params[:password])
-      p params
-      render json: new_user.id
+  def login
+    user = User.find_by(username: params[:username])
+
+    if user && user.authenticate(params[:password])
+      render json: user.id
     else
-      render json: { success: false }
+      response = {
+        success: false,
+        error: "Invalid credentials"
+      }
+      render json: response, status: 401
     end
   end
+
 end

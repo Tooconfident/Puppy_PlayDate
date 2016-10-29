@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  NavigatorIOS,
   TouchableHighlight,
   AsyncStorage,
 } from 'react-native';
@@ -14,15 +12,13 @@ import PlayDates from "./PlayDates";
 
 class TestPage extends Component {
 
-
-
   makeButtonLink(text, component) {
     return (
       <TouchableHighlight
         style={styles.button}
         onPress={() =>
           this.props.navigator.push({
-            component: component,
+            component,
           })
         }
       >
@@ -67,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = TestPage;
+export default TestPage;

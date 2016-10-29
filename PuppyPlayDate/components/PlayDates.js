@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   Image,
   ListView,
   NavigatorIOS,
@@ -11,24 +10,27 @@ import {
   View,
   AsyncStorage,
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import { fetchUserPlaydates } from '../actions/index';
 
 import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
 
-const styles = require('./style.js');
-
-var REQUEST_URL = 'http://localhost:3000/playdates';
+const styles = require('../style');
 
 class PlayDates extends Component {
 
   constructor(props){
     super(props);
 
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
     this.state = {
-      dataSource : new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1 !== r2}
-      ),
+      dataSource,
       userID: 0,
       loaded: false,
     };
@@ -37,35 +39,27 @@ class PlayDates extends Component {
   }
 
   componentWillMount(){
-    AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
-    })
-    .then((value) => {
-      this.fetchData();
+    AsyncStorage.getItem("userID").then((userId) => {
+      console.log('current.val '+ userId);
+      // Set the user id in the state
+      this.setState({ userID: userId });
+      // Fetch all playdates for the given user id
+      this.props.fetchUserPlaydates(userId);
     })
     .done();
 
-    console.log("componentDidMount for Playdates called");
+    console.log("componentWillMount for Playdates finished");
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     console.log('PlayDates: componentWillReceiveProps');
-    if (!this.props.loaded) {
-      this.fetchData();
+    if (nextProps.playdates !== this.props.playdates) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.playdates),
+        loaded: true,
+      });
     }
-  }
-
-  fetchData() {
-    fetch(REQUEST_URL + "?user_id=" + this.state.userID)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
-          loaded: true,
-        });
-      })
-      .done();
+    console.log("State is now", this.state);
   }
 
   onPressPlayDate(id) {
@@ -117,7 +111,7 @@ class PlayDates extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
+    if (!this.props.playdates) {
       return(<Text>Loading...</Text>)
     }
 
@@ -142,51 +136,8 @@ class PlayDates extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
-//   },
-//   editButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-end',
-//   },
-//   textContainer: {
-//     flex: 1,
-//     flexWrap: 'wrap',
-//   },
-//   rowContainer: {
-//     flexDirection: 'column',
-//     padding: 10,
-//     borderBottomWidth: 2,
-//   },
-//   pageTitle: {
-//     marginTop: 20,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//     fontSize: 20,
-//   },
-//   subtitle: {
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//   },
-//   navbar: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
-// });
+function mapStateToProps(state) {
+  return { playdates: state.playdates.own };
+}
 
-module.exports = PlayDates;
+export default connect(mapStateToProps, { fetchUserPlaydates })(PlayDates);

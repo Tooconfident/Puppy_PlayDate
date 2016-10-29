@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import {
-  PropTypes,
   StyleSheet,
   Text,
   View,
-  NavigatorIOS,
-  AlertIOS,
-  LinkingIOS,
-  TabBarIOS,
   Dimensions,
   Image,
-  TouchableHighlight,
-  Animated,
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 
-import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
+import { fetchPlaydates } from '../actions/index';
+
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
 import PlayDateShow from './PlayDateShow';
-import PlayDateCreate from './PlayDateCreate';
+import PlaydateMap from './PlaydateMap';
 
-var { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 37.78825;
@@ -31,11 +26,11 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = 0.0421;
 const SPACE = 0.01;
 
-var REQUEST_URL = 'http://localhost:3000/playdates/show_all';
-
 class MapScene extends Component {
   constructor(props) {
     super(props);
+
+    console.log("MapScene props:", props);
 
     this.state = {
       region: {
@@ -50,33 +45,21 @@ class MapScene extends Component {
     };
   }
 
-  fetchData() {
-    fetch(REQUEST_URL)
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.setState({
-        playdates: responseData,
-        loaded: true,
-      })
-    })
-    .done();
-  }
-
-  componentDidMount() {
-    this.fetchData();
-
+  componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-      this.setState({"userID": value});
-    }).done();
+      console.log('current.val', value);
+      this.setState({ userID: value });
 
+      this.props.fetchPlaydates();
+    }).done();
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     console.log('MapScene: componentWillReceiveProps');
-    if (!this.props.loaded) {
-      this.fetchData();
-    }
+    // if (!this.props.loaded) {
+    //   this.fetchData();
+    // }
+    console.log("Got new props coming in", nextProps);
   }
 
   show() {
@@ -85,16 +68,6 @@ class MapScene extends Component {
 
   hide() {
     this.refs.m1.hideCallout();
-  }
-
-  renderLoadingView() {
-    return (
-     <View>
-       <Text>
-         Loading PlayDates...
-       </Text>
-     </View>
-    );
   }
 
   onPressHome() {
@@ -108,20 +81,20 @@ class MapScene extends Component {
 
   onPressProfile() {
     console.log('PressProfile');
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: 'Profile',
       component: UserDogs,
       passProps: {
-        userID: this.props.userID,
+        userID: this.state.userID,
       },
       leftButtonTitle: '< Map',
       onLeftButtonPress: () => this.props.navigator.pop(),
-    })
+    });
   }
 
   onPressPlayDate() {
     console.log('PressPlayDate');
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: 'Playdates',
       component: PlayDates,
       passProps: {
@@ -129,7 +102,7 @@ class MapScene extends Component {
       },
       //leftButtonTitle: 'Map',
       //onLeftButtonPress: () => this.props.navigator.pop(),
-    })
+    });
   }
 
   logout() {
@@ -137,73 +110,74 @@ class MapScene extends Component {
     this.props.navigator.pop();
   }
 
+  renderLoadingView() {
+    return (
+     <View>
+       <Text>
+         Loading PlayDates...
+       </Text>
+     </View>
+    );
+  }
+
   onPlaydateMarker(playdateName) {
     console.log("bubble link clicked");
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: playdateName.name,
       component: PlayDateShow,
       passProps: {
         userID: this.props.userID,
         playdate_id: String(playdateName.id)
       }
-    })
+    });
   }
 
   render() {
-    if (!this.state.loaded) {
+    const { playdates } = this.props;
+
+    if (!playdates) {
       return this.renderLoadingView();
     }
 
-    var region = this.state.region;
-    var playdates = this.state.playdates;
+    const { region } = this.state;
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={region}
-          showsUserLocation= {true}
-          followsUserLocation= {false}
-          showsPointsOfInterest= {false}
-          // onPlayDatePress= show event // callback function
-          // onPlayDateSelect= go to group page // these two may have to be flipped
-          >
-          {this.state.playdates.map(playdate => (
-            <MapView.Marker
-            key={playdate.id}
-            coordinate={JSON.parse(playdate.location)}
-            image={require('./Resources/dog-marker-green.png')}>
-              <MapView.Callout>
-                <View>
-                  <TouchableOpacity onPress={() => this.onPlaydateMarker(playdate)}>
-                    <Text>{playdate.name}</Text>
-                  </TouchableOpacity>
-                </View>
-              </MapView.Callout>
-            </MapView.Marker>
-          ))}
-        </MapView>
+        <PlaydateMap
+          playdates={playdates}
+          region={region}
+          onPlaydateMarker={this.onPlaydateMarker.bind(this)}
+        />
 
         <View style={styles.tabBar}>
-          <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressHome.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('./Resources/dog-house.png')}>
-            </Image>
+              source={require('../Resources/dog-house.png')}
+            />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressProfile.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('./Resources/dog_paw.png')}>
-            </Image>
+              source={require('../Resources/dog_paw.png')}
+            />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressPlayDate.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('./Resources/bone2.png')}>
-            </Image>
+              source={require('../Resources/bone2.png')}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -213,18 +187,19 @@ class MapScene extends Component {
           >
           <Image
             style={styles.icon}
-            source={require('./Resources/log_out.png')}>
-          </Image>
+            source={require('../Resources/log_out.png')}
+          />
           </TouchableOpacity>
         </View>
 
       </View>
-  )};
+    );
+  }
 
   onRegionChangeComplete(region) {
     console.log(region);
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -236,14 +211,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'blue',
-  },
   bubble: {
     flex: 1,
     // backgroundColor: 'rgba(10,41,41,0.4)',
@@ -254,8 +221,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   button: {
-    height: height * .08,
-    width: width * .25,
+    height: height * 0.08,
+    width: width * 0.25,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -285,4 +252,8 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = MapScene;
+function mapStateToProps(state) {
+  return { playdates: state.playdates.all };
+}
+
+export default connect(mapStateToProps, { fetchPlaydates })(MapScene);
