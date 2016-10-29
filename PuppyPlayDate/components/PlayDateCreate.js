@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   AsyncStorage,
-  ListView,
-  NavigatorIOS,
   Image,
   StyleSheet,
   Text,
@@ -17,12 +14,12 @@ import MainScene from './MainScene';
 import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
-const styles = require('../style.js')
+const styles = require('../style')
 
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       name: '',
       address: '',
       time_day: '',
@@ -33,8 +30,8 @@ class PlayDateCreate extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('current.val', value);
+      this.setState({userID: value});
     }).done();
   }
 

@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ListView,
-  NavigatorIOS,
   Image,
   TouchableHighlight,
   TextInput,
+  AlertIOS
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import PlayDateShow from "./PlayDateShow";
 import { fetchPlaydate } from '../actions/index';
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 // URL to get a specific playdate if you append an id
 const REQUEST_URL = 'http://localhost:3000/playdates/';
@@ -43,8 +41,8 @@ class PlayDateEdit extends Component {
   }
 
   // Performs an Ajax call to retrieve information about the playdate
-  fetchData(){
-    console.log("fetchData: PlayDateEdit: playdate_id " + this.props.playdate_id)
+  fetchData() {
+    console.log("fetchData: PlayDateEdit: playdate_id", this.props.playdate_id);
     // fetch(REQUEST_URL + this.props.playdate_id)
     //   .then((response) => response.json())
     //   .then((responseData) => {
@@ -97,8 +95,8 @@ class PlayDateEdit extends Component {
     })
     .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
+        console.log(responseData);
+        if (responseData.success !== false) {
           // this.props.navigator.replacePreviousAndPop({
           //   component: DogProfile,
           //   passProps: {
@@ -129,27 +127,29 @@ class PlayDateEdit extends Component {
             placeholder="Playdate Name"
             style={styles.inputText}
             value={this.state.name}
-            onChangeText={(text) => this.setState({name: text})}
+            onChangeText={(text) => this.setState({ name: text })}
           />
 
           <TextInput
             style={styles.inputText}
             placeholder="Address"
             value={this.state.address}
-            onChangeText={(text) => this.setState({address: text})} />
+            onChangeText={(text) => this.setState({ address: text })}
+          />
 
           <TextInput
             placeholder="Date and Time"
             style={styles.inputText}
             value={this.state.time_day}
-            onChangeText={(text) => this.setState({time_day: text})} />
+            onChangeText={(text) => this.setState({ time_day: text })}
+          />
 
           <TextInput
             placeholder="Description"
             style={[styles.inputText, styles.textArea]}
             value={this.state.description}
-            onChangeText={(text) => this.setState({description: text})}
-            multiline={true}
+            onChangeText={(text) => this.setState({ description: text })}
+            multiline
           />
 
           <TouchableHighlight

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   Image,
   ListView,
   NavigatorIOS,
@@ -19,7 +18,7 @@ import PlayDateCreate from './PlayDateCreate';
 import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 class PlayDates extends Component {
 
