@@ -4,8 +4,12 @@ import axios from 'axios';
 import {
   FETCH_DOGS,
   FETCH_DOG,
+  CREATE_DOG,
+  UPDATE_DOG,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
+  CREATE_PLAYDATE,
+  UPDATE_PLAYDATE,
   FETCH_USER,
   UPDATE_USER,
   FETCH_USER_PLAYDATES,
@@ -35,7 +39,7 @@ export function fetchDogs(userId) {
         payload: response
       });
     });
-  }
+  };
 }
 
 export function fetchDog(id) {
@@ -56,11 +60,15 @@ export function createDog(dog) {
   const request = axios.post(`${REQUEST_URL}/dogs`, dog);
 
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      return dispatch({
         type: CREATE_DOG,
         payload: response
       });
+    })
+    .catch(() => {
+      console.log("Failed to create new dog profile");
+      return Promise.reject();
     });
   };
 }
@@ -156,7 +164,7 @@ export function updatePlaydate(playdate) {
         payload: response
       });
     });
-  }
+  };
 }
 
 export function loginUser({ username, password }) {
@@ -184,7 +192,7 @@ export function loginUser({ username, password }) {
       return Promise.reject();
     })
     ;
-  }
+  };
 }
 
 export function authenticateUser(user) {
@@ -198,7 +206,7 @@ export function registerUser({ username, name, email, password }) {
   console.log("registerUser!", username, name, email, password);
 
   return dispatch => {
-    return axios.post(`${REQUEST_URL}/users`, { username, name, email, password})
+    return axios.post(`${REQUEST_URL}/users`, { username, name, email, password })
       .then((response) => {
         return dispatch({
           type: SIGNUP_USER_SUCCESS
@@ -219,12 +227,12 @@ export function registerUser({ username, name, email, password }) {
 export function updateUser(userId, user) {
   return dispatch => {
     return axios.patch(`${REQUEST_URL}/users/${userId}`, user)
-      then((response) => {
+      .then((response) => {
         console.log(response);
         return dispatch({
           type: UPDATE_USER,
           payload: user
-        })
+        });
       });
   };
 }
