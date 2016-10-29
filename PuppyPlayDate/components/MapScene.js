@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import {
-  PropTypes,
   StyleSheet,
   Text,
   View,
-  NavigatorIOS,
-  AlertIOS,
-  LinkingIOS,
-  TabBarIOS,
   Dimensions,
   Image,
-  TouchableHighlight,
-  Animated,
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
@@ -19,14 +12,12 @@ import {
 import { connect } from 'react-redux';
 import { fetchPlaydates } from '../actions/index';
 
-
 import UserDogs from './UserDogs';
 import PlayDates from './PlayDates';
 import PlayDateShow from './PlayDateShow';
-import PlayDateCreate from './PlayDateCreate';
 import PlaydateMap from './PlaydateMap';
 
-var { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 37.78825;
@@ -56,12 +47,11 @@ class MapScene extends Component {
 
   componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-      this.setState({"userID": value});
+      console.log('current.val', value);
+      this.setState({ userID: value });
 
       this.props.fetchPlaydates();
     }).done();
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,16 +70,6 @@ class MapScene extends Component {
     this.refs.m1.hideCallout();
   }
 
-  renderLoadingView() {
-    return (
-     <View>
-       <Text>
-         Loading PlayDates...
-       </Text>
-     </View>
-    );
-  }
-
   onPressHome() {
     console.log('PressHome');
     // this.props.navigator.resetTo ({
@@ -101,7 +81,7 @@ class MapScene extends Component {
 
   onPressProfile() {
     console.log('PressProfile');
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: 'Profile',
       component: UserDogs,
       passProps: {
@@ -109,12 +89,12 @@ class MapScene extends Component {
       },
       leftButtonTitle: '< Map',
       onLeftButtonPress: () => this.props.navigator.pop(),
-    })
+    });
   }
 
   onPressPlayDate() {
     console.log('PressPlayDate');
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: 'Playdates',
       component: PlayDates,
       passProps: {
@@ -122,7 +102,7 @@ class MapScene extends Component {
       },
       //leftButtonTitle: 'Map',
       //onLeftButtonPress: () => this.props.navigator.pop(),
-    })
+    });
   }
 
   logout() {
@@ -130,16 +110,26 @@ class MapScene extends Component {
     this.props.navigator.pop();
   }
 
+  renderLoadingView() {
+    return (
+     <View>
+       <Text>
+         Loading PlayDates...
+       </Text>
+     </View>
+    );
+  }
+
   onPlaydateMarker(playdateName) {
     console.log("bubble link clicked");
-    this.props.navigator.push ({
+    this.props.navigator.push({
       title: playdateName.name,
       component: PlayDateShow,
       passProps: {
         userID: this.props.userID,
         playdate_id: String(playdateName.id)
       }
-    })
+    });
   }
 
   render() {
@@ -153,28 +143,41 @@ class MapScene extends Component {
 
     return (
       <View style={styles.container}>
-        <PlaydateMap playdates={playdates} region={region} onPlaydateMarker={this.onPlaydateMarker.bind(this)}/>
+        <PlaydateMap
+          playdates={playdates}
+          region={region}
+          onPlaydateMarker={this.onPlaydateMarker.bind(this)}
+        />
 
         <View style={styles.tabBar}>
-          <TouchableOpacity onPress={this.onPressHome.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressHome.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('../Resources/dog-house.png')}>
-            </Image>
+              source={require('../Resources/dog-house.png')}
+            />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.onPressProfile.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressProfile.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('../Resources/dog_paw.png')}>
-            </Image>
+              source={require('../Resources/dog_paw.png')}
+            />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.onPressPlayDate.bind(this)} style={[styles.button, styles.bubble]}>
+          <TouchableOpacity
+            onPress={this.onPressPlayDate.bind(this)}
+            style={[styles.button, styles.bubble]}
+          >
             <Image
               style={styles.icon}
-              source={require('../Resources/bone2.png')}>
-            </Image>
+              source={require('../Resources/bone2.png')}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -184,18 +187,19 @@ class MapScene extends Component {
           >
           <Image
             style={styles.icon}
-            source={require('../Resources/log_out.png')}>
-          </Image>
+            source={require('../Resources/log_out.png')}
+          />
           </TouchableOpacity>
         </View>
 
       </View>
-  )};
+    );
+  }
 
   onRegionChangeComplete(region) {
     console.log(region);
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -217,8 +221,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   button: {
-    height: height * .08,
-    width: width * .25,
+    height: height * 0.08,
+    width: width * 0.25,
     alignItems: 'center',
     justifyContent: 'center'
   },
