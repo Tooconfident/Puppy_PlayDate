@@ -56,78 +56,30 @@ class Login extends Component {
   }
 
   loginPress() {
-    // console.log(this.state.username, this.state.password);
-    // console.log(this.props.loginUser({username: "hey", password: "123"}));
-    // this.props.loginUser({
-    //   username: this.state.username,
-    //   password: this.state.password
-    // })
-    //   .then(() => {
-    //     //console.log(response);
-    //     console.log("YAYYY");
-    //
-    //     console.log(this);
-    //     // Makes sure to clean up the form after logging in
-    //     this.setState({
-    //       //username: '',
-    //       password: '',
-    //     });
-    //
-    //     // Redirect to Home scene
-    //     this.props.navigator.push({
-    //       title: 'Puppy Playdate',
-    //       component: MapScene,
-    //       leftButtonTitle: ' ',
-    //       id: 'mapscene',
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Login failed");
-    //     console.log(error);
-    //   });
-
     const { username, password } = this.props;
 
-    fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      })
+    this.props.loginUser({
+      username,
+      password
     })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false) {
-          //Login successfully
-          this.makeSession(responseData);
+      .then(() => {
+        //console.log(response);
+        console.log("YAYYY");
 
-          // Redirect to Home scene
-          this.props.navigator.push({
-            title: 'Puppy Playdate',
-            component: MapScene,
-            leftButtonTitle: ' ',
-            id: 'mapscene',
-          })
+        console.log(this);
 
-          // Makes sure to clean up the form after logging in
-          this.setState({
-            //username: '',
-            password: '',
-          });
-
-        } else {
-          // AlertIOS.alert(
-          //  'Something went wrong!'
-          // );
-        }
+        // Redirect to Home scene
+        this.props.navigator.push({
+          title: 'Puppy Playdate',
+          component: MapScene,
+          leftButtonTitle: ' ',
+          id: 'mapscene',
+        });
       })
-      .done();
-    console.log(this.state.username);
+      .catch((error) => {
+        console.log("Login failed");
+        console.log(error);
+      });
   }
 
   onPressSignup() {
@@ -146,7 +98,7 @@ class Login extends Component {
   renderErrorMessage() {
     if (this.props.errorMessage !== '') {
       return (
-        <Text>
+        <Text style={customStyles.errorText}>
           {this.props.errorMessage}
         </Text>
       );
@@ -171,8 +123,8 @@ class Login extends Component {
               <TextInput
                 placeholder="Username"
                 style={styles.inputText}
-                value={this.state.username}
-                onChangeText={(text) => this.setState({username: text})}
+                value={username}
+                onChangeText={this.onUsernameChange.bind(this)}
                 autoCapitalize={'none'}
                 autoCorrect={false}
               />
@@ -181,13 +133,13 @@ class Login extends Component {
                 placeholder="Password"
                 style={styles.inputText}
                 secureTextEntry={true}
-                value={this.state.password}
-                onChangeText={(text) => this.setState({password: text})}
+                value={password}
+                onChangeText={this.onPasswordChange.bind(this)}
                 autoCapitalize={'none'}
                 autoCorrect={false}
               />
 
-              {this.renderErrorMEssage()}
+              {this.renderErrorMessage()}
 
               <TouchableHighlight
                 style={styles.submitButton}
@@ -214,6 +166,14 @@ class Login extends Component {
     );
   }
 }
+
+const customStyles = StyleSheet.create({
+  errorText: {
+    fontSize: 18,
+    color: 'red',
+    alignSelf: 'center'
+  }
+});
 
 function mapStateToProps(state) {
   return {
