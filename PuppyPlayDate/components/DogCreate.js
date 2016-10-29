@@ -6,7 +6,7 @@ import {
   View,
   TouchableHighlight,
   AsyncStorage,
-  AlertIOS
+  Alert
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -83,7 +83,13 @@ class DogCreate extends Component {
 
     this.props.createDog(newDog)
       .then(() => {
-        AlertIOS.alert('Your dog has been added successfully');
+        Alert.alert(
+          'Success',
+          'Your dog has been added successfully',
+          [
+            { text: 'OK', onPress: () => this.props.navigator.pop() }
+          ]
+        );
         // this.props.navigator.push({
         //   component: DogProfile
         // });
