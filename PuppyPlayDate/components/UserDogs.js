@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight,
   TouchableOpacity,
   AsyncStorage,
@@ -20,7 +16,7 @@ import DogCreate from './DogCreate';
 import UserEdit from './UserEdit';
 import DogsList from './DogsList';
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 class UserDogs extends Component {
   constructor(props) {
@@ -33,7 +29,7 @@ class UserDogs extends Component {
 
   componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('userID: current.val '+ value);
+      console.log('userID: current.val', value);
       this.setState({
         userID: value
       });
@@ -46,7 +42,8 @@ class UserDogs extends Component {
   }
 
   onPressEdit() {
-    console.log("onPressEdit")
+    console.log("onPressEdit");
+
     this.props.navigator.push({
       title: 'Edit User Profile',
       component: UserEdit,
@@ -55,7 +52,8 @@ class UserDogs extends Component {
   }
 
   onPressAdd() {
-    console.log("onPressAdd")
+    console.log("onPressAdd");
+
     this.props.navigator.push({
       title: 'Add Dog',
       component: DogCreate,
@@ -90,12 +88,16 @@ class UserDogs extends Component {
           <View style={userProfileTop}>
             <Text style={entryLabel}>{user.name + "'s Dogs"}</Text>
             <TouchableOpacity
-              style={editProfileButton} onPress={() => this.onPressEdit()}>
+              style={editProfileButton} onPress={() => this.onPressEdit()}
+            >
               <Text style={editProfileButtonText}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
 
-          <TouchableHighlight style={[addButton, {alignSelf: "flex-end"}]} onPress={() => this.onPressAdd()}>
+          <TouchableHighlight
+            style={[addButton, { alignSelf: "flex-end" }]}
+            onPress={() => this.onPressAdd()}
+          >
             <Text style={addButtonText} >+ Add Dog</Text>
           </TouchableHighlight>
 
