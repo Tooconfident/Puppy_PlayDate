@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   error: null,
   username: '',
   password: '',
-  user: null
+  user: null // right now user actually contains userId
 };
 
 export default function(state = INITIAL_STATE, action) {
