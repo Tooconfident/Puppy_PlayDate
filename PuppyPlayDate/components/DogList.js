@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   ListView,
-  NavigatorIOS,
   Image,
   TouchableHighlight,
   AsyncStorage,
+  AlertIOS
 } from 'react-native';
 
 import DogProfile from './DogProfile';
@@ -23,13 +22,13 @@ const REQUEST_URL = 'http://localhost:3000/users/';
 const JOIN_URL = 'http://localhost:3000/memberships/join/';
 
 class DogList extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      dataSource: new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1 !== r2}
-      ),
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
       loaded: false,
       userID: this.props.userID,
     };
@@ -43,7 +42,7 @@ class DogList extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('userID: current.val '+ value);
+      console.log('userID: current.val', value);
       this.setState({
         userID: value
       });
@@ -71,7 +70,7 @@ class DogList extends Component {
 
   onPressDogJoin(id) {
     console.log(this.props.group_id);
-    fetch(JOIN_URL + "?dog_id="+id+"&id="+this.props.group_id+"", {
+    fetch(JOIN_URL + "?dog_id=" + id + "&id=" + this.props.group_id + "", {
       method: "POST",
       hearders: {
         "Accept": "application/json",
@@ -84,11 +83,11 @@ class DogList extends Component {
     })
     .then((response) => {
         console.log(response);
-        return response.json()
+        return response.json();
       })
       .then((responseData) => {
-        console.log(responseData)
-        if(responseData.success) {
+        console.log(responseData);
+        if (responseData.success) {
           this.props.navigator.popN(2);
         } else {
           AlertIOS.alert(
@@ -101,14 +100,14 @@ class DogList extends Component {
 
 
   // Entry row
-  renderRow(rowData, sectionID, rowID){
+  renderRow(rowData, sectionID, rowID) {
     // console.log("Rendering a row. . .");
     // console.log("rowData.avatar = " + rowData.avatar);
 
-    return(
+    return (
       <TouchableHighlight onPress={() => this.onPressDogJoin(rowData.id)}>
         <View style={styles.listEntry}>
-          <Image style={styles.entryAvatar} source={{ uri: rowData.avatar }}/>
+          <Image style={styles.entryAvatar} source={{ uri: rowData.avatar }} />
 
           <View style={styles.listEntryContent}>
             <Text style={styles.entryLabel}>
@@ -124,12 +123,14 @@ class DogList extends Component {
     );
   }
 
-  render(){
-    if (!this.state.loaded){
-      return(<Text>Loading...</Text>)
+  render() {
+    if (!this.state.loaded) {
+      return (
+        <Text>Loading...</Text>
+      );
     }
 
-    return(
+    return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <ListView
@@ -141,7 +142,5 @@ class DogList extends Component {
     );
   }
 }
-
-
 
 export default DogList;

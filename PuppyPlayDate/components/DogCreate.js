@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight,
   AsyncStorage,
+  AlertIOS
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { fetchDog, createDog } from '../actions/index';
 
-import DogProfile from './DogProfile';
-
-const styles = require('../style.js');
+const styles = require('../style');
 
 class DogCreate extends Component {
 
@@ -30,13 +25,13 @@ class DogCreate extends Component {
       age: "",
       toy: "",
       avatar: "",
-    }
+    };
   }
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('current.val', value);
+      this.setState({ userID: value });
     }).done();
   }
 
@@ -100,38 +95,38 @@ class DogCreate extends Component {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <Text style={[styles.pageHeading, {color: 'black'}]}>
+          <Text style={[styles.pageHeading, { color: 'black' }]}>
             Tell us About your Dog
           </Text>
 
           <TextInput
             placeholder="Dog Name"
             style={styles.inputText}
-            value = {this.state.name}
-            onChangeText = {(text)=> this.setState({name:text})}
+            value={this.state.name}
+            onChangeText={(text) => this.setState({ name: text })}
           />
 
           <TextInput
             placeholder="Breed"
             style={styles.inputText}
-            value = {this.state.breed}
-            onChangeText = {(text)=> this.setState({breed:text})}
+            value={this.state.breed}
+            onChangeText={(text) => this.setState({ breed: text })}
 
           />
 
           <TextInput
             placeholder="Age"
             style={styles.inputText}
-            value = {this.state.age}
-            onChangeText = {(text)=> this.setState({age:text})}
+            value={this.state.age}
+            onChangeText={(text) => this.setState({ age: text })}
 
           />
 
           <TextInput
             placeholder="Favorite Toy"
             style={styles.inputText}
-            value = {this.state.toy}
-            onChangeText = {(text)=> this.setState({toy:text})}
+            value={this.state.toy}
+            onChangeText={(text) => this.setState({ toy: text })}
 
           />
 

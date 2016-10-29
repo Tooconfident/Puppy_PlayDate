@@ -7,11 +7,11 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const DogListItem = ({item, onPress}) => {
+const DogListItem = ({ item, onPress }) => {
   return (
     <TouchableHighlight onPress={() => onPress(item.id)}>
       <View style={styles.listEntry}>
-        <Image style={styles.entryAvatar} source={{ uri: item.avatar }}/>
+        <Image style={styles.entryAvatar} source={{ uri: item.avatar }} />
 
         <View style={styles.listEntryContent}>
           <Text style={styles.entryLabel}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 10,
-    borderRadius: 50/2,
+    borderRadius: 50 / 2,
   },
   entryLabel: {
     fontSize: 18,

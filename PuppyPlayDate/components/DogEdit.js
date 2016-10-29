@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
   Picker,
   Image,
   TouchableHighlight,
@@ -18,10 +15,7 @@ import { fetchDog, updateDog } from '../actions/index';
 
 import DogProfile from './DogProfile';
 
-const styles = require('../style.js');
-
-// URL to get a specific dog if you append an id
-const REQUEST_URL = 'http://localhost:3000/dogs/';
+const styles = require('../style');
 
 class DogEdit extends Component {
   constructor(props) {
@@ -143,8 +137,8 @@ class DogEdit extends Component {
     // }
 
     // For the dog age picker
-    var ageRange = [];
-    for (var i = 1; i <= 35; i++) {
+    const ageRange = [];
+    for (let i = 1; i <= 35; i++) {
       ageRange.push(i.toString());
     }
 
@@ -154,28 +148,28 @@ class DogEdit extends Component {
           <ScrollView>
 
             <TouchableHighlight>
-              <Image source={{uri: this.state.avatar}} style={styles.profileAvatar}/>
+              <Image source={{ uri: this.state.avatar }} style={styles.profileAvatar} />
             </TouchableHighlight>
 
             <TextInput
               placeholder="Dog Name"
               style={styles.inputText}
               value={this.state.name}
-              onChangeText={(text) => this.setState({name: text})}
+              onChangeText={(text) => this.setState({ name: text })}
             />
 
             <TextInput
               placeholder="Breed"
               style={styles.inputText}
               value={this.state.breed}
-              onChangeText={(text) => this.setState({breed: text})}
+              onChangeText={(text) => this.setState({ breed: text })}
             />
 
             <TextInput
               placeholder="Age"
               style={styles.inputText}
               value={this.state.age.toString()}
-              onChangeText={(text) => this.setState({age: text})}
+              onChangeText={(text) => this.setState({ age: text })}
             />
 
             {
@@ -210,15 +204,15 @@ class DogEdit extends Component {
               placeholder="Favorite Toy"
               style={styles.inputText}
               value={this.state.toy}
-              onChangeText={(text) => this.setState({toy: text})}
+              onChangeText={(text) => this.setState({ toy: text })}
             />
 
             <TextInput
               placeholder="Description"
               style={[styles.inputText, styles.textArea]}
               value={this.state.description}
-              onChangeText={(text) => this.setState({description: text})}
-              multiline={true}
+              onChangeText={(text) => this.setState({ description: text })}
+              multiline
             />
 
             <TouchableHighlight
