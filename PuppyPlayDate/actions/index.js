@@ -164,8 +164,9 @@ export function loginUser({ username, password }) {
       // Login successfully, so store user id locally
       //AsyncStorage.setItem("userID", String(response.data));
 
-      dispatch({
-        type: AUTH_USER
+      return dispatch({
+        type: AUTH_USER,
+        payload: response
       });
 
       // return Promise.resolve();
@@ -174,8 +175,10 @@ export function loginUser({ username, password }) {
       //console.log(error.response.data.error);
 
       dispatch({
-        type: AUTH_ERROR
+        type: AUTH_ERROR,
       });
+
+      return Promise.reject();
     })
     ;
   }
