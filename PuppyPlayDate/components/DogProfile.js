@@ -1,41 +1,42 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ListView,
   ScrollView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight
 } from 'react-native';
 
-import UserDogs from './UserDogs';
+// To connect react and redux
+import { connect } from 'react-redux';
+// Action creator
+import { fetchDog } from '../actions/index';
+
 import DogEdit from './DogEdit';
 import DogPlayDates from './DogPlayDates';
+import ProfileAvatar from './ProfileAvatar';
 
-const styles = require('../style.js');
-
-const REQUEST_URL = 'http://localhost:3000/dogs/';
+const styles = require('../style');
 
 class DogProfile extends Component {
   constructor(props) {
     super(props);
     console.log("Constructing DogProfile");
-    console.log("this.props.dog_id is " + this.props.dog_id);
-    console.log("this.props.navigator is " + this.props.navigator);
-
-    this.state = {
-      dog: {},
-      loaded: false,
-    };
+    console.log("this.props.dog_id is", this.props.dog_id);
+    console.log("this.props.navigator is", this.props.navigator);
   }
 
-  componentDidMount() {
-    console.log("DogProfile didMount");
+  componentWillMount() {
+    // Call upon the action creator to send an action
+    // & ultimately retrieve data for the dog
+    this.props.fetchDog(this.props.dog_id);
+  }
 
-    this.fetchData();
+  componentWillReceiveProps() {
+    console.log("DogProfile WillReceiveProps");
+    // if (!this.props.loaded) {
+    //    this.fetchData();
+    //  }
   }
 
   componentWillUpdate() {
@@ -43,33 +44,6 @@ class DogProfile extends Component {
     // if (!this.state.loaded) {
     //   this.fetchData();
     // }
-  }
-
-  componentWillReceiveProps() {
-    console.log("DogProfile WillReceiveProps");
-    if (!this.props.loaded) {
-       this.fetchData();
-     }
-  }
-
-  fetchData() {
-    console.log("fetchData (DogProfile) called for dog_id " + this.props.dog_id);
-    fetch(REQUEST_URL + this.props.dog_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("fetchData for DogProfile: " + responseData);
-        for (let data in responseData) {
-          this.setState({
-            [data]:responseData[data]
-          });
-        }
-        this.setState({loaded: true,});
-      })
-      .done();
-  }
-
-  goBack() {
-    this.props.navigator.pop();
   }
 
   onPressListPlaydates() {
@@ -98,25 +72,31 @@ class DogProfile extends Component {
     });
   }
 
+  goBack() {
+    this.props.navigator.pop();
+  }
+
   render() {
-    var dog = this.state;
-    console.log('DogProfile this.state:');
-    console.log(this.state);
+    const { dog } = this.props;
+
+    if (!dog) {
+      return <View style={styles.innerContainer}><Text>Loading</Text></View>;
+    }
 
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
           <ScrollView>
-            <View style={{alignSelf: 'center'}}>
-              <Image style={styles.profileAvatar} source={{ uri: dog.avatar }} />
-              <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
+            <View style={{ alignSelf: 'center' }}>
+              <ProfileAvatar source={{ uri: dog.avatar }} />
+              <Text style={[{ alignSelf: 'center' }, styles.entryLabel]}>{dog.name}</Text>
               <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
-                <Text style={{alignSelf: 'center'}}>My Playdates</Text>
+                <Text style={{ alignSelf: 'center' }}>My Playdates</Text>
               </TouchableHighlight>
             </View>
 
-            <View style={[{borderRadius: 9}, styles.dogList]}>
+            <View style={[{ borderRadius: 9 }, styles.dogList]}>
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
               </View>
@@ -146,7 +126,7 @@ class DogProfile extends Component {
               </View>
 
               <TouchableHighlight onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'flex-end', color: ''}}>Edit</Text>
+                <Text style={{ alignSelf: 'flex-end', color: '' }}>Edit</Text>
               </TouchableHighlight>
             </View>
           </ScrollView>
@@ -156,44 +136,8 @@ class DogProfile extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginTop: 75,
-//   },
-//   text: {
-//     fontSize: 14,
-//   },
-//   dogImage: {
-//     width: 128,
-//     height: 128,
-//     borderRadius: 128/2,
-//   },
-//   dogDescription: {
-//     height: 50,
-//   },
-//   backButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-start'
-//   },
-//   editButton: {
-//     borderWidth: 1,
-//     padding: 10,
-//     alignSelf: 'flex-end',
-//   },
-//   backButtonText: {
-//     fontSize: 14,
-//     borderRadius: 12,
-//     fontWeight: 'bold',
-//   },
-//   navbar: {
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
-// });
+function mapStateToProps(state) {
+  return { dog: state.dogs.dog };
+}
 
-export default DogProfile;
+export default connect(mapStateToProps, { fetchDog })(DogProfile);

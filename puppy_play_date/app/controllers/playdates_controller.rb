@@ -2,10 +2,6 @@ class PlaydatesController < ApplicationController
   before_action :set_playdate, only: [:show, :update, :destroy]
 
   def index
-    render json: Playdate.where(user_id: params[:user_id])
-  end
-
-  def show_all
     render json: Playdate.all
   end
 

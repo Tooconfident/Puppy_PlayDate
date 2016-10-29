@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
-  TouchableHighlight
 } from 'react-native';
 
-class Chat extends Components {
+class Chat extends Component {
   render() {
     return (
       <View style={styles.container}>

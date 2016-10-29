@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  Image,
   ListView,
-  NavigatorIOS,
-  StyleSheet,
-  TabBarIOS,
   Text,
   TouchableHighlight,
   View,
@@ -14,23 +9,23 @@ import {
 
 } from 'react-native';
 
-import MainScene from './MainScene';
 import PlayDateShow from './PlayDateShow';
+import PlayDateCreate from './PlayDateCreate';
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 const REQUEST_URL = 'http://localhost:3000/dogs/playdates';
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
 
 class DogPlayDates extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      dataSource : new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1 !== r2}
-      ),
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
       userID: 0,
       loaded: false,
     };
@@ -38,10 +33,10 @@ class DogPlayDates extends Component {
     console.log("Constructor for Dog dates called");
   }
 
-  componentWillMount(){
+  componentWillMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('current.val ' + value);
+      this.setState({ userID: value });
     })
     .then((value) => {
       this.fetchData();
@@ -67,7 +62,8 @@ class DogPlayDates extends Component {
   }
 
   onPressPlayDate(id) {
-    console.log("onPressPlayDate(" + id + ")")
+    console.log("onPressPlayDate(" + id + ")");
+
     this.props.navigator.push({
       component: PlayDateShow,
       passProps: {
@@ -81,9 +77,9 @@ class DogPlayDates extends Component {
     this.props.navigator.pop();
   }
   leavePlaydate(playdate_id) {
-    console.log("press leave")
-    console.log(this.state.responseData.id)
-    fetch(LEAVE_URL+"?id="+this.state.responseData.id+"&dog_id="+this.props.dog_id+"", {
+    console.log("press leave");
+    console.log(this.state.responseData.id);
+    fetch(LEAVE_URL + "?id=" + this.state.responseData.id + "&dog_id=" + this.props.dog_id + "", {
       method: "POST",
       hearders: {
         "Accept": "application/json",
@@ -96,11 +92,11 @@ class DogPlayDates extends Component {
     })
     .then((response) => {
         console.log(this.responseData);
-        return response.json()
+        return response.json();
       })
       .then((responseData) => {
-        console.log(responseData)
-        if(responseData.success) {
+        console.log(responseData);
+        if (responseData.success) {
           this.props.navigator.pop(2);
         } else {
           Alert.alert(
@@ -112,19 +108,20 @@ class DogPlayDates extends Component {
     }
 
   onPressLeave() {
-    console.log("Confirmed")
+    console.log("Confirmed");
+
     Alert.alert(
       'Alert Title',
       'My Alert Msg',
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => this.leavePlaydate()},
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'OK', onPress: () => this.leavePlaydate() },
       ]
-    )
+    );
   }
 
-  renderRow(rowData, sectionID, rowID){
-    return(
+  renderRow(rowData, sectionID, rowID) {
+    return (
       <TouchableHighlight onPress={() => this.onPressPlayDate(rowData.id)}>
         <View style={styles.listEntry}>
           <View style={styles.listEntryContent}>
@@ -143,8 +140,6 @@ class DogPlayDates extends Component {
               </TouchableHighlight>
             </View>
 
-
-
           </View>
         </View>
       </TouchableHighlight>
@@ -162,7 +157,9 @@ class DogPlayDates extends Component {
 
   render() {
     if (!this.state.loaded) {
-      return(<Text>Loading...</Text>)
+      return (
+        <Text>Loading...</Text>
+      );
     }
 
     return (
@@ -179,7 +176,5 @@ class DogPlayDates extends Component {
     );
   }
 }
-
-
 
 export default DogPlayDates;

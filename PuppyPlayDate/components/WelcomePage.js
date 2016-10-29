@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -20,8 +19,8 @@ import {
 
 import UserDogs from './UserDogs';
 import TestPage from './TestPage';
-import UserSignup from './UserSignup';
-import Login from './Login';
+import Register from './auth/Register';
+import Login from './auth/Login';
 import DogCreate from './DogCreate';
 import UserEdit from './UserEdit'
 import MapScene from './MapScene'

@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
   Picker,
   Image,
   TouchableHighlight,
   ScrollView,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { fetchDog, updateDog } from '../actions/index';
+
 import DogProfile from './DogProfile';
 
-const styles = require('../style.js');
-
-// URL to get a specific dog if you append an id
-const REQUEST_URL = 'http://localhost:3000/dogs/';
+const styles = require('../style');
 
 class DogEdit extends Component {
   constructor(props) {
@@ -38,17 +35,20 @@ class DogEdit extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // As soon as the component is mounted, go and fetch the data for the dog
     this.fetchData();
   }
 
   // Performs an Ajax call to retrieve information about the dog
-  fetchData(){
-    console.log("fetchData: DogEdit: dog_id " + this.props.dog_id)
-    fetch(REQUEST_URL + this.props.dog_id)
-      .then((response) => response.json())
-      .then((responseData) => {
+  fetchData() {
+    this.props.fetchDog(this.props.dog_id)
+      .then(() => {
+        //console.log("response", response);
+
+        // dog information is injected as props from application state (redux)
+        const responseData = this.props.dog;
+
         // Update the state with the information about the dog
         this.setState({
           id: responseData.id,
@@ -61,57 +61,84 @@ class DogEdit extends Component {
           avatar: responseData.avatar,
           loaded: true,
         });
-      })
-      .done();
+      });
   }
 
   onPressEdit() {
+    const updatedDog = {
+      name: this.state.name,
+      breed: this.state.breed,
+      age: this.state.age,
+      toy: this.state.toy,
+      description: this.state.description,
+      gender: this.state.gender,
+    };
+
+    this.props.updateDog(this.props.dog.id, updatedDog)
+      .then(() => {
+        console.log("Dog updated.");
+        this.props.navigator.pop({
+          component: DogProfile,
+          passProps: {
+            loaded: false,
+          }
+        });
+      });
+
+      console.log("Dog updated 2. ");
+
     // TODO: perform an update request to update the
     // dog information in the backend
-    fetch(REQUEST_URL + this.state.id, {
-      method: 'PATCH',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        breed: this.state.breed,
-        age: this.state.age,
-        toy: this.state.toy,
-        description: this.state.description,
-        gender: responseData.gender,
-      })
-    })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
-          // this.props.navigator.replacePreviousAndPop({
-          //   component: DogProfile,
-          //   passProps: {
-          //     dog_id: this.state.id,
-          //   },
-          // });
-          this.props.navigator.pop({
-            component: DogProfile,
-            passProps: {
-              loaded: false,
-            }
-          });
-        } else {
-          AlertIOS.alert(
-           'Something went wrong!'
-          );
-        }
-      })
-      .done();
+    // fetch(REQUEST_URL + this.state.id, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     breed: this.state.breed,
+    //     age: this.state.age,
+    //     toy: this.state.toy,
+    //     description: this.state.description,
+    //     gender: responseData.gender,
+    //   })
+    // })
+    // .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     if (responseData.success != false){
+    //       // this.props.navigator.replacePreviousAndPop({
+    //       //   component: DogProfile,
+    //       //   passProps: {
+    //       //     dog_id: this.state.id,
+    //       //   },
+    //       // });
+    //       this.props.navigator.pop({
+    //         component: DogProfile,
+    //         passProps: {
+    //           loaded: false,
+    //         }
+    //       });
+    //     } else {
+    //       AlertIOS.alert(
+    //        'Something went wrong!'
+    //       );
+    //     }
+    //   })
+    //   .done();
   }
 
   render() {
+    //const { dog } = this.props;
+
+    // if (!dog) {
+    //   return <View><Text>Loading . . .</Text></View>;
+    // }
+
     // For the dog age picker
-    var ageRange = [];
-    for (var i = 1; i <= 35; i++) {
+    const ageRange = [];
+    for (let i = 1; i <= 35; i++) {
       ageRange.push(i.toString());
     }
 
@@ -121,28 +148,28 @@ class DogEdit extends Component {
           <ScrollView>
 
             <TouchableHighlight>
-              <Image source={{uri: this.state.avatar}} style={styles.profileAvatar}/>
+              <Image source={{ uri: this.state.avatar }} style={styles.profileAvatar} />
             </TouchableHighlight>
 
             <TextInput
               placeholder="Dog Name"
               style={styles.inputText}
               value={this.state.name}
-              onChangeText={(text) => this.setState({name: text})}
+              onChangeText={(text) => this.setState({ name: text })}
             />
 
             <TextInput
               placeholder="Breed"
               style={styles.inputText}
               value={this.state.breed}
-              onChangeText={(text) => this.setState({breed: text})}
+              onChangeText={(text) => this.setState({ breed: text })}
             />
 
             <TextInput
               placeholder="Age"
               style={styles.inputText}
               value={this.state.age.toString()}
-              onChangeText={(text) => this.setState({age: text})}
+              onChangeText={(text) => this.setState({ age: text })}
             />
 
             {
@@ -177,15 +204,15 @@ class DogEdit extends Component {
               placeholder="Favorite Toy"
               style={styles.inputText}
               value={this.state.toy}
-              onChangeText={(text) => this.setState({toy: text})}
+              onChangeText={(text) => this.setState({ toy: text })}
             />
 
             <TextInput
               placeholder="Description"
               style={[styles.inputText, styles.textArea]}
               value={this.state.description}
-              onChangeText={(text) => this.setState({description: text})}
-              multiline={true}
+              onChangeText={(text) => this.setState({ description: text })}
+              multiline
             />
 
             <TouchableHighlight
@@ -252,4 +279,8 @@ class DogEdit extends Component {
 //   }
 // });
 
-export default DogEdit;
+function mapStateToProps(state) {
+  return { dog: state.dogs.dog };
+}
+
+export default connect(mapStateToProps, { fetchDog, updateDog })(DogEdit);

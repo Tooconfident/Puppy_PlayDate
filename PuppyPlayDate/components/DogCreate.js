@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight,
   AsyncStorage,
+  Alert
 } from 'react-native';
 
-import DogProfile from './DogProfile';
+import { connect } from 'react-redux';
+import { fetchDog, createDog } from '../actions/index';
 
-const styles = require('../style.js');
-
-const REQUEST_URL= 'http://localhost:3000/dogs';
+const styles = require('../style');
 
 class DogCreate extends Component {
 
@@ -29,54 +25,75 @@ class DogCreate extends Component {
       age: "",
       toy: "",
       avatar: "",
-    }
+    };
   }
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('current.val', value);
+      this.setState({ userID: value });
     }).done();
   }
 
   onPressCreate() {
-    // TODO: create dog in backend
-    fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        age: this.state.age,
-        breed: this.state.breed,
-        toy: this.state.toy,
-        user_id: this.state.userID,
+    // fetch(REQUEST_URL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     name: this.state.name,
+    //     age: this.state.age,
+    //     breed: this.state.breed,
+    //     toy: this.state.toy,
+    //     user_id: this.state.userID,
+    //
+    //   })
+    // })
+    // .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData)
+    //     if (responseData.success != false){
+    //       //Add a Dog
+    //       this.props.navigator.popN(2);
+    //       // this.props.navigator.replace({
+    //       //   title: 'Dog Profile',
+    //       //   component: DogProfile,
+    //       //   passProps: {
+    //       //     dog_id: responseData.id,
+    //       //     loaded: false,
+    //       //   },
+    //       // });
+    //     } else {
+    //       AlertIOS.alert(
+    //        'Something went wrong!'
+    //       );
+    //     }
+    //   })
+    //   .done();
 
-      })
-    })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
-          //Add a Dog
-          this.props.navigator.popN(2);
-          // this.props.navigator.replace({
-          //   title: 'Dog Profile',
-          //   component: DogProfile,
-          //   passProps: {
-          //     dog_id: responseData.id,
-          //     loaded: false,
-          //   },
-          // });
-        } else {
-          AlertIOS.alert(
-           'Something went wrong!'
-          );
-        }
-      })
-      .done();
+    const newDog = {
+      name: this.state.name,
+      age: this.state.age,
+      breed: this.state.breed,
+      toy: this.state.toy,
+      user_id: this.state.userID,
+    };
+
+    this.props.createDog(newDog)
+      .then(() => {
+        Alert.alert(
+          'Success',
+          'Your dog has been added successfully',
+          [
+            { text: 'OK', onPress: () => this.props.navigator.pop() }
+          ]
+        );
+        // this.props.navigator.push({
+        //   component: DogProfile
+        // });
+      });
   }
 
   render() {
@@ -84,38 +101,38 @@ class DogCreate extends Component {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <Text style={[styles.pageHeading, {color: 'black'}]}>
+          <Text style={[styles.pageHeading, { color: 'black' }]}>
             Tell us About your Dog
           </Text>
 
           <TextInput
             placeholder="Dog Name"
             style={styles.inputText}
-            value = {this.state.name}
-            onChangeText = {(text)=> this.setState({name:text})}
+            value={this.state.name}
+            onChangeText={(text) => this.setState({ name: text })}
           />
 
           <TextInput
             placeholder="Breed"
             style={styles.inputText}
-            value = {this.state.breed}
-            onChangeText = {(text)=> this.setState({breed:text})}
+            value={this.state.breed}
+            onChangeText={(text) => this.setState({ breed: text })}
 
           />
 
           <TextInput
             placeholder="Age"
             style={styles.inputText}
-            value = {this.state.age}
-            onChangeText = {(text)=> this.setState({age:text})}
+            value={this.state.age}
+            onChangeText={(text) => this.setState({ age: text })}
 
           />
 
           <TextInput
             placeholder="Favorite Toy"
             style={styles.inputText}
-            value = {this.state.toy}
-            onChangeText = {(text)=> this.setState({toy:text})}
+            value={this.state.toy}
+            onChangeText={(text) => this.setState({ toy: text })}
 
           />
 
@@ -167,4 +184,4 @@ class DogCreate extends Component {
 //   }
 // });
 
-export default DogCreate;
+export default connect(null, { fetchDog, createDog })(DogCreate);

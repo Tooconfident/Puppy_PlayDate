@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   AsyncStorage,
-  ListView,
-  NavigatorIOS,
   Image,
   StyleSheet,
   Text,
@@ -13,16 +10,15 @@ import {
 } from 'react-native';
 
 import PlayDates from './PlayDates';
-import MainScene from './MainScene';
 import MapScene from './MapScene';
 import UserDogs from './UserDogs';
 
-const styles = require('../style.js')
+const styles = require('../style');
 
 class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       name: '',
       address: '',
       time_day: '',
@@ -33,25 +29,25 @@ class PlayDateCreate extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('current.val', value);
+      this.setState({ userID: value });
     }).done();
   }
 
   getMarkerLatlng(address) {
     address = address.toLowerCase().trim();
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyA-ZuNXFqKCOUj3Lmkv25H5AyBn-GO6-OY"
+    const url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyA-ZuNXFqKCOUj3Lmkv25H5AyBn-GO6-OY";
     return fetch(url).then((res) => res.json());
     // when using this method chain with this code to get the laglng in an object
     // then((res) => console.log(res.results[0].geometry.location))
   }
 
   persistPlayDate(res) {
-    var coordsJSONStringified = JSON.stringify(res.results[0].geometry.location);
+    let coordsJSONStringified = JSON.stringify(res.results[0].geometry.location);
     coordsJSONStringified = coordsJSONStringified.replace('"lat"', '"latitude"');
     coordsJSONStringified = coordsJSONStringified.replace('"lng"', '"longitude"');
 
-    let data = {
+    const data = {
       method: 'POST',
       body: JSON.stringify({
         name: this.state.name,
@@ -62,10 +58,10 @@ class PlayDateCreate extends Component {
         user_id: this.state.userID,
       }),
       headers: {
-        'Accept':       'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }
+    };
 
     fetch('http://localhost:3000/playdates', data)
       .then((response) => response.json())  // promise
@@ -131,7 +127,7 @@ class PlayDateCreate extends Component {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <Text style={[styles.pageHeading, {color: 'black'}]}>
+          <Text style={[styles.pageHeading, { color: 'black' }]}>
             Create your new Playdate
           </Text>
 
@@ -139,34 +135,35 @@ class PlayDateCreate extends Component {
             style={styles.inputText}
             value={this.state.name}
             placeholder="Playdate Name"
-            onChangeText={(text) => this.setState({name: text})}
+            onChangeText={(text) => this.setState({ name: text })}
           />
 
           <TextInput
             style={styles.inputText}
             value={this.state.address}
             placeholder="Address"
-            onChangeText={(text) => this.setState({address: text})}
+            onChangeText={(text) => this.setState({ address: text })}
           />
 
           <TextInput
             style={styles.inputText}
             value={this.state.time_day}
             placeholder="Time & Day of Week"
-            onChangeText={(text) => this.setState({time_day: text})}
+            onChangeText={(text) => this.setState({ time_day: text })}
           />
 
           <TextInput
             style={[styles.inputText, styles.textArea]}
             value={this.state.description}
-            multiline={true}
+            multiline
             placeholder="Description"
-            onChangeText={(text) => this.setState({description: text})}
+            onChangeText={(text) => this.setState({ description: text })}
           />
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={() => this.createGroupPressed()}>
+            onPress={() => this.createGroupPressed()}
+          >
             <Text style={styles.buttonText}>Create Playdate</Text>
           </TouchableHighlight>
         </View>
@@ -174,37 +171,5 @@ class PlayDateCreate extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     fontSize: 14,
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
-//   },
-//   inputText: {
-//     height: 30,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     borderRadius: 16,
-//     padding: 10,
-//     backgroundColor: '#EBFAFF',
-//     marginBottom: 10,
-//   },
-//   textArea: {
-//     height: 100,
-//   },
-//   label: {
-//     fontSize: 14,
-//   }
-// });
 
 export default PlayDateCreate;
