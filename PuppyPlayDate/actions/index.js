@@ -13,7 +13,11 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CHANGE_USERNAME,
-  CHANGE_PASSWORD
+  CHANGE_PASSWORD,
+  CHANGE_SIGNUP_USERNAME,
+  CHANGE_SIGNUP_PASSWORD,
+  CHANGE_SIGNUP_NAME,
+  CHANGE_SIGNUP_EMAIL,
 } from './types';
 
 const REQUEST_URL = 'http://localhost:3000';
@@ -219,5 +223,33 @@ export function passwordChanged(password) {
   return {
     type: CHANGE_PASSWORD,
     payload: password
+  };
+}
+
+export function signupUsernameChanged(username) {
+  return {
+    type: CHANGE_SIGNUP_USERNAME,
+    payload: username
+  };
+}
+
+export function signupPasswordChanged(password) {
+  return {
+    type: CHANGE_SIGNUP_PASSWORD,
+    payload: password
+  };
+}
+
+export function signupNameChanged(name) {
+  return {
+    type: CHANGE_SIGNUP_NAME,
+    payload: name
+  };
+}
+
+export function signupEmailChanged(email) {
+  return {
+    type: CHANGE_SIGNUP_EMAIL,
+    payload: email
   };
 }
