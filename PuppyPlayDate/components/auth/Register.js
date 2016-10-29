@@ -28,8 +28,6 @@ import MainScene from '../MainScene';
 // Universal Styles
 const styles = require('../../style.js')
 
-const REQUEST_URL ='http://localhost:3000/users'
-
 class Register extends Component {
   onSignupPress() {
     const { username, name, email, password } = this.props;
