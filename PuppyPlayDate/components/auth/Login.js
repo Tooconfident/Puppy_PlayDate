@@ -18,7 +18,12 @@ import MapScene from '../MapScene';
 import MainScene from '../MainScene';
 import Register from '../auth/Register';
 
-import { loginUser } from '../../actions/index';
+// Action creators
+import {
+  loginUser,
+  usernameChanged,
+  passwordChanged
+} from '../../actions/index';
 
 const styles = require('../../style.js');
 
@@ -40,6 +45,14 @@ class Login extends Component {
       console.log('current.val '+ value);
         this.setState({userID: value});
     }).done();
+  }
+
+  onUsernameChange(username) {
+    this.props.usernameChanged(username);
+  }
+
+  onPasswordChange(password) {
+    this.props.passwordChanged(password);
   }
 
   loginPress() {
@@ -72,6 +85,9 @@ class Login extends Component {
     //     console.log("Login failed");
     //     console.log(error);
     //   });
+
+    const { username, password } = this.props;
+
     fetch(REQUEST_URL, {
       method: 'POST',
       headers: {
@@ -126,8 +142,21 @@ class Login extends Component {
 
     console.log('new-state'+ this.state.userID);
   }
+
+  renderErrorMessage() {
+    if (this.props.errorMessage !== '') {
+      return (
+        <Text>
+          {this.props.errorMessage}
+        </Text>
+      );
+    }
+  }
+
 //Image source={require('../../Resources/0.jpg')} style={styles.bImage}
   render() {
+    const { username, password } = this.props;
+
     return (
       <View style={styles.container}>
         <View>
@@ -157,6 +186,9 @@ class Login extends Component {
                 autoCapitalize={'none'}
                 autoCorrect={false}
               />
+
+              {this.renderErrorMEssage()}
+
               <TouchableHighlight
                 style={styles.submitButton}
                 onPress={this.loginPress.bind(this)}>
@@ -184,7 +216,11 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  return {
+    errorMessage: state.auth.error,
+    username: state.auth.username,
+    password: state.auth.password
+  };
 }
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, usernameChanged, passwordChanged })(Login);
