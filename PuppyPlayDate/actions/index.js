@@ -18,6 +18,8 @@ import {
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_NAME,
   CHANGE_SIGNUP_EMAIL,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_FAIL
 } from './types';
 
 const REQUEST_URL = 'http://localhost:3000';
@@ -194,8 +196,23 @@ export function authenticateUser(user) {
 
 export function registerUser({ username, name, email, password }) {
   console.log("registerUser!", username, name, email, password);
-  return {
-    type: AUTH_USER
+
+  return dispatch => {
+    return axios.post(`${REQUEST_URL}/users`, { username, name, email, password})
+      .then((response) => {
+        return dispatch({
+          type: SIGNUP_USER_SUCCESS
+        });
+      })
+      .catch(() => {
+        console.log("There was a problem in the registration");
+
+        dispatch({
+          type: SIGNUP_USER_FAIL
+        });
+
+        return Promise.reject();
+      });
   };
 }
 
