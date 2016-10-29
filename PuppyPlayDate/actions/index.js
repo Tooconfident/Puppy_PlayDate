@@ -11,7 +11,9 @@ import {
   FETCH_USER_PLAYDATES,
   AUTH_USER,
   UNAUTH_USER,
-  AUTH_ERROR
+  AUTH_ERROR,
+  CHANGE_USERNAME,
+  CHANGE_PASSWORD
 } from './types';
 
 const REQUEST_URL = 'http://localhost:3000';
@@ -196,5 +198,19 @@ export function updateUser(userId, user) {
           payload: user
         })
       });
+  };
+}
+
+export function usernameChanged(username) {
+  return {
+    type: CHANGE_USERNAME,
+    payload: username
+  };
+}
+
+export function passwordChanged(password) {
+  return {
+    type: CHANGE_PASSWORD,
+    payload: password
   };
 }
