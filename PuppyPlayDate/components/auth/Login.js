@@ -13,6 +13,7 @@ import {
   AlertIOS
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import MapScene from '../MapScene';
 import MainScene from '../MainScene';
@@ -22,7 +23,8 @@ import Register from '../auth/Register';
 import {
   loginUser,
   usernameChanged,
-  passwordChanged
+  passwordChanged,
+  authenticateUser
 } from '../../actions/index';
 
 const styles = require('../../style.js');
@@ -39,9 +41,25 @@ class Login extends Component {
   }
 
   componentWillMount() {
+    // Check storage to see if userId is there
     AsyncStorage.getItem("userID").then((value) => {
-      console.log('current.val '+ value);
-        this.setState({userID: value});
+      console.log('AsyncStorage: userId is', value);
+
+      // Have to do this check even if it is a then() clause
+      if (value !== null) {
+        // If so, then log user in automatically.
+        this.props.authenticateUser(value);
+
+        // Redirect to Home scene
+        this.props.navigator.push({
+          title: 'Puppy Playdate',
+          component: MapScene,
+          leftButtonTitle: ' ',
+          id: 'mapscene',
+        });
+      }
+
+      //this.setState({userID: value});
     }).done();
   }
 
@@ -61,12 +79,15 @@ class Login extends Component {
       password
     })
       .then(() => {
-        // Redirect to Home scene
-        this.props.navigator.push({
-          title: 'Puppy Playdate',
-          component: MapScene,
-          leftButtonTitle: ' ',
-          id: 'mapscene',
+        // Login successfully, so store user id locally
+        AsyncStorage.setItem("userID", String(this.props.user)).then(() => {
+          // Redirect to Home scene
+          this.props.navigator.push({
+            title: 'Puppy Playdate',
+            component: MapScene,
+            leftButtonTitle: ' ',
+            id: 'mapscene',
+          });
         });
       })
       .catch((error) => {
@@ -166,8 +187,18 @@ function mapStateToProps(state) {
   return {
     errorMessage: state.auth.error,
     username: state.auth.username,
-    password: state.auth.password
+    password: state.auth.password,
+    user: state.auth.user
   };
 }
 
-export default connect(mapStateToProps, { loginUser, usernameChanged, passwordChanged })(Login);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    loginUser,
+    usernameChanged,
+    passwordChanged,
+    authenticateUser
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
