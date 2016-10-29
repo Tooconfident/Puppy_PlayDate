@@ -82,12 +82,6 @@ class Login extends Component {
     });
   }
 
-  makeSession(userID) {
-    console.log('state'+ this.state.userID);
-
-    console.log('new-state'+ this.state.userID);
-  }
-
   renderErrorMessage() {
     if (this.props.errorMessage !== '') {
       return (
