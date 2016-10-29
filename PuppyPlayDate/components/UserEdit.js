@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -16,10 +12,7 @@ import UserDogs from './UserDogs';
 
 import { fetchUser, updateUser } from '../actions/index';
 
-const styles = require('../style.js');
-
-// URL to the API to get a specific user if you append an id
-const REQUEST_URL = 'http://localhost:3000/users/';
+const styles = require('../style');
 
 class UserEdit extends Component {
   constructor(props) {
@@ -43,7 +36,7 @@ class UserEdit extends Component {
 
   // Performs an Ajax call to retrieve information about the user
   fetchData() {
-    console.log("fetchData: UserEdit: user_id " + this.props.user_id)
+    console.log("fetchData: UserEdit: user_id", this.props.user_id);
     // fetch(REQUEST_URL + this.props.user_id)
     //   .then((response) => response.json())
     //   .then((responseData) => {
@@ -132,39 +125,41 @@ class UserEdit extends Component {
   }
 
   render() {
-    var user = this.state;
+    const user = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={[styles.innerContainer, {justifyContent: 'flex-start', marginTop: 114}]}>
+        <View
+          style={[styles.innerContainer, { justifyContent: 'flex-start', marginTop: 114 }]}
+        >
 
           <TextInput
             placeholder="Username"
             style={styles.inputText}
             value={user.username}
-            onChangeText={(text) => this.setState({username: text})}
+            onChangeText={(text) => this.setState({ username: text })}
           />
 
           <TextInput
             placeholder="Name"
             style={styles.inputText}
             value={user.name}
-            onChangeText={(text) => this.setState({name: text})}
+            onChangeText={(text) => this.setState({ name: text })}
           />
 
           <TextInput
             placeholder="Email"
             style={styles.inputText}
             value={user.email}
-            onChangeText={(text) => this.setState({email: text})}
+            onChangeText={(text) => this.setState({ email: text })}
           />
 
           <TextInput
             placeholder="Password"
             style={styles.inputText}
             value={user.password}
-            password={true}
-            onChangeText={(text) => this.setState({password: text})}
+            secureTextEntry
+            onChangeText={(text) => this.setState({ password: text })}
           />
 
           <TouchableHighlight
