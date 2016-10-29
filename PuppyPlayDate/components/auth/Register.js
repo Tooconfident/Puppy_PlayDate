@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight,
-  AsyncStorage,
-  AlertIOS,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -23,10 +17,8 @@ import {
   signupNameChanged,
 } from '../../actions/index';
 
-import MainScene from '../MainScene';
-
 // Universal Styles
-const styles = require('../../style.js')
+const styles = require('../../style');
 
 class Register extends Component {
   onSignupPress() {
@@ -54,14 +46,13 @@ class Register extends Component {
   }
 
   render() {
-    var user = this.state;
     const { username, password, email, name } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
 
-          <Text style={[styles.pageHeading, {color: 'black'}]}>
+          <Text style={[styles.pageHeading, { color: 'black' }]}>
             Please enter your user information
           </Text>
 
@@ -71,6 +62,7 @@ class Register extends Component {
             value={username}
             onChangeText={this.props.signupUsernameChanged.bind(this)}
             autoCapitalize={'none'}
+            autoCorrect={false}
           />
 
           <TextInput
@@ -92,7 +84,7 @@ class Register extends Component {
             placeholder="Password"
             style={styles.inputText}
             value={password}
-            password={true}
+            secureTextEntry
             onChangeText={this.props.signupPasswordChanged.bind(this)}
             autoCapitalize={'none'}
             autoCorrect={false}
@@ -102,7 +94,8 @@ class Register extends Component {
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={this.onSignupPress.bind(this)}>
+            onPress={this.onSignupPress.bind(this)}
+          >
             <Text style={styles.buttonText}>
               Sign Up
             </Text>
