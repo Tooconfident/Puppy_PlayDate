@@ -161,12 +161,9 @@ export function loginUser({ username, password }) {
     .then(response => {
       console.log("Login successful", response);
 
-      // Login successfully, so store user id locally
-      //AsyncStorage.setItem("userID", String(response.data));
-
       return dispatch({
         type: AUTH_USER,
-        payload: response
+        payload: response.data
       });
 
       // return Promise.resolve();
@@ -182,6 +179,13 @@ export function loginUser({ username, password }) {
     })
     ;
   }
+}
+
+export function authenticateUser(user) {
+  return {
+    type: AUTH_USER,
+    payload: user
+  };
 }
 
 export function registerUser({ username, name, email, password }) {
