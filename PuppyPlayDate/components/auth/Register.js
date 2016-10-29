@@ -14,7 +14,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { registerUser } from '../../actions/index';
+// Action Creators
+import {
+  registerUser,
+  signupUsernameChanged,
+  signupPasswordChanged,
+  signupEmailChanged,
+  signupNameChanged,
+} from '../../actions/index';
 
 import MainScene from '../MainScene';
 
@@ -24,63 +31,33 @@ const styles = require('../../style.js')
 const REQUEST_URL ='http://localhost:3000/users'
 
 class Register extends Component {
-  constructor(props) {
-    super(props);
+  onSignupPress() {
+    const { username, name, email, password } = this.props;
 
-    this.state = {
-      username: "",
-      name: "",
-      email: "",
-      password: "",
-    };
-  }
-
-  onPressSignup() {
-    // this.props.registerUser({
-    //   username: this.state.username,
-    //   name: this.state.name,
-    //   email: this.state.email,
-    //   password: this.state.password
-    // });
-
-    fetch(REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.state)
+    this.props.registerUser({
+      username,
+      name,
+      email,
+      password
     })
-    .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        if (responseData.success != false){
-          this.makeSession(responseData.userID)
-
-        } else {
-          AlertIOS.alert(
-           'Please fill all fields'
-          );
-        }
-      })
-      .done();
-    // TODO: connect to backend to create user account
-    // you also need to get the user_id back from the backend
-
-    //this.props.navigator.push({
-    // this.props.navigator.popToTop({
-    //   // where do you get the user_id ????
-    //   passProps: { user_id: 1 },
-    // });
+      .then(() => {
+        this.props.navigator.popToTop();
+      });
   }
 
-  makeSession(userID) {
-    AsyncStorage.setItem("userID", String(userID));
-    this.props.navigator.popToTop();
+  renderErrorMessage() {
+    if (this.props.error !== '') {
+      return (
+        <Text style={customStyles.errorText}>
+          {this.props.error}
+        </Text>
+      );
+    }
   }
 
   render() {
     var user = this.state;
+    const { username, password, email, name } = this.props;
 
     return (
       <View style={styles.container}>
@@ -93,39 +70,41 @@ class Register extends Component {
           <TextInput
             placeholder="Username"
             style={styles.inputText}
-            value={user.username}
-            onChangeText={(text) => this.setState({username: text})}
+            value={username}
+            onChangeText={this.props.signupUsernameChanged.bind(this)}
             autoCapitalize={'none'}
           />
 
           <TextInput
             placeholder="Name"
             style={styles.inputText}
-            value={user.name}
-            onChangeText={(text) => this.setState({name: text})}
+            value={name}
+            onChangeText={this.props.signupNameChanged.bind(this)}
           />
 
           <TextInput
             placeholder="Email"
             style={styles.inputText}
-            value={user.email}
-            onChangeText={(text) => this.setState({email: text})}
+            value={email}
+            onChangeText={this.props.signupEmailChanged.bind(this)}
             autoCapitalize={'none'}
           />
 
           <TextInput
             placeholder="Password"
             style={styles.inputText}
-            value={user.password}
+            value={password}
             password={true}
-            onChangeText={(text) => this.setState({password: text})}
+            onChangeText={this.props.signupPasswordChanged.bind(this)}
             autoCapitalize={'none'}
             autoCorrect={false}
           />
 
+          {this.renderErrorMessage()}
+
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={this.onPressSignup.bind(this)}>
+            onPress={this.onSignupPress.bind(this)}>
             <Text style={styles.buttonText}>
               Sign Up
             </Text>
@@ -136,62 +115,33 @@ class Register extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     fontSize: 40,
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: "white",
-//     alignSelf: "center",
-//   },
-//   input: {
-//     height: 40,
-//   },
-//   button: {
-//     borderWidth: 2,
-//     borderRadius: 12,
-//     padding: 10,
-//     backgroundColor: 'antiquewhite'
-//   },
-//   inputLabel: {
-//     fontWeight: 'bold',
-//   },
-//   inputText: {
-//     height: 30,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     borderRadius: 16,
-//     padding: 10,
-//     backgroundColor: '#EBFAFF',
-//     marginBottom: 10,
-//   },
-//   textArea: {
-//     height: 100,
-//   },
-//   pageTitle: {
-//     marginTop: 20,
-//   },
-//   title: {
-//     fontWeight: 'bold',
-//     fontSize: 20,
-//   },
-//   subtitle: {
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//   },
-//   navbar: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginTop: 20,
-//     backgroundColor: 'skyblue',
-//     marginBottom: 6,
-//   },
-// });
+const customStyles = StyleSheet.create({
+  errorText: {
+    fontSize: 18,
+    color: 'red',
+    alignSelf: 'center'
+  }
+});
 
-export default connect(null, { registerUser })(Register);
+function mapStateToProps(state) {
+  const { email, username, password, name, error } = state.signup;
+
+  return {
+    email,
+    username,
+    password,
+    name,
+    error
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    registerUser,
+    signupUsernameChanged,
+    signupPasswordChanged,
+    signupEmailChanged,
+    signupNameChanged,
+  }
+)(Register);
