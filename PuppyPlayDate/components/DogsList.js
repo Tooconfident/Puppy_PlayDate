@@ -34,7 +34,8 @@ export default class DogsList extends Component {
   // }
 
   onPressDogShow(id) {
-    console.log("onPressDogShow(" + id + ")")
+    console.log("onPressDogShow(" + id + ")");
+
     this.props.navigator.push({
       title: 'Dog Profile',
       component: DogProfile,
@@ -43,11 +44,11 @@ export default class DogsList extends Component {
   }
 
   // Entry row
-  renderRow(rowData, sectionID, rowID){
+  renderRow(rowData, sectionID, rowID) {
     // console.log("Rendering a row. . .");
     // console.log("rowData.avatar = " + rowData.avatar);
 
-    return(
+    return (
       <DogListItem
         item={rowData}
         onPress={this.onPressDogShow.bind(this)}

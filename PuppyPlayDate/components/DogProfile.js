@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  ListView,
   ScrollView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight
 } from 'react-native';
 
@@ -16,12 +12,11 @@ import { connect } from 'react-redux';
 // Action creator
 import { fetchDog } from '../actions/index';
 
-import UserDogs from './UserDogs';
 import DogEdit from './DogEdit';
 import DogPlayDates from './DogPlayDates';
 import ProfileAvatar from './ProfileAvatar';
 
-const styles = require('../style.js');
+const styles = require('../style');
 
 class DogProfile extends Component {
   constructor(props) {
@@ -37,13 +32,6 @@ class DogProfile extends Component {
     this.props.fetchDog(this.props.dog_id);
   }
 
-  componentWillUpdate() {
-    console.log("DogProfile WillUpdate");
-    // if (!this.state.loaded) {
-    //   this.fetchData();
-    // }
-  }
-
   componentWillReceiveProps() {
     console.log("DogProfile WillReceiveProps");
     // if (!this.props.loaded) {
@@ -51,8 +39,11 @@ class DogProfile extends Component {
     //  }
   }
 
-  goBack() {
-    this.props.navigator.pop();
+  componentWillUpdate() {
+    console.log("DogProfile WillUpdate");
+    // if (!this.state.loaded) {
+    //   this.fetchData();
+    // }
   }
 
   onPressListPlaydates() {
@@ -81,6 +72,10 @@ class DogProfile extends Component {
     });
   }
 
+  goBack() {
+    this.props.navigator.pop();
+  }
+
   render() {
     const { dog } = this.props;
 
@@ -93,15 +88,15 @@ class DogProfile extends Component {
         <View style={styles.innerContainer}>
 
           <ScrollView>
-            <View style={{alignSelf: 'center'}}>
+            <View style={{ alignSelf: 'center' }}>
               <ProfileAvatar source={{ uri: dog.avatar }} />
-              <Text style={[{alignSelf: 'center'}, styles.entryLabel]}>{dog.name}</Text>
+              <Text style={[{ alignSelf: 'center' }, styles.entryLabel]}>{dog.name}</Text>
               <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
-                <Text style={{alignSelf: 'center'}}>My Playdates</Text>
+                <Text style={{ alignSelf: 'center' }}>My Playdates</Text>
               </TouchableHighlight>
             </View>
 
-            <View style={[{borderRadius: 9}, styles.dogList]}>
+            <View style={[{ borderRadius: 9 }, styles.dogList]}>
               <View style={styles.profileEntry}>
                 <Text style={styles.entryLabel}>Owner: <Text style={styles.entryText}>{dog.owner_username}</Text></Text>
               </View>
@@ -131,7 +126,7 @@ class DogProfile extends Component {
               </View>
 
               <TouchableHighlight onPress={() => this.onPressEdit()}>
-                <Text style={{alignSelf: 'flex-end', color: ''}}>Edit</Text>
+                <Text style={{ alignSelf: 'flex-end', color: '' }}>Edit</Text>
               </TouchableHighlight>
             </View>
           </ScrollView>
