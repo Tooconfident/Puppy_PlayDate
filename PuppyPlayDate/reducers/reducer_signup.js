@@ -16,9 +16,9 @@ const INITIAL_STATE = {
 };
 
 export default function(state = INITIAL_STATE, action) {
-  switch(action.type) {
+  switch (action.type) {
     case SIGNUP_USER_SUCCESS:
-      return { ...state, username: '', name: '', password: '', error: '' };
+      return { ...state, username: '', name: '', password: '', email: '', error: '' };
     case SIGNUP_USER_FAIL:
       return { ...state, error: 'Registration failed.' };
     case CHANGE_SIGNUP_USERNAME:
