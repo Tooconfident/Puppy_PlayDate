@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ListView,
-  NavigatorIOS,
-  Image,
   TouchableHighlight,
   AsyncStorage,
-  AlertIOS
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import MapScene from '../MapScene';
-import MainScene from '../MainScene';
 import Register from '../auth/Register';
 
 // Action creators
@@ -27,9 +21,7 @@ import {
   authenticateUser
 } from '../../actions/index';
 
-const styles = require('../../style.js');
-
-const REQUEST_URL ='http://localhost:3000/session/login';
+const styles = require('../../style');
 
 class Login extends Component {
   constructor(props) {
@@ -140,7 +132,7 @@ class Login extends Component {
               <TextInput
                 placeholder="Password"
                 style={styles.inputText}
-                secureTextEntry={true}
+                secureTextEntry
                 value={password}
                 onChangeText={this.onPasswordChange.bind(this)}
                 autoCapitalize={'none'}
@@ -151,7 +143,8 @@ class Login extends Component {
 
               <TouchableHighlight
                 style={styles.submitButton}
-                onPress={this.onLoginPress.bind(this)}>
+                onPress={this.onLoginPress.bind(this)}
+              >
                 <Text style={styles.buttonText}>
                   Login
                 </Text>
@@ -161,7 +154,8 @@ class Login extends Component {
             <View style={styles.pageFooter}>
               <TouchableHighlight
                 style={[styles.submitButton, styles.signupButton]}
-                onPress={this.onSignupPress.bind(this)}>
+                onPress={this.onSignupPress.bind(this)}
+              >
                 <Text style={styles.buttonText}>
                   Sign Up
                 </Text>
