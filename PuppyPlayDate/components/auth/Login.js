@@ -34,8 +34,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: "",
-      password: "",
       userID: 0,
     };
   }
@@ -55,7 +53,7 @@ class Login extends Component {
     this.props.passwordChanged(password);
   }
 
-  loginPress() {
+  onLoginPress() {
     const { username, password } = this.props;
 
     this.props.loginUser({
@@ -63,11 +61,6 @@ class Login extends Component {
       password
     })
       .then(() => {
-        //console.log(response);
-        console.log("YAYYY");
-
-        console.log(this);
-
         // Redirect to Home scene
         this.props.navigator.push({
           title: 'Puppy Playdate',
@@ -82,7 +75,7 @@ class Login extends Component {
       });
   }
 
-  onPressSignup() {
+  onSignupPress() {
     this.props.navigator.push({
       title: 'Sign Up',
       component: Register,
@@ -143,7 +136,7 @@ class Login extends Component {
 
               <TouchableHighlight
                 style={styles.submitButton}
-                onPress={this.loginPress.bind(this)}>
+                onPress={this.onLoginPress.bind(this)}>
                 <Text style={styles.buttonText}>
                   Login
                 </Text>
@@ -153,7 +146,7 @@ class Login extends Component {
             <View style={styles.pageFooter}>
               <TouchableHighlight
                 style={[styles.submitButton, styles.signupButton]}
-                onPress={this.onPressSignup.bind(this)}>
+                onPress={this.onSignupPress.bind(this)}>
                 <Text style={styles.buttonText}>
                   Sign Up
                 </Text>
