@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   password: ''
 };
 
-export default function(state, action) {
+export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case EDIT_USER_STATE_UPDATE:
       return { ...state, ...action.payload };
