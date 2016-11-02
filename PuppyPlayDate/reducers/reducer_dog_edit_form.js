@@ -14,11 +14,13 @@ const INITIAL_STATE = {
 };
 
 export default function(state = INITIAL_STATE, action) {
-  case EDIT_DOG_STATE_UPDATE:
-    return { ...state, ...action.payload };
-  case EDIT_DOG_SUCCESS:
-    // this might be unnecessary
-    return INITIAL_STATE;
-  default:
-    return state;
+  switch (action.type) {
+    case EDIT_DOG_STATE_UPDATE:
+      return { ...state, ...action.payload };
+    case EDIT_DOG_SUCCESS:
+      // this might be unnecessary
+      return INITIAL_STATE;
+    default:
+      return state;
+  }
 }
