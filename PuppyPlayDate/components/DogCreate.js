@@ -16,18 +16,6 @@ const styles = require('../style');
 
 class DogCreate extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: "",
-      breed: "",
-      age: "",
-      toy: "",
-      avatar: "",
-    };
-  }
-
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
       console.log('current.val', value);
@@ -72,12 +60,15 @@ class DogCreate extends Component {
     //     }
     //   })
     //   .done();
+    
+    // Retrieve form field data from redux application state
+    const { name, age, breed, toy } = this.props;
 
     const newDog = {
-      name: this.state.name,
-      age: this.state.age,
-      breed: this.state.breed,
-      toy: this.state.toy,
+      name,
+      age,
+      breed,
+      toy,
       user_id: this.state.userID,
     };
 

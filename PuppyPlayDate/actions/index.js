@@ -6,6 +6,7 @@ import {
   FETCH_DOG,
   CREATE_DOG,
   UPDATE_DOG,
+  NEW_DOG_STATE_UPDATE,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
   CREATE_PLAYDATE,
@@ -85,6 +86,13 @@ export function updateDog(dogId, dog) {
         payload: dog
       });
     });
+  };
+}
+
+export function updateNewDogForm(dog) {
+  return {
+    type: NEW_DOG_STATE_UPDATE,
+    payload: dog
   };
 }
 
