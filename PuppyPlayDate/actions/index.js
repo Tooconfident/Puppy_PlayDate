@@ -8,6 +8,8 @@ import {
   UPDATE_DOG,
   CREATE_DOG_SUCCESS,
   NEW_DOG_STATE_UPDATE,
+  EDIT_DOG_STATE_UPDATE,
+  EDIT_DOG_SUCESS,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
   CREATE_PLAYDATE,
@@ -86,6 +88,11 @@ export function updateDog(dogId, dog) {
   return dispatch => {
     return request.then(response => {
       console.log(response);
+
+      dispatch({
+        type: EDIT_DOG_SUCESS
+      });
+
       return dispatch({
         type: UPDATE_DOG,
         payload: dog
@@ -100,6 +107,13 @@ export function updateNewDogForm(dog) {
     payload: dog
   };
 }
+
+export function updateEditDogForm(dog) {
+  return {
+    type: EDIT_DOG_STATE_UPDATE,
+    payload: dog
+  };
+};
 
 export function fetchUser(id) {
   const request = axios.get(`${REQUEST_URL}/users/${id}`);
