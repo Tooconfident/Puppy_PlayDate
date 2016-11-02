@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { fetchDog, createDog } from '../actions/index';
+import { fetchDog, createDog, updateNewDogForm } from '../actions/index';
 
 const styles = require('../style');
 
@@ -97,6 +97,8 @@ class DogCreate extends Component {
   }
 
   render() {
+    const { name, breed, age, toy, avatar, updateNewDogForm } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -108,31 +110,31 @@ class DogCreate extends Component {
           <TextInput
             placeholder="Dog Name"
             style={styles.inputText}
-            value={this.state.name}
-            onChangeText={(text) => this.setState({ name: text })}
+            value={name}
+            onChangeText={name => updateNewDogForm({ name })}
           />
 
           <TextInput
             placeholder="Breed"
             style={styles.inputText}
-            value={this.state.breed}
-            onChangeText={(text) => this.setState({ breed: text })}
+            value={breed}
+            onChangeText={breed => updateNewDogForm({ breed })}
 
           />
 
           <TextInput
             placeholder="Age"
             style={styles.inputText}
-            value={this.state.age}
-            onChangeText={(text) => this.setState({ age: text })}
+            value={age}
+            onChangeText={age => updateNewDogForm({ age })}
 
           />
 
           <TextInput
             placeholder="Favorite Toy"
             style={styles.inputText}
-            value={this.state.toy}
-            onChangeText={(text) => this.setState({ toy: text })}
+            value={toy}
+            onChangeText={toy => updateNewDogForm({ toy })}
 
           />
 
@@ -155,4 +157,4 @@ function mapStateToProps(state) {
   return { name, breed, age, toy, avatar };
 }
 
-export default connect(mapStateToProps, { fetchDog, createDog })(DogCreate);
+export default connect(mapStateToProps, { fetchDog, createDog, updateNewDogForm })(DogCreate);
