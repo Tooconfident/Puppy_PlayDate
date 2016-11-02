@@ -184,4 +184,9 @@ class DogCreate extends Component {
 //   }
 // });
 
-export default connect(null, { fetchDog, createDog })(DogCreate);
+function mapStateToProps(state) {
+  const { name, breed, age, toy, avatar } = state.dogNewForm;
+  return { name, breed, age, toy, avatar };
+}
+
+export default connect(mapStateToProps, { fetchDog, createDog })(DogCreate);
