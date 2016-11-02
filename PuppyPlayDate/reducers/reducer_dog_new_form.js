@@ -1,6 +1,6 @@
 import {
-  DOG_CREATE_SUCCESS,
-  DOG_CREATE_FAIL
+  CREATE_DOG_SUCCESS,
+  CREATE_DOG_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,7 +13,10 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
-
+    case CREATE_DOG_SUCCESS:
+      return INITIAL_STATE;
+    case CREATE_DOG_FAIL:
+      break;
     default:
     return state;
   }
