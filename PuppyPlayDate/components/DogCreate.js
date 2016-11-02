@@ -10,23 +10,11 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { fetchDog, createDog } from '../actions/index';
+import { fetchDog, createDog, updateNewDogForm } from '../actions/index';
 
 const styles = require('../style');
 
 class DogCreate extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: "",
-      breed: "",
-      age: "",
-      toy: "",
-      avatar: "",
-    };
-  }
 
   componentDidMount() {
     AsyncStorage.getItem("userID").then((value) => {
@@ -35,49 +23,15 @@ class DogCreate extends Component {
     }).done();
   }
 
-  onPressCreate() {
-    // fetch(REQUEST_URL, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     age: this.state.age,
-    //     breed: this.state.breed,
-    //     toy: this.state.toy,
-    //     user_id: this.state.userID,
-    //
-    //   })
-    // })
-    // .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     if (responseData.success != false){
-    //       //Add a Dog
-    //       this.props.navigator.popN(2);
-    //       // this.props.navigator.replace({
-    //       //   title: 'Dog Profile',
-    //       //   component: DogProfile,
-    //       //   passProps: {
-    //       //     dog_id: responseData.id,
-    //       //     loaded: false,
-    //       //   },
-    //       // });
-    //     } else {
-    //       AlertIOS.alert(
-    //        'Something went wrong!'
-    //       );
-    //     }
-    //   })
-    //   .done();
+  onCreatePress() {
+    // Retrieve form field data from redux application state
+    const { name, age, breed, toy } = this.props;
 
     const newDog = {
-      name: this.state.name,
-      age: this.state.age,
-      breed: this.state.breed,
-      toy: this.state.toy,
+      name,
+      age,
+      breed,
+      toy,
       user_id: this.state.userID,
     };
 
@@ -97,6 +51,8 @@ class DogCreate extends Component {
   }
 
   render() {
+    const { name, breed, age, toy, avatar, updateNewDogForm } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -108,37 +64,37 @@ class DogCreate extends Component {
           <TextInput
             placeholder="Dog Name"
             style={styles.inputText}
-            value={this.state.name}
-            onChangeText={(text) => this.setState({ name: text })}
+            value={name}
+            onChangeText={name => updateNewDogForm({ name })}
           />
 
           <TextInput
             placeholder="Breed"
             style={styles.inputText}
-            value={this.state.breed}
-            onChangeText={(text) => this.setState({ breed: text })}
+            value={breed}
+            onChangeText={breed => updateNewDogForm({ breed })}
 
           />
 
           <TextInput
             placeholder="Age"
             style={styles.inputText}
-            value={this.state.age}
-            onChangeText={(text) => this.setState({ age: text })}
+            value={age}
+            onChangeText={age => updateNewDogForm({ age })}
 
           />
 
           <TextInput
             placeholder="Favorite Toy"
             style={styles.inputText}
-            value={this.state.toy}
-            onChangeText={(text) => this.setState({ toy: text })}
+            value={toy}
+            onChangeText={toy => updateNewDogForm({ toy })}
 
           />
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={() => this.onPressCreate()}
+            onPress={() => this.onCreatePress()}
           >
             <Text style={styles.buttonText}>
               Add Dog
@@ -150,38 +106,9 @@ class DogCreate extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     fontSize: 40,
-//   },
-//   bigText: {
-//     fontSize: 60,
-//   },
-//   button: {
-//     height: 36,
-//     backgroundColor: "#48bbec",
-//     borderWidth: 1,
-//     borderRadius: 8,
-//     marginBottom: 10,
-//     alignSelf: "stretch",
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: "white",
-//     alignSelf: "center",
-//   },
-//   input: {
-//     height: 40,
-//   },
-//   image: {
-//     height: 100,
-//     width: 100,
-//   }
-// });
+function mapStateToProps(state) {
+  const { name, breed, age, toy, avatar } = state.dogNewForm;
+  return { name, breed, age, toy, avatar };
+}
 
-export default connect(null, { fetchDog, createDog })(DogCreate);
+export default connect(mapStateToProps, { fetchDog, createDog, updateNewDogForm })(DogCreate);
