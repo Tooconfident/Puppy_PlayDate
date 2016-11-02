@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { fetchDog, updateDog } from '../actions/index';
+import { fetchDog, updateDog, updateEditDogForm } from '../actions/index';
 
 import DogProfile from './DogProfile';
 
@@ -24,13 +24,6 @@ class DogEdit extends Component {
     // Initialize Dog Attributes
     this.state = {
       id: "",
-      name: "",
-      breed: "",
-      age: 0,
-      toy: "",
-      gender: "",
-      description: "",
-      avatar: "./Resources/dog_avatar.png",
       loaded: false,
     };
   }
@@ -52,26 +45,23 @@ class DogEdit extends Component {
         // Update the state with the information about the dog
         this.setState({
           id: responseData.id,
-          name: responseData.name,
-          breed: responseData.breed,
-          age: responseData.age,
-          toy: responseData.toy,
-          gender: responseData.gender,
-          description: responseData.description,
-          avatar: responseData.avatar,
           loaded: true,
         });
+        // Update the form fields
+        this.props.updateEditDogForm(this.props.dog);
       });
   }
 
   onPressEdit() {
+    const { name, breed, age, toy, description, gender } = this.props;
+
     const updatedDog = {
-      name: this.state.name,
-      breed: this.state.breed,
-      age: this.state.age,
-      toy: this.state.toy,
-      description: this.state.description,
-      gender: this.state.gender,
+      name,
+      breed,
+      age,
+      toy,
+      description,
+      gender,
     };
 
     this.props.updateDog(this.props.dog.id, updatedDog)
@@ -86,50 +76,10 @@ class DogEdit extends Component {
       });
 
       console.log("Dog updated 2. ");
-
-    // TODO: perform an update request to update the
-    // dog information in the backend
-    // fetch(REQUEST_URL + this.state.id, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     breed: this.state.breed,
-    //     age: this.state.age,
-    //     toy: this.state.toy,
-    //     description: this.state.description,
-    //     gender: responseData.gender,
-    //   })
-    // })
-    // .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     if (responseData.success != false){
-    //       // this.props.navigator.replacePreviousAndPop({
-    //       //   component: DogProfile,
-    //       //   passProps: {
-    //       //     dog_id: this.state.id,
-    //       //   },
-    //       // });
-    //       this.props.navigator.pop({
-    //         component: DogProfile,
-    //         passProps: {
-    //           loaded: false,
-    //         }
-    //       });
-    //     } else {
-    //       AlertIOS.alert(
-    //        'Something went wrong!'
-    //       );
-    //     }
-    //   })
-    //   .done();
   }
 
   render() {
+    const { name, breed, age, toy, description, updateEditDogForm } = this.props;
     //const { dog } = this.props;
 
     // if (!dog) {
@@ -154,22 +104,22 @@ class DogEdit extends Component {
             <TextInput
               placeholder="Dog Name"
               style={styles.inputText}
-              value={this.state.name}
-              onChangeText={(text) => this.setState({ name: text })}
+              value={name}
+              onChangeText={name => updateEditDogForm({ name })}
             />
 
             <TextInput
               placeholder="Breed"
               style={styles.inputText}
-              value={this.state.breed}
-              onChangeText={(text) => this.setState({ breed: text })}
+              value={breed}
+              onChangeText={breed => updateEditDogForm({ breed })}
             />
 
             <TextInput
               placeholder="Age"
               style={styles.inputText}
-              value={this.state.age.toString()}
-              onChangeText={(text) => this.setState({ age: text })}
+              value={age.toString()}
+              onChangeText={age => updateEditDogForm({ age })}
             />
 
             {
@@ -203,15 +153,15 @@ class DogEdit extends Component {
             <TextInput
               placeholder="Favorite Toy"
               style={styles.inputText}
-              value={this.state.toy}
-              onChangeText={(text) => this.setState({ toy: text })}
+              value={toy}
+              onChangeText={toy => updateEditDogForm({ toy })}
             />
 
             <TextInput
               placeholder="Description"
               style={[styles.inputText, styles.textArea]}
-              value={this.state.description}
-              onChangeText={(text) => this.setState({ description: text })}
+              value={description}
+              onChangeText={description => updateEditDogForm({ description })}
               multiline
             />
 
@@ -230,57 +180,8 @@ class DogEdit extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     fontSize: 40,
-//   },
-//   bigText: {
-//     fontSize: 60,
-//   },
-//   button: {
-//     height: 36,
-//     backgroundColor: "#48bbec",
-//     borderWidth: 1,
-//     borderRadius: 8,
-//     marginBottom: 10,
-//     alignSelf: "stretch",
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: "white",
-//     alignSelf: "center",
-//   },
-//   input: {
-//     height: 40,
-//   },
-//   inputLabel: {
-//     fontWeight: 'bold',
-//   },
-//   inputText: {
-//     height: 30,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     borderRadius: 16,
-//     padding: 10,
-//     backgroundColor: '#EBFAFF',
-//     marginBottom: 10,
-//   },
-//   textArea: {
-//     height: 100,
-//   },
-//   image: {
-//     height: 100,
-//     width: 100,
-//   }
-// });
-
 function mapStateToProps(state) {
-  return { dog: state.dogs.dog };
+  return { dog: state.dogs.dog, ...state.dogEditForm };
 }
 
-export default connect(mapStateToProps, { fetchDog, updateDog })(DogEdit);
+export default connect(mapStateToProps, { fetchDog, updateDog, updateEditDogForm })(DogEdit);

@@ -1,7 +1,6 @@
 import {
-  NEW_DOG_STATE_UPDATE,
-  CREATE_DOG_SUCCESS,
-  CREATE_DOG_FAIL,
+  EDIT_DOG_STATE_UPDATE,
+  EDIT_DOG_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -9,19 +8,19 @@ const INITIAL_STATE = {
   breed: '',
   age: '',
   toy: '',
-  avatar: ''
+  avatar: '',
+  gender: '',
+  description: '',
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
-    // Update the state with the property that was changed
-    case NEW_DOG_STATE_UPDATE:
+    case EDIT_DOG_STATE_UPDATE:
       return { ...state, ...action.payload };
-    case CREATE_DOG_SUCCESS:
+    case EDIT_DOG_SUCCESS:
+      // this might be unnecessary
       return INITIAL_STATE;
-    case CREATE_DOG_FAIL:
-      break;
     default:
-    return state;
+      return state;
   }
 }
