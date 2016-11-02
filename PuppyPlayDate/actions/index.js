@@ -6,6 +6,7 @@ import {
   FETCH_DOG,
   CREATE_DOG,
   UPDATE_DOG,
+  CREATE_DOG_SUCCESS,
   NEW_DOG_STATE_UPDATE,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
@@ -62,6 +63,10 @@ export function createDog(dog) {
 
   return dispatch => {
     return request.then(response => {
+      dispatch({
+        type: CREATE_DOG_SUCCESS
+      });
+
       return dispatch({
         type: CREATE_DOG,
         payload: response

@@ -24,43 +24,6 @@ class DogCreate extends Component {
   }
 
   onPressCreate() {
-    // fetch(REQUEST_URL, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     age: this.state.age,
-    //     breed: this.state.breed,
-    //     toy: this.state.toy,
-    //     user_id: this.state.userID,
-    //
-    //   })
-    // })
-    // .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     if (responseData.success != false){
-    //       //Add a Dog
-    //       this.props.navigator.popN(2);
-    //       // this.props.navigator.replace({
-    //       //   title: 'Dog Profile',
-    //       //   component: DogProfile,
-    //       //   passProps: {
-    //       //     dog_id: responseData.id,
-    //       //     loaded: false,
-    //       //   },
-    //       // });
-    //     } else {
-    //       AlertIOS.alert(
-    //        'Something went wrong!'
-    //       );
-    //     }
-    //   })
-    //   .done();
-    
     // Retrieve form field data from redux application state
     const { name, age, breed, toy } = this.props;
 
