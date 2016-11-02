@@ -150,40 +150,6 @@ class DogCreate extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   text: {
-//     fontSize: 40,
-//   },
-//   bigText: {
-//     fontSize: 60,
-//   },
-//   button: {
-//     height: 36,
-//     backgroundColor: "#48bbec",
-//     borderWidth: 1,
-//     borderRadius: 8,
-//     marginBottom: 10,
-//     alignSelf: "stretch",
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: "white",
-//     alignSelf: "center",
-//   },
-//   input: {
-//     height: 40,
-//   },
-//   image: {
-//     height: 100,
-//     width: 100,
-//   }
-// });
-
 function mapStateToProps(state) {
   const { name, breed, age, toy, avatar } = state.dogNewForm;
   return { name, breed, age, toy, avatar };
