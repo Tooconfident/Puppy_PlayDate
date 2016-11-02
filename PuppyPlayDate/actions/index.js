@@ -27,7 +27,9 @@ import {
   CHANGE_SIGNUP_NAME,
   CHANGE_SIGNUP_EMAIL,
   SIGNUP_USER_SUCCESS,
-  SIGNUP_USER_FAIL
+  SIGNUP_USER_FAIL,
+  EDIT_USER_STATE_UPDATE,
+  EDIT_USER_SUCCESS
 } from './types';
 
 const REQUEST_URL = 'http://localhost:3000';
@@ -112,6 +114,13 @@ export function updateEditDogForm(dog) {
   return {
     type: EDIT_DOG_STATE_UPDATE,
     payload: dog
+  };
+};
+
+export function updateEditUserForm(user) {
+  return {
+    type: EDIT_USER_STATE_UPDATE,
+    payload: user
   };
 };
 
@@ -256,6 +265,11 @@ export function updateUser(userId, user) {
     return axios.patch(`${REQUEST_URL}/users/${userId}`, user)
       .then((response) => {
         console.log(response);
+
+        dispatch({
+            type: EDIT_USER_SUCCESS
+        });
+
         return dispatch({
           type: UPDATE_USER,
           payload: user
