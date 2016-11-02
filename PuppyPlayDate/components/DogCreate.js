@@ -23,7 +23,7 @@ class DogCreate extends Component {
     }).done();
   }
 
-  onPressCreate() {
+  onCreatePress() {
     // Retrieve form field data from redux application state
     const { name, age, breed, toy } = this.props;
 
@@ -94,7 +94,7 @@ class DogCreate extends Component {
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={() => this.onPressCreate()}
+            onPress={() => this.onCreatePress()}
           >
             <Text style={styles.buttonText}>
               Add Dog
