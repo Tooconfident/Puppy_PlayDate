@@ -9,6 +9,7 @@ import {
 
 // To connect react and redux
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 // Action creator
 import { fetchDog } from '../actions/index';
 
@@ -48,28 +49,30 @@ class DogProfile extends Component {
 
   onPressListPlaydates() {
     console.log("List Playdates");
-    this.props.navigator.push({
-      title: 'My Playdates',
-      component: DogPlayDates,
-      // Make sure to pass the playdate_id to the Edit component
-      // Note the value has to be an object of key-value properties!
-      passProps: {
-        dog_id: this.props.dog_id
-      }
-    });
+    // this.props.navigator.push({
+    //   title: 'My Playdates',
+    //   component: DogPlayDates,
+    //   // Make sure to pass the playdate_id to the Edit component
+    //   // Note the value has to be an object of key-value properties!
+    //   passProps: {
+    //     dog_id: this.props.dog_id
+    //   }
+    // });
+
   }
 
   onPressEdit() {
     console.log("onPressEdit");
-    this.props.navigator.push({
-      title: 'Edit Dog Profile',
-      component: DogEdit,
-      // Make sure to pass the playdate_id to the Edit component
-      // Note the value has to be an object of key-value properties!
-      passProps: {
-        dog_id: this.props.dog_id
-      }
-    });
+    // this.props.navigator.push({
+    //   title: 'Edit Dog Profile',
+    //   component: DogEdit,
+    //   // Make sure to pass the playdate_id to the Edit component
+    //   // Note the value has to be an object of key-value properties!
+    //   passProps: {
+    //     dog_id: this.props.dog_id
+    //   }
+    // });
+    Actions.dogEdit({ dog_id: this.props.dog_id });
   }
 
   goBack() {

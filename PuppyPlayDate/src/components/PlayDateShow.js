@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { fetchPlaydate } from '../actions/index';
 
 import PlayDateEdit from "./PlayDateEdit";
@@ -40,11 +41,12 @@ class PlayDateShow extends Component {
   }
 
   goBack() {
-    this.props.navigator.pop({
-      passProps: {
-        loaded: false,
-      },
-    });
+    // this.props.navigator.pop({
+    //   passProps: {
+    //     loaded: false,
+    //   },
+    // });
+    Actions.pop({ loaded: false });
   }
 
   leavePlaydate() {
@@ -80,13 +82,14 @@ class PlayDateShow extends Component {
 
   onPressEdit() {
     console.log("onPressEdit");
-    this.props.navigator.push({
-      title: 'Edit Playdate',
-      component: PlayDateEdit,
-      // Make sure to pass the playdate_id to the Edit component
-      // Note the value has to be an object of key-value properties!
-      passProps: { playdate_id: this.props.playdate_id }
-    });
+    // this.props.navigator.push({
+    //   title: 'Edit Playdate',
+    //   component: PlayDateEdit,
+    //   // Make sure to pass the playdate_id to the Edit component
+    //   // Note the value has to be an object of key-value properties!
+    //   passProps: { playdate_id: this.props.playdate_id }
+    // });
+    Actions.userPlaydateEdit({ playdate_id: this.props.playdate_id });
   }
 
   onJoin() {
@@ -110,6 +113,17 @@ class PlayDateShow extends Component {
       );
   }
 
+  onJoinPress() {
+    // this.props.navigator.push({
+    //   title: 'Choose a dog',
+    //   component: DogList,
+    //   passProps: {
+    //     group_id: playdate.id,
+    //   }
+    // })
+
+  }
+
   render() {
     const { playdate } = this.props;
 
@@ -130,13 +144,7 @@ class PlayDateShow extends Component {
               </View>
 
               <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'space-around' }}>
-                <TouchableHighlight onPress={() => this.props.navigator.push({
-                  title: 'Choose a dog',
-                  component: DogList,
-                  passProps: {
-                    group_id: playdate.id,
-                  }
-                })}>
+                <TouchableHighlight onPress={() => onJoinPress()}>
                   <Text style={styles.joinGroupText}>Join Group</Text>
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => {

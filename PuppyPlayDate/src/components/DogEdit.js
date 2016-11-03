@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { fetchDog, updateDog, updateEditDogForm } from '../actions/index';
 
 import DogProfile from './DogProfile';
@@ -67,12 +68,16 @@ class DogEdit extends Component {
     this.props.updateDog(this.props.dog.id, updatedDog)
       .then(() => {
         console.log("Dog updated.");
-        this.props.navigator.pop({
-          component: DogProfile,
-          passProps: {
-            loaded: false,
-          }
-        });
+        // this.props.navigator.pop({
+        //   component: DogProfile,
+        //   passProps: {
+        //     loaded: false,
+        //   }
+        // });
+        //Actions.dogProfile({ loaded: false });
+        //Actions.pop({ loaded: false });
+        Actions.refresh();
+        Actions.pop();
       });
 
       console.log("Dog updated 2. ");

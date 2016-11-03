@@ -7,6 +7,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import UserDogs from './UserDogs';
 
@@ -103,11 +104,12 @@ class UserEdit extends Component {
 
     this.props.updateUser(this.props.user.id, user)
       .then(() => {
-        this.props.navigator.pop({
-          passProps: {
-            loaded: false,
-          },
-        });
+        // this.props.navigator.pop({
+        //   passProps: {
+        //     loaded: false,
+        //   },
+        // });
+        Actions.pop({ loaded: false });
       });
   }
 

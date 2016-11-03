@@ -4,7 +4,6 @@
 
 import React, { Component } from 'react';
 import {
- NavigatorIOS,
  StyleSheet,
 } from 'react-native';
 
@@ -15,9 +14,10 @@ import { createStore, applyMiddleware } from 'redux';
 //import promise from 'redux-promise';
 import thunk from 'redux-thunk';
 
-import reducers from '../reducers';
+import reducers from './reducers';
 
-import Login from './auth/Login';
+// Our custom router for navigation
+import Router from './Router';
 
 // Add any middleware here
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -26,13 +26,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
-        <NavigatorIOS
-          style={styles.wrapper}
-          initialRoute={{
-            title: 'Puppy Playdate',
-            component: Login,
-          }}
-        />
+        <Router />
       </Provider>
     );
   }

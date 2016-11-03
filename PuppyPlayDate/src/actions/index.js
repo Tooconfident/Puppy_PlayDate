@@ -17,6 +17,7 @@ import {
   FETCH_USER,
   UPDATE_USER,
   FETCH_USER_PLAYDATES,
+  NEW_PLAYDATE_STATE_UPDATE,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
@@ -124,6 +125,13 @@ export function updateEditUserForm(user) {
   };
 }
 
+export function updateNewPlaydateForm(playdate) {
+  return {
+    type: NEW_PLAYDATE_STATE_UPDATE,
+    payload: playdate
+  };
+}
+
 export function fetchUser(id) {
   const request = axios.get(`${REQUEST_URL}/users/${id}`);
 
@@ -181,11 +189,16 @@ export function createPlaydate(playdate) {
   const request = axios.post(`${REQUEST_URL}/playdates`, playdate);
 
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      return dispatch({
         type: CREATE_PLAYDATE,
         payload: response
       });
+    })
+    .catch(() => {
+      console.log("Error creating new playdate");
+
+      return Promise.reject();
     });
   };
 }

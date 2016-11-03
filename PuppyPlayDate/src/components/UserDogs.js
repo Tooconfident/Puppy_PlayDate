@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { fetchUser } from '../actions/index';
 
 // import DogProfile from './DogProfile';
@@ -44,21 +45,23 @@ class UserDogs extends Component {
   onPressEdit() {
     console.log("onPressEdit");
 
-    this.props.navigator.push({
-      title: 'Edit User Profile',
-      component: UserEdit,
-      passProps: { user_id: this.state.userID },
-    });
+    // this.props.navigator.push({
+    //   title: 'Edit User Profile',
+    //   component: UserEdit,
+    //   passProps: { user_id: this.state.userID },
+    // });
+    Actions.userEdit({ user_id: this.state.userID });
   }
 
   onPressAdd() {
     console.log("onPressAdd");
 
-    this.props.navigator.push({
-      title: 'Add Dog',
-      component: DogCreate,
-      passProps: { user_id: this.state.userID },
-    });
+    // this.props.navigator.push({
+    //   title: 'Add Dog',
+    //   component: DogCreate,
+    //   passProps: { user_id: this.state.userID },
+    // });
+    Actions.dogNew({ user_id: this.state.userID });
   }
 
   render() {
@@ -103,7 +106,6 @@ class UserDogs extends Component {
 
           <DogsList
             dogs={user.dogs}
-            navigator={this.props.navigator}
           />
         </View>
       </View>
