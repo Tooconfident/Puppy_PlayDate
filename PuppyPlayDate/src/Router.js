@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Scene, Actions } from 'react-native-router-flux';
+
 import Register from './components/auth/Register.js';
 import Login from './components/auth/Login.js';
 

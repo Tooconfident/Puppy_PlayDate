@@ -74,7 +74,10 @@ class DogEdit extends Component {
         //     loaded: false,
         //   }
         // });
-        Actions.dogProfile({ loaded: false });
+        //Actions.dogProfile({ loaded: false });
+        //Actions.pop({ loaded: false });
+        Actions.refresh();
+        Actions.pop();
       });
 
       console.log("Dog updated 2. ");

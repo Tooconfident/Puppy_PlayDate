@@ -43,7 +43,7 @@ class DogCreate extends Component {
           'Your dog has been added successfully',
           [
           //  { text: 'OK', onPress: () => Actions.userProfile() }
-            { text: 'OK', onPress: () => Actions.pop() }
+            { text: 'OK', onPress: () => { Actions.refresh(); Actions.pop(); } }
           ]
         );
         // this.props.navigator.push({
