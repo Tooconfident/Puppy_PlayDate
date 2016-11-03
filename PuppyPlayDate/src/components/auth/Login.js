@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import MapScene from '../MapScene';
 import Register from '../auth/Register';
@@ -43,12 +44,13 @@ class Login extends Component {
         this.props.authenticateUser(value);
 
         // Redirect to Home scene
-        this.props.navigator.push({
-          title: 'Puppy Playdate',
-          component: MapScene,
-          leftButtonTitle: ' ',
-          id: 'mapscene',
-        });
+        // this.props.navigator.push({
+        //   title: 'Puppy Playdate',
+        //   component: MapScene,
+        //   leftButtonTitle: ' ',
+        //   id: 'mapscene',
+        // });
+        Actions.main();
       }
 
       //this.setState({userID: value});
@@ -74,12 +76,13 @@ class Login extends Component {
         // Login successfully, so store user id locally
         AsyncStorage.setItem("userID", String(this.props.user)).then(() => {
           // Redirect to Home scene
-          this.props.navigator.push({
-            title: 'Puppy Playdate',
-            component: MapScene,
-            leftButtonTitle: ' ',
-            id: 'mapscene',
-          });
+          // this.props.navigator.push({
+          //   title: 'Puppy Playdate',
+          //   component: MapScene,
+          //   leftButtonTitle: ' ',
+          //   id: 'mapscene',
+          // });
+          Actions.main();
         });
       })
       .catch((error) => {
@@ -89,10 +92,11 @@ class Login extends Component {
   }
 
   onSignupPress() {
-    this.props.navigator.push({
-      title: 'Sign Up',
-      component: Register,
-    });
+    // this.props.navigator.push({
+    //   title: 'Sign Up',
+    //   component: Register,
+    // });
+    Actions.register();
   }
 
   renderErrorMessage() {

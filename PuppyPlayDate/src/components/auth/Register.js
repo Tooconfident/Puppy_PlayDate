@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 // Action Creators
 import {
@@ -31,7 +32,8 @@ class Register extends Component {
       password
     })
       .then(() => {
-        this.props.navigator.popToTop();
+        // this.props.navigator.popToTop();
+        Actions.auth();
       });
   }
 
