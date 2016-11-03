@@ -4,6 +4,7 @@ export const FETCH_DOG = 'FETCH_DOG';
 export const CREATE_DOG = 'CREATE_DOG';
 export const UPDATE_DOG = 'UPDATE_DOG';
 export const FETCH_USER = 'FETCH_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 export const NEW_DOG_STATE_UPDATE = 'NEW_DOG_STATE_UPDATE';
 export const CREATE_DOG_SUCCESS = 'CREATE_DOG_SUCCESS';
 export const CREATE_DOG_FAIL = 'CREATE_DOG_FAIL';
