@@ -17,7 +17,7 @@ import PlayDateEdit from './components/PlayDateEdit';
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key="auth">
+      <Scene key="auth" initial>
         <Scene key="login" component={Login} title="Puppy Playdate" initial />
         <Scene key="register" component={Register} title="Signup" />
       </Scene>
