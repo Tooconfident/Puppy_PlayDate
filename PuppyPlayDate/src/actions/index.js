@@ -189,11 +189,16 @@ export function createPlaydate(playdate) {
   const request = axios.post(`${REQUEST_URL}/playdates`, playdate);
 
   return dispatch => {
-    request.then(response => {
-      dispatch({
+    return request.then(response => {
+      return dispatch({
         type: CREATE_PLAYDATE,
         payload: response
       });
+    })
+    .catch(() => {
+      console.log("Error creating new playdate");
+
+      return Promise.reject();
     });
   };
 }

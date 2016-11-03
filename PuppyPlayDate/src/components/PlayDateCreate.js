@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
-  Image,
-  StyleSheet,
   Text,
   TextInput,
   TouchableHighlight,
@@ -10,7 +8,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { updateNewPlaydateForm } from '../actions';
+import { updateNewPlaydateForm, createPlaydate } from '../actions';
 
 const styles = require('../style');
 
@@ -18,10 +16,6 @@ class PlayDateCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      address: '',
-      time_day: '',
-      description: '',
       userID: false,
     };
   }
@@ -33,61 +27,24 @@ class PlayDateCreate extends Component {
     }).done();
   }
 
-  getMarkerLatlng(address) {
-    address = address.toLowerCase().trim();
-    const url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyA-ZuNXFqKCOUj3Lmkv25H5AyBn-GO6-OY";
-    return fetch(url).then((res) => res.json());
-    // when using this method chain with this code to get the laglng in an object
-    // then((res) => console.log(res.results[0].geometry.location))
-  }
+  onSubmit() {
+    // Retrieve form info from app state
+    const { name, time_day, address, description } = this.props;
 
-  persistPlayDate(res) {
-    let coordsJSONStringified = JSON.stringify(res.results[0].geometry.location);
-    coordsJSONStringified = coordsJSONStringified.replace('"lat"', '"latitude"');
-    coordsJSONStringified = coordsJSONStringified.replace('"lng"', '"longitude"');
-
-    const data = {
-      method: 'POST',
-      body: JSON.stringify({
-        name: this.state.name,
-        time_day: this.state.time_day,
-        address: this.state.address,
-        location: coordsJSONStringified,
-        description: this.state.description,
-        user_id: this.state.userID,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+    const playdate = {
+      name,
+      time_day,
+      address,
+      description,
+      user_id: this.state.userID,
     };
 
-    fetch('http://localhost:3000/playdates', data)
-      .then((response) => response.json())  // promise
-      .then((responseData) => {
-        console.log(responseData);
-
-        // Goes back to PlayDate list.
-        // this.props.navigator.pop({
-        //   title: 'Your Playdates',
-        //   component: PlayDates,
-        //   leftButtonTitle: ' ',
-        //   loaded: false,
-        // });
+    this.props.createPlaydate(playdate)
+      .then(() => {
         Actions.pop({
           loaded: false
         });
-      })
-      .catch((error) => console.log("An error occurred! " + error))
-      .done();
-  }
-
-  onSubmit() {
-
-    this.getMarkerLatlng(this.state.address)
-      .then((res) => { this.persistPlayDate(res); })
-      .catch((error) => console.log("An error occured! " + error))
-      .done();
+      });
 
     // Hardcode a random location in San Francisco
     // var loc = "{\"latitude\": " + (Math.random()*(37.8-37.71)+37.71).toString() + ", \"longitude\": " + ((Math.random()*(122.48-122.39)+122.39)* -1).toString() + "}";
@@ -179,4 +136,4 @@ function mapStateToProps(state) {
   return { name, address, time_day, description };
 }
 
-export default connect(mapStateToProps, { updateNewPlaydateForm })(PlayDateCreate);
+export default connect(mapStateToProps, { updateNewPlaydateForm, createPlaydate })(PlayDateCreate);
