@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Image,
   ListView,
-  NavigatorIOS,
   StyleSheet,
   TabBarIOS,
   Text,
@@ -11,6 +10,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import { fetchUserPlaydates } from '../actions/index';
 
@@ -64,15 +64,17 @@ class PlayDates extends Component {
 
   onPressPlayDate(id) {
     console.log("onPressPlayDate(" + id + ")")
-    this.props.navigator.push({
-      title: "Playdate",
-      component: PlayDateShow,
-      passProps: { playdate_id: id }
-    });
+    // this.props.navigator.push({
+    //   title: "Playdate",
+    //   component: PlayDateShow,
+    //   passProps: { playdate_id: id }
+    // });
+    Actions.playdateShow({ playdate_id: id });
   }
 
   goBack() {
-    this.props.navigator.pop();
+    // this.props.navigator.pop();
+    Actions.pop();
   }
 
   renderRow(rowData, sectionID, rowID){
@@ -103,11 +105,12 @@ class PlayDates extends Component {
 
   addGroupPressed() {
     console.log('addGroupPressed');
-    this.props.navigator.push({
-      title: 'PlayDate',
-      component: PlayDateCreate,
-      //passProps: {},
-    });
+    // this.props.navigator.push({
+    //   title: 'PlayDate',
+    //   component: PlayDateCreate,
+    //   //passProps: {},
+    // });
+    Actions.userPlaydateNew();
   }
 
   render() {

@@ -8,6 +8,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import PlayDates from './PlayDates';
 import MapScene from './MapScene';
@@ -71,11 +72,14 @@ class PlayDateCreate extends Component {
         // this.props.navigator.popN(2);
 
         // Goes back to PlayDate list.
-        this.props.navigator.pop({
-          title: 'Your Playdates',
-          component: PlayDates,
-          leftButtonTitle: ' ',
-          loaded: false,
+        // this.props.navigator.pop({
+        //   title: 'Your Playdates',
+        //   component: PlayDates,
+        //   leftButtonTitle: ' ',
+        //   loaded: false,
+        // });
+        Actions.pop({
+          loaded: false
         });
       })
       .catch((error) => console.log("An error occurred! " + error))

@@ -9,6 +9,7 @@ import {
   AlertIOS
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import PlayDateShow from "./PlayDateShow";
 import { fetchPlaydate } from '../actions/index';
@@ -103,12 +104,13 @@ class PlayDateEdit extends Component {
           //     dog_id: this.state.id,
           //   },
           // });
-          this.props.navigator.pop({
-            component: PlayDateShow,
-            passProps: {
-              loaded: false,
-            },
-          });
+          // this.props.navigator.pop({
+          //   component: PlayDateShow,
+          //   passProps: {
+          //     loaded: false,
+          //   },
+          // });
+          Actions.pop({ loaded: false });
         } else {
           AlertIOS.alert(
            'Something went wrong!'
