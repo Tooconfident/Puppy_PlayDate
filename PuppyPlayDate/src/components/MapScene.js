@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import { connect } from 'react-redux';
 import { fetchPlaydates } from '../actions/index';
@@ -81,33 +82,36 @@ class MapScene extends Component {
 
   onPressProfile() {
     console.log('PressProfile');
-    this.props.navigator.push({
-      title: 'Profile',
-      component: UserDogs,
-      passProps: {
-        userID: this.state.userID,
-      },
-      leftButtonTitle: '< Map',
-      onLeftButtonPress: () => this.props.navigator.pop(),
-    });
+    // this.props.navigator.push({
+    //   title: 'Profile',
+    //   component: UserDogs,
+    //   passProps: {
+    //     userID: this.state.userID,
+    //   },
+    //   leftButtonTitle: '< Map',
+    //   onLeftButtonPress: () => this.props.navigator.pop(),
+    // });
+    Actions.userProfile({ userID: this.state.userID });
   }
 
   onPressPlayDate() {
     console.log('PressPlayDate');
-    this.props.navigator.push({
-      title: 'Playdates',
-      component: PlayDates,
-      passProps: {
-        userID: this.props.userID,
-      },
-      //leftButtonTitle: 'Map',
-      //onLeftButtonPress: () => this.props.navigator.pop(),
-    });
+    // this.props.navigator.push({
+    //   title: 'Playdates',
+    //   component: PlayDates,
+    //   passProps: {
+    //     userID: this.props.userID,
+    //   },
+    //   //leftButtonTitle: 'Map',
+    //   //onLeftButtonPress: () => this.props.navigator.pop(),
+    // });
+    Actions.userPlaydates({ userID: this.props.userID });
   }
 
   logout() {
     AsyncStorage.removeItem("userID");
-    this.props.navigator.pop();
+    // this.props.navigator.pop();
+    Actions.auth();
   }
 
   renderLoadingView() {
@@ -122,13 +126,17 @@ class MapScene extends Component {
 
   onPlaydateMarker(playdateName) {
     console.log("bubble link clicked");
-    this.props.navigator.push({
-      title: playdateName.name,
-      component: PlayDateShow,
-      passProps: {
-        userID: this.props.userID,
-        playdate_id: String(playdateName.id)
-      }
+    // this.props.navigator.push({
+    //   title: playdateName.name,
+    //   component: PlayDateShow,
+    //   passProps: {
+    //     userID: this.props.userID,
+    //     playdate_id: String(playdateName.id)
+    //   }
+    // });
+    Actions.playdateShow({
+      userID: this.props.userID,
+      playdate_id: String(playdateName.id)
     });
   }
 
