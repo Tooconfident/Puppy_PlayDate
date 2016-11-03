@@ -66,8 +66,6 @@ class PlayDateCreate extends Component {
       .then((response) => response.json())  // promise
       .then((responseData) => {
         console.log(responseData);
-        // Goes back to the map scene
-        // this.props.navigator.popN(2);
 
         // Goes back to PlayDate list.
         // this.props.navigator.pop({
@@ -84,7 +82,7 @@ class PlayDateCreate extends Component {
       .done();
   }
 
-  createGroupPressed() {
+  onSubmit() {
 
     this.getMarkerLatlng(this.state.address)
       .then((res) => { this.persistPlayDate(res); })
@@ -166,7 +164,7 @@ class PlayDateCreate extends Component {
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={() => this.createGroupPressed()}
+            onPress={() => this.onSubmit()}
           >
             <Text style={styles.buttonText}>Create Playdate</Text>
           </TouchableHighlight>
