@@ -17,6 +17,7 @@ import {
   FETCH_USER,
   UPDATE_USER,
   FETCH_USER_PLAYDATES,
+  NEW_PLAYDATE_STATE_UPDATE,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
@@ -121,6 +122,13 @@ export function updateEditUserForm(user) {
   return {
     type: EDIT_USER_STATE_UPDATE,
     payload: user
+  };
+}
+
+export function updateNewPlaydateForm(playdate) {
+  return {
+    type: NEW_PLAYDATE_STATE_UPDATE,
+    payload: playdate
   };
 }
 
