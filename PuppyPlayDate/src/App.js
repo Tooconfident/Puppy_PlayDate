@@ -15,9 +15,9 @@ import { createStore, applyMiddleware } from 'redux';
 //import promise from 'redux-promise';
 import thunk from 'redux-thunk';
 
-import reducers from '../reducers';
+import reducers from './reducers';
 
-import Login from './auth/Login';
+import Login from './components/auth/Login';
 
 // Add any middleware here
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
