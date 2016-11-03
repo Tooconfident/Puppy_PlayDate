@@ -5,6 +5,8 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import DogListItem from './DogListItem';
 import DogProfile from './DogProfile';
 
@@ -36,11 +38,12 @@ export default class DogsList extends Component {
   onPressDogShow(id) {
     console.log("onPressDogShow(" + id + ")");
 
-    this.props.navigator.push({
-      title: 'Dog Profile',
-      component: DogProfile,
-      passProps: { dog_id: id },
-    });
+    // this.props.navigator.push({
+    //   title: 'Dog Profile',
+    //   component: DogProfile,
+    //   passProps: { dog_id: id },
+    // });
+    Actions.dogProfile({ dog_id: id });
   }
 
   // Entry row

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { fetchDog, createDog, updateNewDogForm } from '../actions/index';
 
 const styles = require('../style');
@@ -41,7 +42,8 @@ class DogCreate extends Component {
           'Success',
           'Your dog has been added successfully',
           [
-            { text: 'OK', onPress: () => this.props.navigator.pop() }
+          //  { text: 'OK', onPress: () => Actions.userProfile() }
+            { text: 'OK', onPress: () => Actions.pop() }
           ]
         );
         // this.props.navigator.push({
