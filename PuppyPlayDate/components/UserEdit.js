@@ -104,8 +104,6 @@ class UserEdit extends Component {
     this.props.updateUser(this.props.user.id, user)
       .then(() => {
         this.props.navigator.pop({
-          title: 'Profile',
-          component: UserDogs,
           passProps: {
             loaded: false,
           },

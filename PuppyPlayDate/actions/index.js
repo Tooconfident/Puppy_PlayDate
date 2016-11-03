@@ -115,14 +115,14 @@ export function updateEditDogForm(dog) {
     type: EDIT_DOG_STATE_UPDATE,
     payload: dog
   };
-};
+}
 
 export function updateEditUserForm(user) {
   return {
     type: EDIT_USER_STATE_UPDATE,
     payload: user
   };
-};
+}
 
 export function fetchUser(id) {
   const request = axios.get(`${REQUEST_URL}/users/${id}`);
