@@ -8,11 +8,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-
-import PlayDates from './PlayDates';
-import MapScene from './MapScene';
-import UserDogs from './UserDogs';
+import { updateNewPlaydateForm } from '../actions';
 
 const styles = require('../style');
 
@@ -127,6 +125,8 @@ class PlayDateCreate extends Component {
   }
 
   render() {
+    const { name, address, time_day, description, updateNewPlaydateForm } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -137,31 +137,31 @@ class PlayDateCreate extends Component {
 
           <TextInput
             style={styles.inputText}
-            value={this.state.name}
+            value={name}
             placeholder="Playdate Name"
-            onChangeText={(text) => this.setState({ name: text })}
+            onChangeText={name => updateNewPlaydateForm({ name })}
           />
 
           <TextInput
             style={styles.inputText}
-            value={this.state.address}
+            value={address}
             placeholder="Address"
-            onChangeText={(text) => this.setState({ address: text })}
+            onChangeText={address => updateNewPlaydateForm({ address })}
           />
 
           <TextInput
             style={styles.inputText}
-            value={this.state.time_day}
+            value={time_day}
             placeholder="Time & Day of Week"
-            onChangeText={(text) => this.setState({ time_day: text })}
+            onChangeText={time_day => updateNewPlaydateForm({ time_day })}
           />
 
           <TextInput
             style={[styles.inputText, styles.textArea]}
-            value={this.state.description}
+            value={description}
             multiline
             placeholder="Description"
-            onChangeText={(text) => this.setState({ description: text })}
+            onChangeText={description => updateNewPlaydateForm({ description })}
           />
 
           <TouchableHighlight
@@ -176,4 +176,9 @@ class PlayDateCreate extends Component {
   }
 }
 
-export default PlayDateCreate;
+function mapStateToProps(state) {
+  const { name, address, time_day, description } = state.playdateNewForm;
+  return { name, address, time_day, description };
+}
+
+export default connect(mapStateToProps, { updateNewPlaydateForm })(PlayDateCreate);
