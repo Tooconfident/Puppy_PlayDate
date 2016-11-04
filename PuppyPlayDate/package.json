@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "axios": "^0.14.0",
-    "react": "^15.3.2",
+    "react": "15.3.2",
     "react-native": "^0.34.0",
     "react-native-maps": "^0.8.2",
     "react-native-router-flux": "^3.36.0",
