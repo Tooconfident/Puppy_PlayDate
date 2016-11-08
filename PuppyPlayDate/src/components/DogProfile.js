@@ -45,7 +45,7 @@ class DogProfile extends Component {
     // }
   }
 
-  onPressListPlaydates() {
+  onListPlaydatesPress() {
     console.log("List Playdates");
     // this.props.navigator.push({
     //   title: 'My Playdates',
@@ -59,17 +59,7 @@ class DogProfile extends Component {
 
   }
 
-  onPressEdit() {
-    console.log("onPressEdit");
-    // this.props.navigator.push({
-    //   title: 'Edit Dog Profile',
-    //   component: DogEdit,
-    //   // Make sure to pass the playdate_id to the Edit component
-    //   // Note the value has to be an object of key-value properties!
-    //   passProps: {
-    //     dog_id: this.props.dog_id
-    //   }
-    // });
+  onEditPress() {
     Actions.dogEdit({ dog_id: this.props.dog_id });
   }
 
@@ -92,7 +82,7 @@ class DogProfile extends Component {
             <View style={{ alignSelf: 'center' }}>
               <ProfileAvatar source={{ uri: dog.avatar }} />
               <Text style={[{ alignSelf: 'center' }, styles.entryLabel]}>{dog.name}</Text>
-              <TouchableHighlight onPress={() => this.onPressListPlaydates()}>
+              <TouchableHighlight onPress={() => this.onListPlaydatesPress()}>
                 <Text style={{ alignSelf: 'center' }}>My Playdates</Text>
               </TouchableHighlight>
             </View>
@@ -126,7 +116,7 @@ class DogProfile extends Component {
                 <Text style={styles.entryLabel}>Description: <Text style={styles.entryText}>{dog.description}</Text></Text>
               </View>
 
-              <TouchableHighlight onPress={() => this.onPressEdit()}>
+              <TouchableHighlight onPress={() => this.onEditPress()}>
                 <Text style={{ alignSelf: 'flex-end', color: '' }}>Edit</Text>
               </TouchableHighlight>
             </View>
