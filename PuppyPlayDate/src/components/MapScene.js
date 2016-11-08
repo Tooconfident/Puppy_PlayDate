@@ -68,40 +68,14 @@ class MapScene extends Component {
     this.refs.m1.hideCallout();
   }
 
-  onPressHome() {
-    console.log('PressHome');
-    // this.props.navigator.resetTo ({
-    //   title: 'Home Page',
-    //   component: MapScene,
-    //   passProps: {userData: this.props.userData}
-    // })
+  onHomePress() {
   }
 
-  onPressProfile() {
-    console.log('PressProfile');
-    // this.props.navigator.push({
-    //   title: 'Profile',
-    //   component: UserDogs,
-    //   passProps: {
-    //     userID: this.state.userID,
-    //   },
-    //   leftButtonTitle: '< Map',
-    //   onLeftButtonPress: () => this.props.navigator.pop(),
-    // });
+  onProfilePress() {
     Actions.userProfile({ userID: this.state.userID });
   }
 
-  onPressPlayDate() {
-    console.log('PressPlayDate');
-    // this.props.navigator.push({
-    //   title: 'Playdates',
-    //   component: PlayDates,
-    //   passProps: {
-    //     userID: this.props.userID,
-    //   },
-    //   //leftButtonTitle: 'Map',
-    //   //onLeftButtonPress: () => this.props.navigator.pop(),
-    // });
+  onPlayDatePress() {
     Actions.userPlaydates({ userID: this.props.userID });
   }
 
@@ -156,7 +130,7 @@ class MapScene extends Component {
 
         <View style={styles.tabBar}>
           <TouchableOpacity
-            onPress={this.onPressHome.bind(this)}
+            onPress={this.onHomePress.bind(this)}
             style={[styles.button, styles.bubble]}
           >
             <Image
@@ -166,7 +140,7 @@ class MapScene extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={this.onPressProfile.bind(this)}
+            onPress={this.onProfilePress.bind(this)}
             style={[styles.button, styles.bubble]}
           >
             <Image
@@ -176,7 +150,7 @@ class MapScene extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={this.onPressPlayDate.bind(this)}
+            onPress={this.onPlayDatePress.bind(this)}
             style={[styles.button, styles.bubble]}
           >
             <Image
