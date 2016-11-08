@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import axios from 'axios';
 
 // Import all action types
@@ -33,7 +34,9 @@ import {
   EDIT_USER_SUCCESS
 } from './types';
 
-const REQUEST_URL = 'http://localhost:3000';
+// const REQUEST_URL = 'http://localhost:3000';
+const ip = (Platform.OS === 'ios') ? 'localhost' : '10.0.2.2';
+const REQUEST_URL = `http://${ip}:3000`;
 
 // Action creators
 export function fetchDogs(userId) {
@@ -232,7 +235,7 @@ export function loginUser({ username, password }) {
       // return Promise.resolve();
     })
     .catch(error => {
-      //console.log(error.response.data.error);
+      console.log(error.response.data.error);
 
       dispatch({
         type: AUTH_ERROR,
