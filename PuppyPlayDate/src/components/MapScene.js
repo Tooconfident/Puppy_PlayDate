@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import { connect } from 'react-redux';
+// Action creator
 import { fetchPlaydates } from '../actions/index';
 
 import PlaydateMap from './PlaydateMap';
@@ -96,15 +97,6 @@ class MapScene extends Component {
   }
 
   onPlaydateMarker(playdateName) {
-    console.log("bubble link clicked");
-    // this.props.navigator.push({
-    //   title: playdateName.name,
-    //   component: PlayDateShow,
-    //   passProps: {
-    //     userID: this.props.userID,
-    //     playdate_id: String(playdateName.id)
-    //   }
-    // });
     Actions.playdateShow({
       userID: this.props.userID,
       playdate_id: String(playdateName.id)
