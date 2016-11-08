@@ -10,6 +10,7 @@ import DogNewFormReducer from './reducer_dog_new_form';
 import DogEditFormReducer from './reducer_dog_edit_form';
 import UserEditFormReducer from './reducer_user_edit_form';
 import PlaydateNewFormReducer from './reducer_playdate_new_form';
+import PlaydateEditFormReducer from './reducer_playdate_edit_form';
 
 // Combine all reducers here
 // (don't forget to assign key-value pairs)
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   dogNewForm: DogNewFormReducer,
   dogEditForm: DogEditFormReducer,
   userEditForm: UserEditFormReducer,
-  playdateNewForm: PlaydateNewFormReducer
+  playdateNewForm: PlaydateNewFormReducer,
+  playdateEditForm: PlaydateEditFormReducer
 });
 
 export default rootReducer;
