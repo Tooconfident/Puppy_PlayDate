@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 // Constants to define action type
 
 /**
@@ -52,3 +54,10 @@ export const CREATE_PLAYDATE = 'CREATE_PLAYDATE';
 export const UPDATE_PLAYDATE = 'UPDATE_PLAYDATE';
 export const NEW_PLAYDATE_STATE_UPDATE = 'NEW_PLAYDATE_STATE_UPDATE';
 export const NEW_PLAYDATE_SUCCESS = 'NEW_PLAYDATE_SUCCESS';
+
+/**
+ * API Request URL
+ */
+// const REQUEST_URL = 'http://localhost:3000';
+const ip = (Platform.OS === 'ios') ? 'localhost' : '10.0.2.2';
+export const REQUEST_URL = `http://${ip}:3000`;
