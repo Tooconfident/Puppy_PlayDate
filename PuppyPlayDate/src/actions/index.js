@@ -221,7 +221,7 @@ export function updatePlaydate(playdate) {
   return dispatch => {
     return request.then(response => {
       dispatch({
-        EDIT_PLAYDATE_SUCCESS
+        type: EDIT_PLAYDATE_SUCCESS
       });
 
       return dispatch({
