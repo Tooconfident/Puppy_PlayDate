@@ -39,6 +39,16 @@ export function fetchDog(id) {
   };
 }
 
+/**
+ * New Dog Form
+ */
+export function updateNewDogForm(dog) {
+  return {
+    type: NEW_DOG_STATE_UPDATE,
+    payload: dog
+  };
+}
+
 export function createDog(dog) {
   const request = axios.post(`${REQUEST_URL}/dogs`, dog);
 
@@ -60,6 +70,16 @@ export function createDog(dog) {
   };
 }
 
+/**
+ * Edit Dog Form
+ */
+export function updateEditDogForm(dog) {
+  return {
+   type: EDIT_DOG_STATE_UPDATE,
+   payload: dog
+  };
+}
+
 export function updateDog(dogId, dog) {
   console.log(dogId, dog);
   const request = axios.patch(`${REQUEST_URL}/dogs/${dogId}`, dog);
@@ -77,19 +97,5 @@ export function updateDog(dogId, dog) {
         payload: dog
       });
     });
-  };
-}
-
-export function updateNewDogForm(dog) {
-  return {
-    type: NEW_DOG_STATE_UPDATE,
-    payload: dog
-  };
-}
-
-export function updateEditDogForm(dog) {
-  return {
-    type: EDIT_DOG_STATE_UPDATE,
-    payload: dog
   };
 }

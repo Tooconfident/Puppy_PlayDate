@@ -15,6 +15,23 @@ import {
   REQUEST_URL
 } from './types';
 
+/**
+ * Login Form
+ */
+export function usernameChanged(username) {
+  return {
+    type: CHANGE_USERNAME,
+    payload: username
+  };
+}
+
+export function passwordChanged(password) {
+  return {
+    type: CHANGE_PASSWORD,
+    payload: password
+  };
+}
+
 export function loginUser({ username, password }) {
   console.log('loginUser action creator!');
 
@@ -50,42 +67,9 @@ export function authenticateUser(user) {
   };
 }
 
-export function registerUser({ username, name, email, password }) {
-  console.log("registerUser!", username, name, email, password);
-
-  return dispatch => {
-    return axios.post(`${REQUEST_URL}/users`, { username, name, email, password })
-      .then((response) => {
-        return dispatch({
-          type: SIGNUP_USER_SUCCESS
-        });
-      })
-      .catch(() => {
-        console.log("There was a problem in the registration");
-
-        dispatch({
-          type: SIGNUP_USER_FAIL
-        });
-
-        return Promise.reject();
-      });
-  };
-}
-
-export function usernameChanged(username) {
-  return {
-    type: CHANGE_USERNAME,
-    payload: username
-  };
-}
-
-export function passwordChanged(password) {
-  return {
-    type: CHANGE_PASSWORD,
-    payload: password
-  };
-}
-
+/**
+ * Registration Form
+ */
 export function signupUsernameChanged(username) {
   return {
     type: CHANGE_SIGNUP_USERNAME,
@@ -111,5 +95,27 @@ export function signupEmailChanged(email) {
   return {
     type: CHANGE_SIGNUP_EMAIL,
     payload: email
+  };
+}
+
+export function registerUser({ username, name, email, password }) {
+  console.log("registerUser!", username, name, email, password);
+
+  return dispatch => {
+    return axios.post(`${REQUEST_URL}/users`, { username, name, email, password })
+      .then((response) => {
+        return dispatch({
+          type: SIGNUP_USER_SUCCESS
+        });
+      })
+      .catch(() => {
+        console.log("There was a problem in the registration");
+
+        dispatch({
+          type: SIGNUP_USER_FAIL
+        });
+
+        return Promise.reject();
+      });
   };
 }

@@ -38,6 +38,15 @@ export function fetchPlaydate(id) {
   };
 }
 
+/**
+ * New Playdate Form
+ */
+export function updateNewPlaydateForm(playdate) {
+  return {
+    type: NEW_PLAYDATE_STATE_UPDATE,
+    payload: playdate
+  };
+}
 export function createPlaydate(playdate) {
   const request = axios.post(`${REQUEST_URL}/playdates`, playdate);
 
@@ -56,6 +65,16 @@ export function createPlaydate(playdate) {
   };
 }
 
+/**
+ * Edit Playdate Form
+ */
+export function updateEditPlaydateForm(playdate) {
+  return {
+    type: EDIT_PLAYDATE_STATE_UPDATE,
+    payload: playdate
+  };
+}
+
 export function updatePlaydate(playdate) {
   const request = axios.patch(`${REQUEST_URL}/playdates/${playdate.id}`, playdate);
 
@@ -70,19 +89,5 @@ export function updatePlaydate(playdate) {
         payload: playdate
       });
     });
-  };
-}
-
-export function updateEditPlaydateForm(playdate) {
-  return {
-    type: EDIT_PLAYDATE_STATE_UPDATE,
-    payload: playdate
-  };
-}
-
-export function updateNewPlaydateForm(playdate) {
-  return {
-    type: NEW_PLAYDATE_STATE_UPDATE,
-    payload: playdate
   };
 }

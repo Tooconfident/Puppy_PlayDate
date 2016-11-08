@@ -35,6 +35,15 @@ export function fetchUserPlaydates(userId) {
   };
 }
 
+/**
+ * Edit User Form
+ */
+export function updateEditUserForm(user) {
+  return {
+    type: EDIT_USER_STATE_UPDATE,
+    payload: user
+  };
+}
 
 export function updateUser(userId, user) {
   return dispatch => {
@@ -51,12 +60,5 @@ export function updateUser(userId, user) {
           payload: user
         });
       });
-  };
-}
-
-export function updateEditUserForm(user) {
-  return {
-    type: EDIT_USER_STATE_UPDATE,
-    payload: user
   };
 }
