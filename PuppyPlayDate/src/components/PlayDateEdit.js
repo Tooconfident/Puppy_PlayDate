@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  Image,
   TouchableHighlight,
   TextInput
 } from 'react-native';
@@ -132,4 +130,11 @@ function mapStateToProps(state) {
   return { playdate: state.playdates.playdate, ...state.playdateEditForm };
 }
 
-export default connect(mapStateToProps, { fetchPlaydate, updateEditPlaydateForm, updatePlaydate })(PlayDateEdit);
+export default connect(
+  mapStateToProps,
+  {
+    fetchPlaydate,
+    updateEditPlaydateForm,
+    updatePlaydate
+  }
+)(PlayDateEdit);
