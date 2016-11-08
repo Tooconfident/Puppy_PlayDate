@@ -10,7 +10,7 @@ import {
   CREATE_DOG_SUCCESS,
   NEW_DOG_STATE_UPDATE,
   EDIT_DOG_STATE_UPDATE,
-  EDIT_DOG_SUCESS,
+  EDIT_DOG_SUCCESS,
   FETCH_PLAYDATES,
   FETCH_PLAYDATE,
   CREATE_PLAYDATE,
@@ -19,6 +19,8 @@ import {
   UPDATE_USER,
   FETCH_USER_PLAYDATES,
   NEW_PLAYDATE_STATE_UPDATE,
+  EDIT_PLAYDATE_STATE_UPDATE,
+  EDIT_PLAYDATE_SUCCESS,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
@@ -96,7 +98,7 @@ export function updateDog(dogId, dog) {
       console.log(response);
 
       dispatch({
-        type: EDIT_DOG_SUCESS
+        type: EDIT_DOG_SUCCESS
       });
 
       return dispatch({
@@ -125,6 +127,13 @@ export function updateEditUserForm(user) {
   return {
     type: EDIT_USER_STATE_UPDATE,
     payload: user
+  };
+}
+
+export function updateEditPlaydateForm(playdate) {
+  return {
+    type: EDIT_PLAYDATE_STATE_UPDATE,
+    payload: playdate
   };
 }
 
@@ -210,10 +219,14 @@ export function updatePlaydate(playdate) {
   const request = axios.patch(`${REQUEST_URL}/playdates/${playdate.id}`, playdate);
 
   return dispatch => {
-    request.then(response => {
+    return request.then(response => {
       dispatch({
+        EDIT_PLAYDATE_SUCCESS
+      });
+
+      return dispatch({
         type: UPDATE_PLAYDATE,
-        payload: response
+        payload: playdate
       });
     });
   };
