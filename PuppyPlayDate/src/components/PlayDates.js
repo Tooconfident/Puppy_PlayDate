@@ -3,7 +3,6 @@ import {
   Image,
   ListView,
   StyleSheet,
-  TabBarIOS,
   Text,
   TouchableHighlight,
   View,
@@ -18,7 +17,7 @@ const styles = require('../style');
 
 class PlayDates extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     const dataSource = new ListView.DataSource({
@@ -36,7 +35,7 @@ class PlayDates extends Component {
 
   componentWillMount(){
     AsyncStorage.getItem("userID").then((userId) => {
-      console.log('current.val '+ userId);
+      console.log('current.val', userId);
       // Set the user id in the state
       this.setState({ userID: userId });
       // Fetch all playdates for the given user id
@@ -58,26 +57,24 @@ class PlayDates extends Component {
     console.log("State is now", this.state);
   }
 
-  onPressPlayDate(id) {
-    console.log("onPressPlayDate(" + id + ")")
-    // this.props.navigator.push({
-    //   title: "Playdate",
-    //   component: PlayDateShow,
-    //   passProps: { playdate_id: id }
-    // });
+  onPlayDatePress(id) {
     Actions.playdateShow({ playdate_id: id });
   }
 
+  onAddGroupPress() {
+    Actions.userPlaydateNew();
+  }
+
   goBack() {
-    // this.props.navigator.pop();
     Actions.pop();
   }
 
-  renderRow(rowData, sectionID, rowID){
-    return(
+  renderRow(rowData, sectionID, rowID) {
+    return (
       <TouchableHighlight
         underlayColor='transparent'
-        onPress={() => this.onPressPlayDate(rowData.id)}>
+        onPress={() => this.onPlayDatePress(rowData.id)}
+      >
         <View style={styles.listEntry}>
           <View style={styles.listEntryContent}>
 
@@ -85,9 +82,13 @@ class PlayDates extends Component {
               {rowData.name}
             </Text>
 
-            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>Address: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.address}</Text></Text>
+            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>
+              Address: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.address}</Text>
+            </Text>
 
-            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>Day and Time: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.time_day}</Text></Text>
+            <Text style={[styles.entryLabel, styles.entryLabelSmall]}>
+              Day and Time: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.time_day}</Text>
+            </Text>
 
             {
             //<Text style={[styles.entryLabel, styles.entryLabelSmall]}>Description: <Text style={[styles.entryText, styles.entryTextSmall]}>{rowData.description}</Text></Text>
@@ -99,19 +100,11 @@ class PlayDates extends Component {
     );
   }
 
-  addGroupPressed() {
-    console.log('addGroupPressed');
-    // this.props.navigator.push({
-    //   title: 'PlayDate',
-    //   component: PlayDateCreate,
-    //   //passProps: {},
-    // });
-    Actions.userPlaydateNew();
-  }
-
   render() {
     if (!this.props.playdates) {
-      return(<Text>Loading...</Text>)
+      return (
+        <Text>Loading...</Text>
+      );
     }
 
     return (
@@ -120,7 +113,7 @@ class PlayDates extends Component {
 
           <TouchableHighlight
             style={styles.addButton}
-            onPress={() => this.addGroupPressed()}>
+            onPress={() => this.onAddGroupPress()}>
             <Text style={styles.addButtonText}>Add</Text>
           </TouchableHighlight>
 
