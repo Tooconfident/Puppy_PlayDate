@@ -14,8 +14,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { fetchDog, updateDog, updateEditDogForm } from '../actions/index';
 
-import DogProfile from './DogProfile';
-
 const styles = require('../style');
 
 class DogEdit extends Component {
@@ -53,7 +51,7 @@ class DogEdit extends Component {
       });
   }
 
-  onPressEdit() {
+  onEditPress() {
     const { name, breed, age, toy, description, gender } = this.props;
 
     const updatedDog = {
@@ -172,7 +170,7 @@ class DogEdit extends Component {
 
             <TouchableHighlight
               style={styles.submitButton}
-              onPress={this.onPressEdit.bind(this)}
+              onPress={this.onEditPress.bind(this)}
             >
               <Text style={styles.buttonText}>
                 Update

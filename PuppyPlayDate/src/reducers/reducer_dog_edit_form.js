@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   description: '',
 };
 
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case EDIT_DOG_STATE_UPDATE:
       return { ...state, ...action.payload };

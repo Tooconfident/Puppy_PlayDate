@@ -12,9 +12,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { fetchPlaydate } from '../actions/index';
 
-import PlayDateEdit from "./PlayDateEdit";
-import DogList from "./DogList";
-
 const styles = require('../style');
 
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';
@@ -41,11 +38,6 @@ class PlayDateShow extends Component {
   }
 
   goBack() {
-    // this.props.navigator.pop({
-    //   passProps: {
-    //     loaded: false,
-    //   },
-    // });
     Actions.pop({ loaded: false });
   }
 
@@ -80,15 +72,7 @@ class PlayDateShow extends Component {
       .done();
   }
 
-  onPressEdit() {
-    console.log("onPressEdit");
-    // this.props.navigator.push({
-    //   title: 'Edit Playdate',
-    //   component: PlayDateEdit,
-    //   // Make sure to pass the playdate_id to the Edit component
-    //   // Note the value has to be an object of key-value properties!
-    //   passProps: { playdate_id: this.props.playdate_id }
-    // });
+  onEditPress() {
     Actions.userPlaydateEdit({ playdate_id: this.props.playdate_id });
   }
 
@@ -99,7 +83,7 @@ class PlayDateShow extends Component {
     );
   }
 
-  onPressLeave() {
+  onLeavePress() {
     Alert.alert(
       "Leave Group?",
       "",
@@ -186,7 +170,7 @@ class PlayDateShow extends Component {
                 </Text>
               </View>
 
-              <TouchableHighlight style={styles.editPlaydate} onPress={() => this.onPressEdit()}>
+              <TouchableHighlight style={styles.editPlaydate} onPress={() => this.onEditPress()}>
                 <Text style={{ alignSelf: 'flex-end', marginRight: 36, color: 'blue' }}>Edit</Text>
               </TouchableHighlight>
               </View>

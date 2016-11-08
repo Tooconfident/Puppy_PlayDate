@@ -9,8 +9,6 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import UserDogs from './UserDogs';
-
 import { fetchUser, updateUser, updateEditUserForm } from '../actions/index';
 
 const styles = require('../style');
@@ -52,41 +50,7 @@ class UserEdit extends Component {
       });
   }
 
-  onPressEdit() {
-    // TODO: perform an update request to update the
-    // playdate information in the backend
-    // fetch(REQUEST_URL + this.state.id, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username: this.state.username,
-    //     name: this.state.name,
-    //     email: this.state.email,
-    //     password: this.state.password,
-    //   })
-    // })
-    // .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData)
-    //     if (responseData.success != false){
-    //       this.props.navigator.pop({
-    //         title: 'Profile',
-    //         component: UserDogs,
-    //         passProps: {
-    //           loaded: false,
-    //         },
-    //       });
-    //     } else {
-    //       AlertIOS.alert(
-    //        'Something went wrong!'
-    //       );
-    //     }
-    //   })
-    //   .done();
-
+  onEditPress() {
     const { username, name, email, password } = this.props;
 
     const user = {
@@ -104,11 +68,6 @@ class UserEdit extends Component {
 
     this.props.updateUser(this.props.user.id, user)
       .then(() => {
-        // this.props.navigator.pop({
-        //   passProps: {
-        //     loaded: false,
-        //   },
-        // });
         Actions.pop({ loaded: false });
       });
   }
@@ -153,7 +112,7 @@ class UserEdit extends Component {
 
           <TouchableHighlight
             style={styles.submitButton}
-            onPress={this.onPressEdit.bind(this)}
+            onPress={this.onEditPress.bind(this)}
             underlayColor='#99d9f4'
           >
             <Text style={styles.buttonText}>Edit</Text>
