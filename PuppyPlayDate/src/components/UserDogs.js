@@ -12,9 +12,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { fetchUser } from '../actions/index';
 
-// import DogProfile from './DogProfile';
-import DogCreate from './DogCreate';
-import UserEdit from './UserEdit';
 import DogsList from './DogsList';
 
 const styles = require('../style');

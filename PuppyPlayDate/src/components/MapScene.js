@@ -13,9 +13,6 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { fetchPlaydates } from '../actions/index';
 
-import UserDogs from './UserDogs';
-import PlayDates from './PlayDates';
-import PlayDateShow from './PlayDateShow';
 import PlaydateMap from './PlaydateMap';
 
 const { width, height } = Dimensions.get('window');

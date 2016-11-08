@@ -11,7 +11,6 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import PlayDateShow from "./PlayDateShow";
 import { fetchPlaydate } from '../actions/index';
 
 const styles = require('../style');

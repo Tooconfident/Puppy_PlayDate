@@ -9,8 +9,6 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import UserDogs from './UserDogs';
-
 import { fetchUser, updateUser, updateEditUserForm } from '../actions/index';
 
 const styles = require('../style');

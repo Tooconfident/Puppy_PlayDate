@@ -13,8 +13,6 @@ import { Actions } from 'react-native-router-flux';
 // Action creator
 import { fetchDog } from '../actions/index';
 
-import DogEdit from './DogEdit';
-import DogPlayDates from './DogPlayDates';
 import ProfileAvatar from './ProfileAvatar';
 
 const styles = require('../style');

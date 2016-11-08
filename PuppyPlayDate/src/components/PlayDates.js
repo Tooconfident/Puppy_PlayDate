@@ -14,10 +14,6 @@ import { Actions } from 'react-native-router-flux';
 
 import { fetchUserPlaydates } from '../actions/index';
 
-import PlayDateCreate from './PlayDateCreate';
-import MainScene from './MainScene';
-import PlayDateShow from './PlayDateShow';
-
 const styles = require('../style');
 
 class PlayDates extends Component {

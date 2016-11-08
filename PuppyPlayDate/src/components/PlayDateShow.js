@@ -12,9 +12,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { fetchPlaydate } from '../actions/index';
 
-import PlayDateEdit from "./PlayDateEdit";
-import DogList from "./DogList";
-
 const styles = require('../style');
 
 const LEAVE_URL = 'http://localhost:3000/memberships/leave/';

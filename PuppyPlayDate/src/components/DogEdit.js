@@ -14,8 +14,6 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { fetchDog, updateDog, updateEditDogForm } from '../actions/index';
 
-import DogProfile from './DogProfile';
-
 const styles = require('../style');
 
 class DogEdit extends Component {
