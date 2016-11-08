@@ -11,9 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import MapScene from '../MapScene';
-import Register from '../auth/Register';
-
 // Action creators
 import {
   loginUser,
@@ -44,12 +41,6 @@ class Login extends Component {
         this.props.authenticateUser(value);
 
         // Redirect to Home scene
-        // this.props.navigator.push({
-        //   title: 'Puppy Playdate',
-        //   component: MapScene,
-        //   leftButtonTitle: ' ',
-        //   id: 'mapscene',
-        // });
         Actions.main();
       }
 
@@ -76,12 +67,6 @@ class Login extends Component {
         // Login successfully, so store user id locally
         AsyncStorage.setItem("userID", String(this.props.user)).then(() => {
           // Redirect to Home scene
-          // this.props.navigator.push({
-          //   title: 'Puppy Playdate',
-          //   component: MapScene,
-          //   leftButtonTitle: ' ',
-          //   id: 'mapscene',
-          // });
           Actions.main();
         });
       })
@@ -92,10 +77,6 @@ class Login extends Component {
   }
 
   onSignupPress() {
-    // this.props.navigator.push({
-    //   title: 'Sign Up',
-    //   component: Register,
-    // });
     Actions.register();
   }
 

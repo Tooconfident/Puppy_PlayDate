@@ -32,7 +32,6 @@ class Register extends Component {
       password
     })
       .then(() => {
-        // this.props.navigator.popToTop();
         Actions.auth();
       });
   }
