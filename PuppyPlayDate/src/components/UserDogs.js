@@ -39,25 +39,11 @@ class UserDogs extends Component {
     .done();
   }
 
-  onPressEdit() {
-    console.log("onPressEdit");
-
-    // this.props.navigator.push({
-    //   title: 'Edit User Profile',
-    //   component: UserEdit,
-    //   passProps: { user_id: this.state.userID },
-    // });
+  onEditPress() {
     Actions.userEdit({ user_id: this.state.userID });
   }
 
-  onPressAdd() {
-    console.log("onPressAdd");
-
-    // this.props.navigator.push({
-    //   title: 'Add Dog',
-    //   component: DogCreate,
-    //   passProps: { user_id: this.state.userID },
-    // });
+  onAddPress() {
     Actions.dogNew({ user_id: this.state.userID });
   }
 
@@ -77,7 +63,7 @@ class UserDogs extends Component {
       addButtonText,
     } = styles;
 
-    if (!user){
+    if (!user) {
       return (<Text>Loading...</Text>);
     }
 
@@ -88,7 +74,7 @@ class UserDogs extends Component {
           <View style={userProfileTop}>
             <Text style={entryLabel}>{user.name + "'s Dogs"}</Text>
             <TouchableOpacity
-              style={editProfileButton} onPress={() => this.onPressEdit()}
+              style={editProfileButton} onPress={() => this.onEditPress()}
             >
               <Text style={editProfileButtonText}>Edit Profile</Text>
             </TouchableOpacity>
@@ -96,7 +82,7 @@ class UserDogs extends Component {
 
           <TouchableHighlight
             style={[addButton, { alignSelf: "flex-end" }]}
-            onPress={() => this.onPressAdd()}
+            onPress={() => this.onAddPress()}
           >
             <Text style={addButtonText} >+ Add Dog</Text>
           </TouchableHighlight>
