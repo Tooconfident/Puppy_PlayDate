@@ -33,8 +33,6 @@ class PlayDateEdit extends Component {
 
   // Performs an Ajax call to retrieve information about the playdate
   fetchData() {
-    const { name, location, address, time_day, description } = this.props;
-
     console.log("fetchData: PlayDateEdit: playdate_id", this.props.playdate_id);
 
     this.props.fetchPlaydate(this.props.playdate_id)
@@ -75,6 +73,9 @@ class PlayDateEdit extends Component {
     this.props.updatePlaydate(playdate)
       .then(() => {
         Actions.pop({ loaded: false });
+      })
+      .catch((error) => {
+        console.log("There was a problem in updating the playdate.", error);
       });
   }
 
