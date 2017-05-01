@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
+import { InputText } from './form';
 import { fetchUser, updateUser, updateEditUserForm } from '../actions/index';
 
 const styles = require('../style');
@@ -81,28 +82,28 @@ class UserEdit extends Component {
           style={[styles.innerContainer, { justifyContent: 'flex-start', marginTop: 114 }]}
         >
 
-          <TextInput
+          <InputText
             placeholder="Username"
             style={styles.inputText}
             value={username}
             onChangeText={username => updateEditUserForm({ username })}
           />
 
-          <TextInput
+          <InputText
             placeholder="Name"
             style={styles.inputText}
             value={name}
             onChangeText={name => updateEditUserForm({ name })}
           />
 
-          <TextInput
+          <InputText
             placeholder="Email"
             style={styles.inputText}
             value={email}
             onChangeText={email => updateEditUserForm({ email })}
           />
 
-          <TextInput
+          <InputText
             placeholder="Password"
             style={styles.inputText}
             value={password}

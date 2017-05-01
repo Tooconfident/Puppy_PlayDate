@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+
+import { InputText } from './form';
 import { updateNewPlaydateForm, createPlaydate } from '../actions';
 
 const styles = require('../style');
@@ -90,22 +92,19 @@ class PlayDateCreate extends Component {
             Create your new Playdate
           </Text>
 
-          <TextInput
-            style={styles.inputText}
+          <InputText
             value={name}
             placeholder="Playdate Name"
             onChangeText={name => updateNewPlaydateForm({ name })}
           />
 
-          <TextInput
-            style={styles.inputText}
+          <InputText
             value={address}
             placeholder="Address"
             onChangeText={address => updateNewPlaydateForm({ address })}
           />
 
-          <TextInput
-            style={styles.inputText}
+          <InputText
             value={time_day}
             placeholder="Time & Day of Week"
             onChangeText={time_day => updateNewPlaydateForm({ time_day })}

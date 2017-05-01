@@ -8,9 +8,10 @@ import {
   AsyncStorage,
   Alert
 } from 'react-native';
-
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+
+import { InputText } from './form';
 import { fetchDog, createDog, updateNewDogForm } from '../actions/index';
 
 const styles = require('../style');
@@ -63,35 +64,29 @@ class DogCreate extends Component {
             Tell us About your Dog
           </Text>
 
-          <TextInput
+          <InputText
             placeholder="Dog Name"
             style={styles.inputText}
             value={name}
             onChangeText={name => updateNewDogForm({ name })}
           />
 
-          <TextInput
+          <InputText
             placeholder="Breed"
-            style={styles.inputText}
             value={breed}
             onChangeText={breed => updateNewDogForm({ breed })}
-
           />
 
-          <TextInput
+          <InputText
             placeholder="Age"
-            style={styles.inputText}
             value={age}
             onChangeText={age => updateNewDogForm({ age })}
-
           />
 
-          <TextInput
+          <InputText
             placeholder="Favorite Toy"
-            style={styles.inputText}
             value={toy}
             onChangeText={toy => updateNewDogForm({ toy })}
-
           />
 
           <TouchableHighlight

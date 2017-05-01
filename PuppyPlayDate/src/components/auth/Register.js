@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
+import { InputText } from '../form';
 // Action Creators
 import {
   registerUser,
@@ -57,33 +58,29 @@ class Register extends Component {
             Please enter your user information
           </Text>
 
-          <TextInput
+          <InputText
             placeholder="Username"
-            style={styles.inputText}
             value={username}
             onChangeText={this.props.signupUsernameChanged.bind(this)}
             autoCapitalize={'none'}
             autoCorrect={false}
           />
 
-          <TextInput
+          <InputText
             placeholder="Name"
-            style={styles.inputText}
             value={name}
             onChangeText={this.props.signupNameChanged.bind(this)}
           />
 
-          <TextInput
+          <InputText
             placeholder="Email"
-            style={styles.inputText}
             value={email}
             onChangeText={this.props.signupEmailChanged.bind(this)}
             autoCapitalize={'none'}
           />
 
-          <TextInput
+          <InputText
             placeholder="Password"
-            style={styles.inputText}
             value={password}
             secureTextEntry
             onChangeText={this.props.signupPasswordChanged.bind(this)}
